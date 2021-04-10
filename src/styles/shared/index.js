@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const GradientHolder = styled.span`
+export const GradientHolder = styled.span`
   width: fit-content;
   display: flex;
   justify-content: center;
@@ -9,7 +9,7 @@ const GradientHolder = styled.span`
   padding: 2em 2em;
   border-radius: 25px;
 
-  background: ${({ theme }) => theme.gradients.gradien1};
+  background: ${({ theme }) => theme.gradients.gradient1};
   color: ${({ theme }) => theme.colors.dark1};
 
   ${({ disableShadow }) =>
@@ -21,7 +21,7 @@ const GradientHolder = styled.span`
   ${({ reverse }) =>
     reverse &&
     css`e
-      background: ${({ theme }) => theme.gradients.gradien2};
+      background: ${({ theme }) => theme.gradients.gradient2};
     `}
 
     

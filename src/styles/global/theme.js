@@ -6,6 +6,7 @@ export const styledTheme = {
   },
   colors: {
     main1: 'hsl(229, 86%, 56%)',
+    main2: '#E6F0EF',
     dark1: 'hsl(226, 17%, 25%)',
     light1: 'hsl(0, 0%, 100%)',
   },
