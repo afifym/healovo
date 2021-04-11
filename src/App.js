@@ -1,9 +1,5 @@
-import Reviews from "./components/Reviews/Reviews";
-
 function App() {
-  return <div>
-    <Reviews />
-  </div>;
+  return <div></div>;
 }
 
 export default App;
