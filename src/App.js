@@ -1,12 +1,5 @@
-import MobileApp from './components/MobileApp/MobileApp';
-import Navbar from './components/Navbar/Navbar';
-
 function App() {
-  return (
-    <div>
-      <MobileApp />
-    </div>
-  );
+  return <div></div>;
 }
 
 export default App;
