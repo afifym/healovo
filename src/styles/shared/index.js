@@ -20,7 +20,7 @@ export const GradientHolder = styled.span`
 
   ${({ reverse }) =>
     reverse &&
-    css`e
+    css`
       background: ${({ theme }) => theme.gradients.gradient2};
     `}
 
