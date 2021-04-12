@@ -23,6 +23,7 @@ export const styledTheme = {
   },
   borderRadiuses: {
     borderRadius1: '22px',
+    borderRadius3: '15px',
     borderRadius2: '10px',
   },
 };
