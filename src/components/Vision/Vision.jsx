@@ -6,8 +6,11 @@ import {
   Typography,
   Paper,
 } from '@material-ui/core';
+
 import React from 'react';
 import styled from 'styled-components';
+
+import VisionCard from './VisionCard/VisionCard';
 
 import { BiBookHeart } from 'react-icons/bi';
 import { FaHandHoldingHeart } from 'react-icons/fa';
@@ -34,7 +37,7 @@ const Vision = () => {
     <Wrapper>
       <Container>
         <Grid container justify='center'>
-          <Grid item md={6} xs={7}>
+          <Grid item md={6} xs={9}>
             <Box
               display='flex'
               alignItems='center'
@@ -56,66 +59,21 @@ const Vision = () => {
               alignItems='center'
               style={{ height: '100%' }}
             >
-              <Paper style={{ maxWidth: '450px' }} className='vision-card'>
-                <Box display='flex' alignItems='center' mx={4} my={4}>
-                  <Box mr={3}>
-                    <BiBookHeart size={45} />
-                  </Box>
-                  <div>
-                    <Typography
-                      component='h5'
-                      variant='h5'
-                      style={{ fontWeight: '700' }}
-                    >
-                      Our Vision
-                    </Typography>
-                    <Typography variant='subtitle1'>
-                      Something about mission bla bla Something about
-                    </Typography>
-                  </div>
-                </Box>
-              </Paper>
-              <Paper
-                style={{ maxWidth: '450px', margin: '1em 0' }}
-                className='vision-card'
-              >
-                <Box display='flex' alignItems='center' mx={4} my={4}>
-                  <Box mr={3}>
-                    <FaHandHoldingHeart size={45} />
-                  </Box>
-                  <div>
-                    <Typography
-                      component='h5'
-                      variant='h5'
-                      style={{ fontWeight: '700' }}
-                    >
-                      Our Mission
-                    </Typography>
-                    <Typography variant='subtitle1'>
-                      Something about mission bla bla Something about
-                    </Typography>
-                  </div>
-                </Box>
-              </Paper>
-              <Paper style={{ maxWidth: '450px' }} className='vision-card'>
-                <Box display='flex' alignItems='center' mx={4} my={4}>
-                  <Box mr={3}>
-                    <RiUserHeartFill size={45} />
-                  </Box>
-                  <div>
-                    <Typography
-                      component='h5'
-                      variant='h5'
-                      style={{ fontWeight: '700' }}
-                    >
-                      Our Values
-                    </Typography>
-                    <Typography variant='subtitle1'>
-                      Something about mission bla bla Something about
-                    </Typography>
-                  </div>
-                </Box>
-              </Paper>
+              <VisionCard
+                title='Our Vision'
+                details='Something about mission bla bla Something about'
+                iconComponent={<BiBookHeart size={45} />}
+              />
+              <VisionCard
+                title='Our Mission'
+                details='Something about mission bla bla Something about'
+                iconComponent={<FaHandHoldingHeart size={45} />}
+              />
+              <VisionCard
+                title='Our Values'
+                details='Something about mission bla bla Something about'
+                iconComponent={<RiUserHeartFill size={45} />}
+              />
             </Box>
           </Grid>
         </Grid>
