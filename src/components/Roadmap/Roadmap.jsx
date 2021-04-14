@@ -1,82 +1,60 @@
-import { Grid, Container, Typography } from '@material-ui/core';
+import { Container, Box } from '@material-ui/core';
 import { FaLaptopMedical, FaUserNurse, FaCalendarCheck } from 'react-icons/fa';
-import { GradientHolder } from '../../styles/shared';
+import RoadmapItem from './RoadmapItem/RoadmapItem';
+import styled from 'styled-components';
 
-const roadmapData = [
-  {
-    number: '01',
-    sub: 'Choose your',
-    main: 'Appointment Type',
-    icon: () => <FaLaptopMedical size={35} />,
-  },
-  {
-    number: '02',
-    sub: 'Select from',
-    main: 'The Best Doctors',
-    icon: () => <FaUserNurse size={35} />,
-  },
-  {
-    number: '03',
-    sub: 'Book your next',
-    main: 'Appointment',
-    icon: () => <FaCalendarCheck size={35} />,
-  },
-];
+const Wrapper = styled.div`
+  position: relative;
+  .roadmap-line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: -1;
+    width: 4px;
+  }
+`;
 
 const Roadmap = () => {
   return (
-    <Container>
-      <Grid
-        container
-        direction='column'
-        style={{ width: '500px', margin: 'auto' }}
-        spacing={10}
-        className='debug'
-      >
-        {roadmapData?.map((item) => {
-          return (
-            <Grid key={item.number} item>
-              <Grid container direction='row' alignItems='center' spacing={1}>
-                <Grid item>
-                  <GradientHolder primaryColor circle reverse>
-                    {item.icon()}
-                  </GradientHolder>
-                </Grid>
-                <Grid item>
-                  <Grid
-                    container
-                    spacing={2}
-                    direction='row'
-                    alignItems='center'
-                  >
-                    <Grid item>
-                      <Typography
-                        variant='h3'
-                        color='primary'
-                        display='inline'
-                        style={{ fontWeight: 700 }}
-                      >
-                        {item.number}
-                      </Typography>
-                    </Grid>
-                    <Grid item>
-                      <Typography color='primary'>{item.sub}</Typography>
-                      <Typography
-                        style={{ fontWeight: 700 }}
-                        variant='h5'
-                        color='primary'
-                      >
-                        {item.main}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          );
-        })}
-      </Grid>
-    </Container>
+    <Wrapper>
+      <Container>
+        <Box
+          display='flex'
+          flexDirection='column'
+          alignItems='center'
+          justifyContent='space-between'
+          style={{ height: '600px' }}
+        >
+          <RoadmapItem
+            number='01'
+            subtitle='Choose your'
+            title='Appointment Type'
+            icon={() => (
+              <>
+                <FaLaptopMedical size={35} />{' '}
+                <img
+                  className='roadmap-line'
+                  src='/assets/svg/roadmap-line.svg'
+                  alt='roadmap'
+                />{' '}
+              </>
+            )}
+          />
+          <RoadmapItem
+            number='02'
+            subtitle='Select from'
+            title='The Best Doctors'
+            icon={() => <FaUserNurse size={35} />}
+          />
+          <RoadmapItem
+            number='03'
+            subtitle='Book your'
+            title='Next Appointment'
+            icon={() => <FaCalendarCheck size={35} />}
+          />
+        </Box>
+      </Container>
+    </Wrapper>
   );
 };
 

@@ -1,5 +1,11 @@
+import Roadmap from './components/Roadmap/Roadmap';
+
 function App() {
-  return <div></div>;
+  return (
+    <div>
+      <Roadmap />
+    </div>
+  );
 }
 
 export default App;
