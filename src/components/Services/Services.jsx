@@ -8,8 +8,8 @@ import { StyledHeading } from '../../styles/shared';
 const Services = () => {
   return (
     <Container>
-      <StyledHeading style={{ margin: '1.5em 0' }}>Our Services</StyledHeading>
-      <Box m='auto' maxWidth='75%'>
+      <StyledHeading>Our Services</StyledHeading>
+      <Box m='auto' maxWidth='800px'>
         <Grid container spacing={7}>
           <ServicesItem
             title='Doctors'

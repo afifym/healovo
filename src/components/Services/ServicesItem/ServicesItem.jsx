@@ -36,7 +36,7 @@ const ServicesItem = ({ title, details, icon }) => {
             <IconWrapper className='inner-icon'>{icon}</IconWrapper>
             <Typography
               variant='h3'
-              style={{ marginTop: 20, marginBottom: 20 }}
+              style={{ marginTop: 20, marginBottom: 20, fontWeight: '600' }}
             >
               {title}
             </Typography>
