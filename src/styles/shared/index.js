@@ -98,3 +98,23 @@ export const StyledButton = styled(Button)`
     margin: 0.45em;
   }
 `;
+
+export const StyledHeading = styled.h2`
+  margin: 0 auto;
+  font-size: 3.5rem;
+  text-align: center;
+  position: relative;
+  color: ${({ theme }) => theme.colors.dark1};
+
+  &:after {
+    position: absolute;
+    content: '';
+    background: ${({ theme }) => theme.gradients.gradient4};
+    height: 7px;
+    width: 150px;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50px;
+  }
+`;
