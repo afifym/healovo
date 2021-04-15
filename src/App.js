@@ -7,7 +7,7 @@ function App() {
     <div>
       <Navbar />
       <SearchPage />
-      <Button variant="contained">HEALOVO</Button>
+
     </div>
   );
 }

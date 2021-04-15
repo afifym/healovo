@@ -3,6 +3,8 @@ import Filter from './Filter/Filter';
 import SearchBar from './SearchBar';
 import Container from '@material-ui/core/Container';
 import Hidden from '@material-ui/core/Hidden';
+import SearchResult from './SarchResult/SearchResult';
+import SearchCard from '../SearchCard/SearchCard';
 
 
 const SearchPage = () => {
@@ -18,8 +20,11 @@ const SearchPage = () => {
                     </Grid>
                 </Hidden>
 
-                <Grid item md={9}>
-                    thanx
+                <Grid item xs={12} md={9}>
+                    <SearchResult />
+                    <SearchCard />
+                    <SearchCard />
+                    <SearchCard />
                 </Grid>
             </Grid>
         </Container>
