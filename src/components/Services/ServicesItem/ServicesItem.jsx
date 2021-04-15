@@ -40,7 +40,7 @@ const ServicesItem = ({ title, details, icon }) => {
             >
               {title}
             </Typography>
-            <Typography>{details}</Typography>
+            <p>{details}</p>
           </Container>
         </StyledGradientHolder>
       </Box>
