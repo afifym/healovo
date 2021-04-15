@@ -3,18 +3,16 @@ import React from 'react';
 
 const GradientButton = ({ width, lightCircle, blueBg, icon, children }) => {
   return (
-    <div>
-      <StyledButton
-        width={width}
-        lightCircle={lightCircle}
-        blueBg={blueBg}
-        size='large'
-        endIcon={icon}
-        variant='contained'
-      >
-        {children}
-      </StyledButton>
-    </div>
+    <StyledButton
+      width={width}
+      lightCircle={lightCircle}
+      blueBg={blueBg}
+      size='large'
+      endIcon={icon}
+      variant='contained'
+    >
+      {children}
+    </StyledButton>
   );
 };
 
