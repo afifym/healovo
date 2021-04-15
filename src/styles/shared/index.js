@@ -42,7 +42,6 @@ export const GradientHolder = styled.span`
 
 export const StyledButton = styled(Button)`
   position: relative;
-  /* padding: 0.2em 4em; */
 
   background: linear-gradient(
     to right bottom,
@@ -100,7 +99,7 @@ export const StyledButton = styled(Button)`
 `;
 
 export const StyledHeading = styled.h2`
-  margin: 0 auto;
+  margin: 1.5em auto;
   font-size: 3.5rem;
   text-align: center;
   position: relative;
