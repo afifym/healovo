@@ -100,7 +100,7 @@ export const StyledButton = styled(Button)`
 
 export const StyledHeading = styled.h2`
   margin: 1.5em auto;
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   text-align: center;
   position: relative;
   color: ${({ theme }) => theme.colors.dark1};
