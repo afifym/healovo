@@ -2,6 +2,7 @@ import { Container, Box } from '@material-ui/core';
 import { FaLaptopMedical, FaUserNurse, FaCalendarCheck } from 'react-icons/fa';
 import RoadmapItem from './RoadmapItem/RoadmapItem';
 import styled from 'styled-components';
+import { StyledHeading } from '../../styles/shared';
 
 const Wrapper = styled.div`
   position: relative;
@@ -18,6 +19,7 @@ const Roadmap = () => {
   return (
     <Wrapper>
       <Container>
+        <StyledHeading>Appointment Process</StyledHeading>
         <Box
           display='flex'
           flexDirection='column'
@@ -36,7 +38,7 @@ const Roadmap = () => {
                   className='roadmap-line'
                   src='/assets/svg/roadmap-line.svg'
                   alt='roadmap'
-                />{' '}
+                />
               </>
             )}
           />
