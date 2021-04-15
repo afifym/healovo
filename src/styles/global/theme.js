@@ -39,6 +39,9 @@ export const muiTheme = createMuiTheme({
   shape: {
     borderRadius: styledTheme.borderRadiuses.borderRadius1,
   },
+  shadows: {
+    [1]: '4px 4px 29px rgba(87, 87, 87, 0.25)',
+  },
   overrides: {
     MuiButton: {
       root: {
@@ -48,7 +51,7 @@ export const muiTheme = createMuiTheme({
         fontFamily: styledTheme.fonts.main,
         textTransform: 'capitalize',
         transition: 'all 0.1s ease',
-        boxShadow: 'none',
+        boxShadow: '4px 4px 29px rgba(87, 87, 87, 0.25)',
 
         '&:hover': {
           transform: 'scale(1.03)',
