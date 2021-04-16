@@ -55,7 +55,7 @@ const ContactDoctorWraper = styled(Box)`
   display: flex;
 `;
 const ContactDoctor = styled(Box)`
-  padding-right: 20px;
+  padding-right: 15px;
 `;
 
 const goldColor = { color: "#FEC565" };
