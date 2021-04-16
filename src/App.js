@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import PatientDashboard from './pages/PatientDashboard';
-import AdminDashboard from './pages/AdminDashboard';
+import Admin from './pages/Admin';
 import DoctorDashboard from './pages/DoctorDashboard';
 import Search from './pages/Search';
 import DoctorProfile from './pages/DoctorProfile';
@@ -21,7 +21,7 @@ function App() {
         <Route path='/book/:id' component={Book} />
         <Route path='/patient-dashboard' component={PatientDashboard} />
         <Route path='/doctor-dashboard' component={DoctorDashboard} />
-        <Route path='/admin' component={AdminDashboard} />
+        <Route path='/admin' component={Admin} />
       </Switch>
     </Router>
   );
