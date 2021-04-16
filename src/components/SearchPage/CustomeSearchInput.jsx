@@ -1,5 +1,5 @@
 import { AiFillAccountBook } from "react-icons/ai";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const CustomeSaerch = styled.div`
 position:relative;
@@ -25,6 +25,10 @@ input{
     outline:none;
     font-size:1.1rem;
     border:none;
+    @media (max-width: 400px) {
+        padding-left:17%;
+      }
+
 }
 label{
     position: absolute;
@@ -46,15 +50,18 @@ label{
     border-color:#2D50EF;
   
 }
-`
+`;
 
 const CustomeSearchInput = () => {
-    return (
-        <CustomeSaerch>
-            <label htmlFor=""><AiFillAccountBook size={25} /></label>
-            <input type="text" placeholder='eg.John' />
-            <div className='HorizontalLine' />
-        </CustomeSaerch>);
-}
+  return (
+    <CustomeSaerch>
+      <label htmlFor="">
+        <AiFillAccountBook size={25} />
+      </label>
+      <input type="text" placeholder="eg.John" />
+      <div className="HorizontalLine" />
+    </CustomeSaerch>
+  );
+};
 
 export default CustomeSearchInput;
