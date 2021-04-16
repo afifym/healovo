@@ -1,14 +1,15 @@
-import React from "react";
-import styled from "styled-components/macro";
-import { FaQuoteLeft } from "react-icons/fa";
-import { Avatar } from "@material-ui/core";
+import React from 'react';
+import styled from 'styled-components/macro';
+import { FaQuoteLeft } from 'react-icons/fa';
+import { Avatar } from '@material-ui/core';
 
 const CarouselContainer = styled.div`
   width: 600px;
   padding-top: 1rem;
   margin-top: 2rem;
-  border-radius: 0 0 5px 5px;
+  border-radius: 5px;
   box-shadow: ${({ theme }) => theme.shadows.shadow1};
+  background-color: ${({ theme }) => theme.colors.light1};
   transform: rotate(2deg);
 
   @media screen and (max-width: 1050px) {
@@ -20,13 +21,14 @@ const CarouselContainer = styled.div`
   @media (max-width: 420px) {
     width: 280px;
   }
-  ${({ reverse }) => reverse && "transform: rotate(-2deg)"}
+  ${({ reverse }) => reverse && 'transform: rotate(-2deg)'}
 `;
 
 const CardDetails = styled.div`
   text-align: left;
   padding: 1rem 2rem 0.5rem;
-  font-wight: 700;
+  color: ${({ theme }) => theme.colors.dark2};
+  font-weight: 600;
   font-size: 18px;
   line-height: 22px;
 `;
@@ -38,7 +40,7 @@ const CardFooter = styled.div`
   background: ${({ theme }) => theme.gradients.gradient5};
   border-radius: 0 0 5px 5px;
   text-align: left;
-  margin-top: 1rem;
+  margin-top: 1em;
   color: white;
 `;
 
@@ -47,14 +49,18 @@ const AvatarWrapper = styled.figure`
   padding: 0;
 `;
 
+const Wrapper = styled.div`
+  padding: 2em 0;
+`;
+
 const Card = ({ title, revRotate }) => {
   return (
-    <div style={{ padding: "1rem" }}>
+    <Wrapper>
       <CarouselContainer reverse={revRotate}>
         <CardDetails>
           <FaQuoteLeft
             size={35}
-            style={{ color: "#ddd", marginBottom: "1rem" }}
+            style={{ color: '#ddd', marginBottom: '1rem' }}
           />
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
@@ -64,12 +70,12 @@ const Card = ({ title, revRotate }) => {
         </CardDetails>
         <CardFooter>
           <AvatarWrapper>
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+            <Avatar alt='Remy Sharp' src='/assets/images/reviews-avatar.png' />
           </AvatarWrapper>
-          <h2>{title}</h2>
+          <h4>{title}</h4>
         </CardFooter>
       </CarouselContainer>
-    </div>
+    </Wrapper>
   );
 };
 

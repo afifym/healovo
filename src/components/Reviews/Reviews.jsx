@@ -1,30 +1,26 @@
-import OwlCarousel from "react-owl-carousel";
-import Card from "./Card/Card";
-import "owl.carousel/dist/assets/owl.carousel.min.css";
-import "owl.carousel/dist/assets/owl.theme.default.min.css";
-import styled from "styled-components/macro";
+import OwlCarousel from 'react-owl-carousel';
+import Card from './Card/Card';
+import 'owl.carousel/dist/assets/owl.carousel.min.css';
+import 'owl.carousel/dist/assets/owl.theme.default.min.css';
+import { StyledHeading } from '../../styles/shared/index';
+import styled from 'styled-components';
 
-const SectionHeading = styled.h2`
-  font-size: 46px;
-  line-height: 56px;
-  letter-spacing: 0em;
-  text-align: center;
-  background-size: 100%;
-  // ** Making a gradient text **
-  background-image: ${({ theme }) => theme.gradients.gradient5};
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
+const Wrapper = styled.div`
+  background-color: ${({ theme }) => theme.colors.main2};
+  padding: 3em 0;
+
+  .owl-theme {
+    background-color: ${({ theme }) => theme.colors.main2};
+  }
 `;
 
 const Reviews = () => {
   return (
-    <>
-      <SectionHeading>What People Say</SectionHeading>
+    <Wrapper>
+      <StyledHeading>What People Say</StyledHeading>
 
       <OwlCarousel
-        items="2"
+        items='2'
         center
         margin={-100}
         autoplay
@@ -33,7 +29,10 @@ const Reviews = () => {
         autoplayHoverPause
         mouseDrag
         touchDrag
-        className="owl-theme"
+        className='owl-theme'
+        slidetransition='linear'
+        autoplaySpeed={6000}
+        smartSpeed={6000}
         responsive={{
           0: { items: 1, margin: 150 },
           480: { items: 1, margin: 150 },
@@ -44,12 +43,12 @@ const Reviews = () => {
           1200: { items: 2, margin: -100 },
         }}
       >
-        <Card title="Ryan Ronalds" revRotate />
-        <Card title="Ryan Ronalds" />
-        <Card title="Ryan Ronalds" revRotate />
-        <Card title="Ryan Ronalds" />
+        <Card title='Ryan Ronalds' revRotate />
+        <Card title='Ryan Ronalds' />
+        <Card title='Ryan Ronalds' revRotate />
+        <Card title='Ryan Ronalds' />
       </OwlCarousel>
-    </>
+    </Wrapper>
   );
 };
 

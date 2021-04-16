@@ -7,8 +7,13 @@ export const styledTheme = {
   colors: {
     main1: 'hsl(229, 86%, 56%)',
     main2: '#E6F0EF',
-    dark1: 'hsl(226, 17%, 25%)',
+    main3: '#A7BCFB',
+    dark1: '#343949',
+    dark2: '#797C88',
+    dark3: '#B6B8BE',
+    dark4: '#E0E2E8',
     light1: 'hsl(0, 0%, 100%)',
+    action: '#EFC660',
   },
   gradients: {
     gradient1: 'linear-gradient(to right bottom, #ffffff, #e7e8e9)',
@@ -39,6 +44,7 @@ export const muiTheme = createMuiTheme({
   shape: {
     borderRadius: styledTheme.borderRadiuses.borderRadius1,
   },
+
   overrides: {
     MuiButton: {
       root: {
@@ -48,7 +54,7 @@ export const muiTheme = createMuiTheme({
         fontFamily: styledTheme.fonts.main,
         textTransform: 'capitalize',
         transition: 'all 0.1s ease',
-        boxShadow: 'none',
+        boxShadow: '4px 4px 29px rgba(87, 87, 87, 0.25)',
 
         '&:hover': {
           transform: 'scale(1.03)',
