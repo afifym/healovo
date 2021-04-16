@@ -13,3 +13,4 @@ const firebaseConfig = {
 
 firebase.initlializeApp(firebaseConfig);
 export default firebase;
+export const developmentAPI = 'https://healovo-default-rtdb.firebaseio.com';
