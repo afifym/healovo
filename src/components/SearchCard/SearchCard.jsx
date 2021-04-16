@@ -6,6 +6,7 @@ import { BsStarHalf } from "react-icons/bs";
 import { AiOutlineStar } from "react-icons/ai";
 import { FaBriefcaseMedical } from "react-icons/fa";
 import { useState } from "react";
+import AvailableTimeLine from "./AvailableTimeLine";
 
 const CustomePaper = styled(Paper)`
   background: #ffffff;
@@ -121,55 +122,69 @@ const SearchCard = () => {
             </Typography>
           </SearchBody__HeadeGridr>
 
-          <SearchBody__bodyGrid>
-            <SingleInfo>
-              <FaBriefcaseMedical />
-              <Typography variant="p" component="span" style={singleInfoStyle}>
-                Dr. John Smith
-              </Typography>
-            </SingleInfo>
-
-            <SingleInfo>
-              <FaBriefcaseMedical />
-              <Typography variant="p" component="span" style={singleInfoStyle}>
-                Dr. John Smith
-              </Typography>
-            </SingleInfo>
-
-            <ContactDoctorWraper>
-              <ContactDoctor>
+          <SearchBody__bodyGrid container>
+            <Grid item md={6}>
+              <SingleInfo>
                 <FaBriefcaseMedical />
                 <Typography
-                  variant="span"
+                  variant="p"
                   component="span"
-                  style={SingletDoctorCon}
+                  style={singleInfoStyle}
                 >
-                  Clinc
+                  Dr. John Smith
                 </Typography>
-              </ContactDoctor>
+              </SingleInfo>
 
-              <ContactDoctor>
+              <SingleInfo>
                 <FaBriefcaseMedical />
                 <Typography
-                  variant="span"
+                  variant="p"
                   component="span"
-                  style={SingletDoctorCon}
+                  style={singleInfoStyle}
                 >
-                  Clinc
+                  Dr. John Smith
                 </Typography>
-              </ContactDoctor>
+              </SingleInfo>
 
-              <ContactDoctor>
-                <FaBriefcaseMedical />
-                <Typography
-                  variant="span"
-                  component="span"
-                  style={SingletDoctorCon}
-                >
-                  Clinc
-                </Typography>
-              </ContactDoctor>
-            </ContactDoctorWraper>
+              <ContactDoctorWraper>
+                <ContactDoctor>
+                  <FaBriefcaseMedical />
+                  <Typography
+                    variant="span"
+                    component="span"
+                    style={SingletDoctorCon}
+                  >
+                    Clinc
+                  </Typography>
+                </ContactDoctor>
+
+                <ContactDoctor>
+                  <FaBriefcaseMedical />
+                  <Typography
+                    variant="span"
+                    component="span"
+                    style={SingletDoctorCon}
+                  >
+                    Clinc
+                  </Typography>
+                </ContactDoctor>
+
+                <ContactDoctor>
+                  <FaBriefcaseMedical />
+                  <Typography
+                    variant="span"
+                    component="span"
+                    style={SingletDoctorCon}
+                  >
+                    Clinc
+                  </Typography>
+                </ContactDoctor>
+              </ContactDoctorWraper>
+            </Grid>
+
+            <Grid item md={6}>
+              <AvailableTimeLine />
+            </Grid>
           </SearchBody__bodyGrid>
 
           <SearchBody__FooterGrid item container>

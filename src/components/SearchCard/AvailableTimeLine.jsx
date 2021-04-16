@@ -1,34 +1,25 @@
-import Timeline from "@material-ui/lab/Timeline";
-import TimelineItem from "@material-ui/lab/TimelineItem";
-import TimelineSeparator from "@material-ui/lab/TimelineSeparator";
-import TimelineConnector from "@material-ui/lab/TimelineConnector";
-import TimelineContent from "@material-ui/lab/TimelineContent";
-import TimelineDot from "@material-ui/lab/TimelineDot";
+import styled from "styled-components";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import Typography from "@material-ui/core/Typography";
+
+const CustomeListItem = styled(ListItem)`
+  padding: 0 !important;
+  margin-bottom: 10px !important;
+`;
 
 const AvailableTimeLine = () => {
   return (
-    <Timeline>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Eat</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Code</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot />
-        </TimelineSeparator>
-        <TimelineContent>Sleep</TimelineContent>
-      </TimelineItem>
-    </Timeline>
+    <List>
+      <CustomeListItem>
+        <Typography variant="span" compotent="span" gutterBottom>
+          Mondy
+        </Typography>
+        100 PM - 6:00 PM
+      </CustomeListItem>
+      <CustomeListItem>Mondy 100 PM - 6:00 PM</CustomeListItem>
+      <CustomeListItem>Mondy 100 PM - 6:00 PM</CustomeListItem>
+    </List>
   );
 };
 
