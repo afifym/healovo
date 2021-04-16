@@ -1,5 +1,11 @@
+import ForDoctors from './components/ForDoctors/ForDoctors';
+
 function App() {
-  return <div></div>;
+  return (
+    <div>
+      <ForDoctors />
+    </div>
+  );
 }
 
 export default App;
