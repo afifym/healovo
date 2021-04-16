@@ -5,11 +5,12 @@ import Container from "@material-ui/core/Container";
 import Hidden from "@material-ui/core/Hidden";
 import SearchResult from "./SarchResult/SearchResult";
 import SearchCard from "../SearchCard/SearchCard";
+import PaginationSearch from "./PaginationSearch";
 
 const SearchPage = () => {
   return (
     <div style={{ background: "#E5E5E5" }}>
-      <Container Container style={{ paddingTop: 120 }}>
+      <Container Container style={{ padding: "100px 0 50px 0" }}>
         <SearchBar />
 
         <Grid container>
@@ -26,6 +27,8 @@ const SearchPage = () => {
             <SearchCard />
             <SearchCard />
             <SearchCard />
+
+            <PaginationSearch />
           </Grid>
         </Grid>
       </Container>
