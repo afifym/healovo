@@ -8,17 +8,35 @@ const CustomeListItem = styled(ListItem)`
   margin-bottom: 10px !important;
 `;
 
+const ListStyle = {
+  color: "#2d50ef",
+  fontWeight: 700,
+  padding: 0,
+};
+
+const SpanStyle = { paddingRight: 15 };
+
 const AvailableTimeLine = () => {
   return (
-    <List>
+    <List style={ListStyle}>
       <CustomeListItem>
-        <Typography variant="span" compotent="span" gutterBottom>
+        <Typography style={SpanStyle} compotent="span">
           Mondy
         </Typography>
         100 PM - 6:00 PM
       </CustomeListItem>
-      <CustomeListItem>Mondy 100 PM - 6:00 PM</CustomeListItem>
-      <CustomeListItem>Mondy 100 PM - 6:00 PM</CustomeListItem>
+      <CustomeListItem>
+        <Typography style={SpanStyle} compotent="span">
+          Mondy
+        </Typography>
+        100 PM - 6:00 PM
+      </CustomeListItem>
+      <CustomeListItem>
+        <Typography style={SpanStyle} compotent="span">
+          Mondy
+        </Typography>
+        100 PM - 6:00 PM
+      </CustomeListItem>
     </List>
   );
 };

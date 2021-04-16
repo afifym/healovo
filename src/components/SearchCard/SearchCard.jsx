@@ -1,12 +1,16 @@
-import { Box, Button, Grid, Paper } from "@material-ui/core";
+import { Box, Button, Grid } from "@material-ui/core";
 import styled from "styled-components";
 import Typography from "@material-ui/core/Typography";
 import { AiFillStar } from "react-icons/ai";
 import { BsStarHalf } from "react-icons/bs";
 import { AiOutlineStar } from "react-icons/ai";
 import { FaBriefcaseMedical } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
+import GradientButton from "./../shared/GradientButton/GradientButton";
 import { useState } from "react";
 import AvailableTimeLine from "./AvailableTimeLine";
+import Paper from "@material-ui/core/Paper";
+import Hidden from "@material-ui/core/Hidden";
 
 const CustomePaper = styled(Paper)`
   background: #ffffff;
@@ -22,6 +26,11 @@ const CustomePaper = styled(Paper)`
   }
   @media (max-width: 340px) {
     padding: 20px 15px;
+  }
+
+  @media (max-width: 600px) {
+    max-width: 320px;
+    margin: 20px auto;
   }
 `;
 
@@ -125,7 +134,7 @@ const SearchCard = () => {
           <SearchBody__bodyGrid container>
             <Grid item md={6}>
               <SingleInfo>
-                <FaBriefcaseMedical />
+                <FaBriefcaseMedical style={{ color: "#2D50EF" }} />
                 <Typography
                   variant="p"
                   component="span"
@@ -136,7 +145,7 @@ const SearchCard = () => {
               </SingleInfo>
 
               <SingleInfo>
-                <FaBriefcaseMedical />
+                <FaBriefcaseMedical style={{ color: "#2D50EF" }} />
                 <Typography
                   variant="p"
                   component="span"
@@ -148,7 +157,7 @@ const SearchCard = () => {
 
               <ContactDoctorWraper>
                 <ContactDoctor>
-                  <FaBriefcaseMedical />
+                  <FaBriefcaseMedical style={{ color: "#2D50EF" }} />
                   <Typography
                     variant="span"
                     component="span"
@@ -159,36 +168,59 @@ const SearchCard = () => {
                 </ContactDoctor>
 
                 <ContactDoctor>
-                  <FaBriefcaseMedical />
+                  <FaBriefcaseMedical style={{ color: "#2D50EF" }} />
                   <Typography
                     variant="span"
                     component="span"
                     style={SingletDoctorCon}
                   >
-                    Clinc
+                    Home
                   </Typography>
                 </ContactDoctor>
 
                 <ContactDoctor>
-                  <FaBriefcaseMedical />
+                  <FaBriefcaseMedical style={{ color: "#2D50EF" }} />
                   <Typography
                     variant="span"
                     component="span"
                     style={SingletDoctorCon}
                   >
-                    Clinc
+                    Vedio
                   </Typography>
                 </ContactDoctor>
               </ContactDoctorWraper>
             </Grid>
 
             <Grid item md={6}>
-              <AvailableTimeLine />
+              <Hidden xsDown>
+                <AvailableTimeLine />
+              </Hidden>
             </Grid>
           </SearchBody__bodyGrid>
 
-          <SearchBody__FooterGrid item container>
-            <Button>Book</Button>
+          <SearchBody__FooterGrid item style={{ paddingTop: 20 }} container>
+            <Grid item sm={6}>
+              <Hidden xsDown>
+                <GradientButton
+                  width="150px"
+                  icon={<FaSearch color="#FFF" size={12} />}
+                >
+                  View Profile
+                </GradientButton>
+              </Hidden>
+            </Grid>
+
+            <Grid item sm={6}>
+              <GradientButton
+                width="150px"
+                lightCircle
+                blueBg
+                style={{ padding: "5px 22px !important" }}
+                icon={<FaSearch color="#hsl(229, 86%, 56%)" size={12} />}
+              >
+                Book Now
+              </GradientButton>
+            </Grid>
           </SearchBody__FooterGrid>
         </SearchBodyGrid>
       </SearchCardWraperGrid>
