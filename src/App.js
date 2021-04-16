@@ -1,5 +1,11 @@
+import Curious from './components/Curious/Curious';
+
 function App() {
-  return <div></div>;
+  return (
+    <div>
+      <Curious />
+    </div>
+  );
 }
 
 export default App;
