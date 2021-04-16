@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components/macro";
-import DehazeIcon from "@material-ui/icons/Dehaze";
+import {RiMenu3Fill} from "react-icons/ri";
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -9,7 +10,7 @@ const Navbar = () => {
     <Wrapper>
       <div style={{ width: "150px" }}>
         <img
-          src="assets/Navbar/logo.png"
+          src="assets/images/logo.svg"
           alt="Healovo Logo"
           style={{ width: "100%" }}
           // used in our library
@@ -17,18 +18,20 @@ const Navbar = () => {
       </div>
 
       <Icon onClick={() => setOpen(!open)}>
-        <DehazeIcon />
+        <RiMenu3Fill color='hsl(229, 86%, 56%)' size={40} />
       </Icon>
 
       <Links open={open}>
         <LinkWrapper>
-          <Link>Home</Link>
-          <Link>Services</Link>
-          <Link>About</Link>
-          <Link>Contacts</Link>
-          <Link>Login</Link>
+          <StyledLink to='/'>Home</StyledLink>
+          <StyledLink to='/search'>Find A Doctor</StyledLink>
+          <StyledLink to='/about'>About</StyledLink>
+          <StyledLink to='/contact'>Contact Us</StyledLink>
+          <StyledLink to='/login'>Login</StyledLink>
         </LinkWrapper>
+        <Link to='/signup'>
         <Button>Signup</Button>
+        </Link>
       </Links>
     </Wrapper>
   );
@@ -66,14 +69,15 @@ const Links = styled.div`
   }
 `;
 
-const Link = styled.a`
+const StyledLink = styled(Link)`
   padding: 1.25rem 0.938rem;
   margin-left: 1.563rem;
-  font-weight: 500;
-  font-size: 1.25rem;
+  font-weight: 700;
+  font-size: 1rem;
   color: #343949;
   cursor: pointer;
-  transition: all 0.3s ease-in;
+  transition: all 0.1s linear;
+
 
   &:hover {
     color: #2d50ef;
@@ -83,9 +87,9 @@ const Link = styled.a`
     content: "";
     display: block;
     width: 0;
-    border-bottom: 0.125rem solid #2d50ef;
+    border-bottom: 0.15rem solid #2d50ef;
     margin-top: 0.313rem;
-    transition: all 0.4s ease-in-out;
+    transition: all 0.2s linear;
   }
 
   &:hover::after {
@@ -98,7 +102,7 @@ const Button = styled.button`
   padding: 0.625rem 2.5rem;
   border-radius: 2.2rem;
   color: white;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1rem;
   margin-left: 0.938rem;
   border: 0;
