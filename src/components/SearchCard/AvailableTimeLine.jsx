@@ -14,29 +14,19 @@ const ListStyle = {
   padding: 0,
 };
 
-const SpanStyle = { paddingRight: 15 };
+const SpanStyle = { paddingRight: 15, width: 55 };
 
-const AvailableTimeLine = () => {
+const AvailableTimeLine = ({ ReservationDates }) => {
   return (
     <List style={ListStyle}>
-      <CustomeListItem>
-        <Typography style={SpanStyle} compotent="span">
-          Mondy
-        </Typography>
-        100 PM - 6:00 PM
-      </CustomeListItem>
-      <CustomeListItem>
-        <Typography style={SpanStyle} compotent="span">
-          Mondy
-        </Typography>
-        100 PM - 6:00 PM
-      </CustomeListItem>
-      <CustomeListItem>
-        <Typography style={SpanStyle} compotent="span">
-          Mondy
-        </Typography>
-        100 PM - 6:00 PM
-      </CustomeListItem>
+      {ReservationDates.map((singleReserv) => (
+        <CustomeListItem>
+          <Typography style={SpanStyle} compotent="span">
+            {singleReserv.day}
+          </Typography>
+          {singleReserv.availablePeriod}
+        </CustomeListItem>
+      ))}
     </List>
   );
 };

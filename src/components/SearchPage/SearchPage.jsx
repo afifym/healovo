@@ -8,8 +8,12 @@ import SearchCard from "../SearchCard/SearchCard";
 import PaginationSearch from "./PaginationSearch";
 
 import DrawerFilter from "./Filter/DrawerFilter";
+import { useState } from "react";
+import { DoctorsData } from "../../DoctorsData";
 
 const SearchPage = () => {
+  console.log("Doctors", DoctorsData);
+  const [Doctors, useDoctors] = useState(DoctorsData);
   return (
     <div style={{ background: "#F1F2F4" }}>
       <Container Container style={{ padding: "100px 0 50px 0" }}>
@@ -26,9 +30,9 @@ const SearchPage = () => {
 
           <Grid item xs={12} md={9}>
             <SearchResult />
-            <SearchCard />
-            <SearchCard />
-            <SearchCard />
+            {Doctors.map((Doctor) => (
+              <SearchCard Doctor={Doctor} />
+            ))}
 
             <PaginationSearch />
           </Grid>

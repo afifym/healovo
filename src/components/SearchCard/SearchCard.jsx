@@ -82,11 +82,41 @@ const ContactDoctor = styled(Box)`
 `;
 
 const goldColor = { color: "#FEC565" };
-const singleInfoStyle = { paddingLeft: "15px" };
+const singleInfoStyle = {
+  paddingLeft: "15px",
+  fontSize: "1rem",
+  fontFamily: " Montserrat, sans-serif",
+  fontWeight: "400",
+  lineHeight: "1.5",
+};
 
 const SingletDoctorCon = { paddingLeft: "7.5px" };
 
-const SearchCard = () => {
+const SearchCard = ({ Doctor }) => {
+  const {
+    id,
+    avtarImg,
+    name,
+    degree,
+    location,
+    Specialty,
+    rate,
+    CommunicationMethods,
+    ReservationDates,
+    price,
+  } = Doctor;
+  console.log(
+    id,
+    avtarImg,
+    name,
+    degree,
+    location,
+    Specialty,
+    rate,
+    CommunicationMethods,
+    ReservationDates,
+    price
+  );
   return (
     <CustomePaper>
       <SearchCardWraperGrid container>
@@ -99,7 +129,7 @@ const SearchCard = () => {
           alignItems="flex-start"
         >
           <ImgWraper>
-            <img src="doctorAvtar.png" alt="" />
+            <img src={avtarImg} alt="" />
           </ImgWraper>
         </SearchHeaderGrid>
 
@@ -111,14 +141,14 @@ const SearchCard = () => {
           >
             <Box>
               <Typography variant="h5" gutterBottom>
-                Dr. John Smith
+                {` Dr. ${name.firstName} ${name.lastName}`}
               </Typography>
               <Typography
                 variant="span"
                 component="p"
                 style={{ paddingBottom: 7 }}
               >
-                Masters in medicine
+                {`${degree}`}
               </Typography>
 
               <Grid container alignItems="center">
@@ -141,32 +171,27 @@ const SearchCard = () => {
             </Box>
 
             <Typography
-              style={{ color: "rgb(45 80 239)", fontSize: 36 }}
+              style={{ color: "rgb(45 80 239)", fontSize: 24 }}
               variant="h6"
               gutterBottom
             >
-              $35
+              {`$${price}`}
             </Typography>
           </SearchBody__HeadeGridr>
 
           <SearchBody__bodyGrid container>
             <Grid item md={6}>
               <SingleInfo>
-                <FaBriefcaseMedical style={{ color: "#2D50EF" }} />
+                <FaBriefcaseMedical size={17} style={{ color: "#2D50EF" }} />
                 <Typography variant="p" component="p" style={singleInfoStyle}>
-                  Dr. John Smith
+                  {`${Specialty}`}
                 </Typography>
               </SingleInfo>
 
               <SingleInfo>
-                <IoLocationSharp style={{ color: "#2D50EF" }} />
-                <Typography
-                  variant="p"
-                  component="p"
-                  size={10}
-                  style={singleInfoStyle}
-                >
-                  Dr. John Smith
+                <IoLocationSharp size={17} style={{ color: "#2D50EF" }} />
+                <Typography variant="p" component="p" style={singleInfoStyle}>
+                  {`${location.Governorate}, ${location.Country}`}
                 </Typography>
               </SingleInfo>
 
@@ -211,7 +236,7 @@ const SearchCard = () => {
 
             <Grid item md={6}>
               <Hidden xsDown>
-                <AvailableTimeLine />
+                <AvailableTimeLine ReservationDates={ReservationDates} />
               </Hidden>
             </Grid>
           </SearchBody__bodyGrid>
