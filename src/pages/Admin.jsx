@@ -1,5 +1,13 @@
+import AddUser from '../components/AdminPanel/AddUser';
+import UsersList from '../components/AdminPanel/UsersList';
+
 const Admin = () => {
-  return <h2>Admin</h2>;
+  return (
+    <div>
+      <AddUser />
+      <UsersList users='patients' />
+    </div>
+  );
 };
 
 export default Admin;
