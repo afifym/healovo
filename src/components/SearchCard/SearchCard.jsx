@@ -5,7 +5,16 @@ import { AiFillStar } from "react-icons/ai";
 import { BsStarHalf } from "react-icons/bs";
 import { AiOutlineStar } from "react-icons/ai";
 import { FaBriefcaseMedical } from "react-icons/fa";
+
+import { BsFillCameraVideoFill } from "react-icons/bs";
+
+import { BiClinic } from "react-icons/bi";
+
+import { ImHome } from "react-icons/im";
+
 import { FaSearch } from "react-icons/fa";
+
+import { IoLocationSharp } from "react-icons/io5";
 import GradientButton from "./../shared/GradientButton/GradientButton";
 import { useState } from "react";
 import AvailableTimeLine from "./AvailableTimeLine";
@@ -22,13 +31,16 @@ const CustomePaper = styled(Paper)`
     padding: 20px 30px;
   }
   @media (max-width: 959px) {
-    padding: 20px 25px;
+    padding: 20px 15px;
+    max-width: 700px;
+    margin: 25px auto;
   }
   @media (max-width: 340px) {
     padding: 20px 15px;
   }
 
   @media (max-width: 599px) {
+    padding: 20px 25px;
     max-width: 320px;
     margin: 20px auto;
   }
@@ -57,11 +69,13 @@ const ImgWraper = styled.div`
 
 const SingleInfo = styled(Box)`
   margin-bottom: 10px;
+  display: flex;
 `;
 
 const ContactDoctorWraper = styled(Box)`
   margin-bottom: 10px;
   display: flex;
+  align-items: center;
 `;
 const ContactDoctor = styled(Box)`
   padding-right: 15px;
@@ -126,7 +140,11 @@ const SearchCard = () => {
               </Grid>
             </Box>
 
-            <Typography variant="h6" gutterBottom>
+            <Typography
+              style={{ color: "rgb(45 80 239)", fontSize: 36 }}
+              variant="h6"
+              gutterBottom
+            >
               $35
             </Typography>
           </SearchBody__HeadeGridr>
@@ -135,20 +153,17 @@ const SearchCard = () => {
             <Grid item md={6}>
               <SingleInfo>
                 <FaBriefcaseMedical style={{ color: "#2D50EF" }} />
-                <Typography
-                  variant="p"
-                  component="span"
-                  style={singleInfoStyle}
-                >
+                <Typography variant="p" component="p" style={singleInfoStyle}>
                   Dr. John Smith
                 </Typography>
               </SingleInfo>
 
               <SingleInfo>
-                <FaBriefcaseMedical style={{ color: "#2D50EF" }} />
+                <IoLocationSharp style={{ color: "#2D50EF" }} />
                 <Typography
                   variant="p"
-                  component="span"
+                  component="p"
+                  size={10}
                   style={singleInfoStyle}
                 >
                   Dr. John Smith
@@ -157,7 +172,7 @@ const SearchCard = () => {
 
               <ContactDoctorWraper>
                 <ContactDoctor>
-                  <FaBriefcaseMedical style={{ color: "#2D50EF" }} />
+                  <BiClinic size={17} style={{ color: "#2D50EF" }} />
                   <Typography
                     variant="span"
                     component="span"
@@ -168,7 +183,7 @@ const SearchCard = () => {
                 </ContactDoctor>
 
                 <ContactDoctor>
-                  <FaBriefcaseMedical style={{ color: "#2D50EF" }} />
+                  <ImHome size={15} style={{ color: "#2D50EF" }} />
                   <Typography
                     variant="span"
                     component="span"
@@ -179,7 +194,10 @@ const SearchCard = () => {
                 </ContactDoctor>
 
                 <ContactDoctor>
-                  <FaBriefcaseMedical style={{ color: "#2D50EF" }} />
+                  <BsFillCameraVideoFill
+                    size={16}
+                    style={{ color: "#2D50EF" }}
+                  />
                   <Typography
                     variant="span"
                     component="span"

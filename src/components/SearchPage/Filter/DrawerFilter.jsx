@@ -2,7 +2,6 @@ import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
 
 import Filter from "./Filter";
 
@@ -19,7 +18,7 @@ const CustomeFab = styled(Fab)`
 const useStyles = makeStyles({
   list: {
     width: 250,
-    padding: "0 20px",
+    paddingTop: 20,
   },
   fullList: {
     width: "auto",
@@ -56,7 +55,7 @@ const DrawerFilter = () => {
           <div
             className={`left ${classes.list}`}
             role="presentation"
-            onClick={toggleDrawer("left", false)}
+            onClick={toggleDrawer("left", true)}
             onKeyDown={toggleDrawer("left", false)}
           >
             <Filter />

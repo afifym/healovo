@@ -6,20 +6,12 @@ import Hidden from "@material-ui/core/Hidden";
 import SearchResult from "./SarchResult/SearchResult";
 import SearchCard from "../SearchCard/SearchCard";
 import PaginationSearch from "./PaginationSearch";
-import Fab from "@material-ui/core/Fab";
-import styled from "styled-components";
-import { FaFilter } from "react-icons/fa";
-import DrawerFilter from "./Filter/DrawerFilter";
 
-const CustomeFab = styled(Fab)`
-  position: fixed;
-  bottom: 15px;
-  left: 15px;
-`;
+import DrawerFilter from "./Filter/DrawerFilter";
 
 const SearchPage = () => {
   return (
-    <div style={{ background: "#E5E5E5" }}>
+    <div style={{ background: "#F1F2F4" }}>
       <Container Container style={{ padding: "100px 0 50px 0" }}>
         <SearchBar />
 
@@ -43,10 +35,7 @@ const SearchPage = () => {
         </Grid>
       </Container>
       <Hidden mdUp>
-        <CustomeFab color="primary" aria-label="add">
-          <FaFilter />
-          <DrawerFilter />
-        </CustomeFab>
+        <DrawerFilter />
       </Hidden>
     </div>
   );

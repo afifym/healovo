@@ -11,9 +11,12 @@ const FilterHeader = styled.header`
   justify-content: space-between;
   align-items: center;
 `;
+const FilterWraper = styled.div`
+  padding: 0 20px;
+`;
 const Filter = () => {
   return (
-    <>
+    <FilterWraper>
       <FilterHeader>
         <Typography
           style={{ fontWeight: "700" }}
@@ -30,7 +33,7 @@ const Filter = () => {
       <SingleFilter />
       <SingleFilter />
       <SingleFilter />
-    </>
+    </FilterWraper>
   );
 };
 
