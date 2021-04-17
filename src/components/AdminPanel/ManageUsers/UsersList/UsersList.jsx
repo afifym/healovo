@@ -20,9 +20,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { MdDelete } from 'react-icons/md';
 import { FaFilter } from 'react-icons/fa';
-import { Container, LinearProgress } from '@material-ui/core';
-import { developmentAPI } from '../../utils/firebase';
+import { Container, Divider, LinearProgress } from '@material-ui/core';
+import { developmentAPI } from '../../../../utils/firebase';
 import axios from 'axios';
+import {
+  deleteDoctor,
+  deletePatient,
+  fetchPatients,
+  fetchDoctors,
+} from '../../../../utils/firebase';
 
 function createData(id, name, age, email, phone) {
   return { id, name, age, email, phone };
@@ -170,11 +176,14 @@ const EnhancedTableToolbar = (props) => {
       ) : (
         <Typography
           className={classes.title}
-          variant='h6'
+          variant='h5'
           id='tableTitle'
           component='div'
+          variant='h5'
+          color='primary'
+          style={{ fontWeight: '700' }}
         >
-          {props.users.toUpperCase()}
+          CURRENT {props.users.toUpperCase()}
         </Typography>
       )}
 
@@ -201,7 +210,8 @@ EnhancedTableToolbar.propTypes = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: '80%',
+    margin: '3em auto',
   },
   paper: {
     width: '100%',
@@ -223,7 +233,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function UsersList({ users }) {
+export default function UsersList({ users, fetch, setFetch }) {
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
@@ -235,47 +245,57 @@ export default function UsersList({ users }) {
   const [rows, setRows] = useState([]);
   const [status, setStatus] = useState('');
 
-  const handleDelete = () => {
-    const deleteUser = async (id) => {
-      setStatus('awaiting');
-      try {
-        const response = await axios.delete(
-          developmentAPI + `/users/${id}.json`
+  const fetchUsers = async () => {
+    try {
+      let response;
+      if (users === 'patients') {
+        response = await fetchPatients();
+      } else if (users === 'doctors') {
+        response = await fetchDoctors();
+      }
+
+      const rowData = Object.keys(response.data).map((key) => {
+        let item = response.data[key];
+        return createData(
+          key,
+          item.firstName + ' ' + item.lastName,
+          item.age,
+          item.email,
+          item.phone
         );
+      });
+      setRows(rowData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDelete = () => {
+    selected.forEach(async (id) => {
+      setStatus('awaiting');
+
+      try {
+        if (users === 'patients') {
+          const response = await deletePatient(id);
+        } else if (users === 'doctors') {
+          const response = await deleteDoctor(id);
+        }
       } catch (error) {
         console.log(error);
       }
-      setStatus('');
-    };
 
-    selected.forEach((id) => {
-      deleteUser(id);
+      setStatus('');
     });
+    fetchUsers();
   };
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get(developmentAPI + `/${users}.json`);
-
-        const rowData = Object.keys(response.data).map((key) => {
-          let item = response.data[key];
-          return createData(
-            key,
-            item.firstName + ' ' + item.lastName,
-            item.age,
-            item.email,
-            item.phone
-          );
-        });
-        setRows(rowData);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
     fetchUsers();
   }, []);
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetch]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';

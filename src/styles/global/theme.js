@@ -41,7 +41,6 @@ export const muiTheme = createMuiTheme({
   typography: {
     fontFamily: styledTheme.fonts.main,
   },
-
   overrides: {
     MuiButton: {
       root: {

@@ -1,11 +1,9 @@
-import AddUser from '../components/AdminPanel/AddUser';
-import UsersList from '../components/AdminPanel/UsersList';
+import AdminPanel from '../components/AdminPanel/AdminPanel';
 
 const Admin = () => {
   return (
     <div>
-      <AddUser />
-      <UsersList users='patients' />
+      <AdminPanel />
     </div>
   );
 };

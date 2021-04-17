@@ -18,6 +18,8 @@ const GlobalStyles = createGlobalStyle`
       margin: 0;
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
+      font-family: ${({ theme }) => theme.fonts.main};
+      color: ${({ theme }) => theme.colors.dark1};
     }
 
     img {
