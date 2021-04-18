@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import UsersList from './UsersList/UsersList';
-import AddUser from './AddUser/AddUser';
+import AddPatients from './AddUser/AddPatients';
 
 const ManageUsers = ({ users }) => {
   const [fetch, setFetch] = useState(false);
 
   return (
     <div>
-      <AddUser users={users} fetch={fetch} setFetch={setFetch} />
+      <AddPatients fetch={fetch} setFetch={setFetch} />
       <UsersList users={users} fetch={fetch} setFetch={setFetch} />
     </div>
   );

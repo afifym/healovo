@@ -8,6 +8,8 @@ import DoctorProfile from './pages/DoctorProfile';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Book from './pages/Book';
+import ManageUsers from './components/AdminPanel/ManageUsers/ManageUsers';
+import AdminSummary from './components/AdminPanel/AdminSummary/AdminSummary';
 
 function App() {
   return (
