@@ -37,6 +37,9 @@ const CustomeButtonGroup = styled(ButtonGroup)`
 `;
 
 const SearchBar = () => {
+  const HandleClick = (e) => {
+    console.log("event", e.target);
+  };
   return (
     <SearchBarWraper>
       <CustomeButtonGroup
@@ -44,9 +47,20 @@ const SearchBar = () => {
         color="primary"
         aria-label="contained primary button group"
       >
-        <SearchTabBtn>Name</SearchTabBtn>
-        <SearchTabBtn>Specialty</SearchTabBtn>
-        <SearchTabBtn>City</SearchTabBtn>
+        <SearchTabBtn onClick={HandleClick} name="name">
+          Name
+        </SearchTabBtn>
+        <SearchTabBtn onClick={HandleClick} name="specialty">
+          Specialty
+        </SearchTabBtn>
+        <SearchTabBtn
+          disableFocusRipple={true}
+          disableElevation={true}
+          onClick={HandleClick}
+          name="City"
+        >
+          City
+        </SearchTabBtn>
       </CustomeButtonGroup>
 
       <CustomeSearchInput />

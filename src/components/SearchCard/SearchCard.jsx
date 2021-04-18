@@ -20,6 +20,7 @@ import { useState } from "react";
 import AvailableTimeLine from "./AvailableTimeLine";
 import Paper from "@material-ui/core/Paper";
 import Hidden from "@material-ui/core/Hidden";
+import DoctorRating from "../SearchPage/DoctorRating";
 
 const CustomePaper = styled(Paper)`
   background: #ffffff;
@@ -154,23 +155,7 @@ const SearchCard = ({ Doctor }) => {
                 {`${degree}`}
               </Typography>
 
-              <Grid container alignItems="center">
-                <AiFillStar style={goldColor} />
-                <AiFillStar style={goldColor} />
-                <BsStarHalf style={goldColor} />
-                <AiOutlineStar style={goldColor} />
-                <AiOutlineStar style={goldColor} />
-                <Typography
-                  component="span"
-                  style={{
-                    fontSize: "12px",
-                    paddingLeft: 5,
-                    paddingBottom: 1.5,
-                  }}
-                >
-                  (4)
-                </Typography>
-              </Grid>
+              <DoctorRating RatingVal={rate} />
             </Box>
 
             <Typography

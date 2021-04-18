@@ -20,9 +20,11 @@ const SingleFilter = ({ SingleFilter }) => {
   const CheckboxBg = {
     background: "#fff !important",
   };
+
   const FilterNameStyle = {
     fontWeight: "700 ",
   };
+
   return (
     <>
       <Typography variant="h6" style={FilterNameStyle} gutterBottom>

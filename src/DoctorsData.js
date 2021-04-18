@@ -5,7 +5,7 @@ export const DoctorsData = [
     name: { firstName: "mohand", lastName: "mostafa" },
     degree: "Masters in medicine",
     Specialty: "Respiratory Specialist",
-    rate: 2.5,
+    rate: 2,
     location: { Governorate: "Luxor", Country: "Egypt" },
     CommunicationMethods: { clinc: true, home: true, video: true },
     ReservationDates: [
@@ -21,7 +21,7 @@ export const DoctorsData = [
     name: { firstName: "mohamed", lastName: "Fwazy" },
     degree: "Masters in medicine",
     Specialty: "Neurology",
-    rate: 3.5,
+    rate: 4,
     location: { Governorate: "Alexandria", Country: "Egypt" },
     CommunicationMethods: { clinc: true, home: true, video: false },
     ReservationDates: [
@@ -37,7 +37,7 @@ export const DoctorsData = [
     name: { firstName: "abdalrhman", lastName: "amr" },
     degree: "Masters in medicine",
     Specialty: "Ophthalmology",
-    rate: 4.5,
+    rate: 3,
     location: { Governorate: "Cairo", Country: "Egypt" },
     CommunicationMethods: { clinc: true, home: false, video: false },
     ReservationDates: [
