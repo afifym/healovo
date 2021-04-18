@@ -1,8 +1,7 @@
-import { AiFillAccountBook } from "react-icons/ai";
 import styled from "styled-components";
-import { FaSignature } from "react-icons/fa";
+import { IoIosArrowDown } from "react-icons/io";
 
-const CustomeSaerch = styled.div`
+const CustomeSelectWraper = styled.div`
 position:relative;
 
 max-width:500px;
@@ -13,12 +12,13 @@ left:0;
 @media (max-width: 450px) {
     width:95%;      
 }
-input{
+select{
     box-sizing border-box;
     width: 100%;
     height: 50px;
   
-    padding-left:13%;
+    padding: 0 13% ;
+    appearance: none;
     
     background: #FFFFFF;
     box-shadow: 0px 4px 19px 2px rgba(121, 121, 121, 0.25);
@@ -31,13 +31,22 @@ input{
       }
 
 }
-label{
+.InputIcon{
     position: absolute;
-    top:50%;
+    top:52%;
     transform translate(0,-50%);
     left:6%;
     z-index:50;
 }
+
+.arrowIcon{
+    position: absolute;
+    top:55%;
+    transform translate(0,-50%);
+    right:3%;
+    z-index:50;
+}
+
 .HorizontalLine{
     position:absolute;
     width:80%;
@@ -53,16 +62,24 @@ label{
 }
 `;
 
-const CustomeSearchInput = () => {
+const CustomeSelectInput = ({ SelectIconName, selectData }) => {
   return (
-    <CustomeSaerch>
-      <label htmlFor="">
-        <FaSignature color="#2D50EF" />
+    <CustomeSelectWraper>
+      <label className="InputIcon" htmlFor="">
+        <SelectIconName color={"#2D50EF"} />
       </label>
-      <input type="text" placeholder="eg.John" />
+      <select>
+        {selectData.map((option) => (
+          <option>{option}</option>
+        ))}
+      </select>
+      <label className="arrowIcon" htmlFor="">
+        <IoIosArrowDown size={20} color={"#2D50EF"} />
+      </label>
+
       <div className="HorizontalLine" />
-    </CustomeSaerch>
+    </CustomeSelectWraper>
   );
 };
 
-export default CustomeSearchInput;
+export default CustomeSelectInput;

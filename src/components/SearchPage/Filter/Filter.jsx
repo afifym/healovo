@@ -13,7 +13,13 @@ const FilterHeader = styled.header`
 `;
 const FilterWraper = styled.div`
   padding: 0 20px;
+  padding-top: 29px;
 `;
+
+const FilterBody = styled.div`
+  padding-top: 20px;
+`;
+
 const Filter = () => {
   const Filters = [
     { filterName: "Location", filterData: ["Any", "Video", "Home", "Clinic"] },
@@ -42,10 +48,11 @@ const Filter = () => {
 
         <Button>Clear All</Button>
       </FilterHeader>
-
-      {Filters.map((Filter) => (
-        <SingleFilter SingleFilter={Filter} />
-      ))}
+      <FilterBody>
+        {Filters.map((Filter) => (
+          <SingleFilter SingleFilter={Filter} />
+        ))}
+      </FilterBody>
     </FilterWraper>
   );
 };

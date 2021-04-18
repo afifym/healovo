@@ -2,6 +2,8 @@ import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import styled from "styled-components";
 import CustomeSearchInput from "./CustomeSearchInput";
+import CustomeSelectInput from "./CustomeSelectInput";
+import { FaCity, FaUserMd } from "react-icons/fa";
 
 const SearchBarWraper = styled.div`
     display:flex;
@@ -20,10 +22,13 @@ const SearchTabBtn = styled(Button)`
   color: black !important;
   font-family: Montserrat;
   font-style: normal !important;
-  font-weight: bold !important;
-  font-size: 16px !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
   line-height: 30px !important;
   text-transform: capitalize !important ;
+
+  font-style: normal;
+  font-weight: bold;
 `;
 const CustomeButtonGroup = styled(ButtonGroup)`
   border-radius: 100px !important;
@@ -45,6 +50,15 @@ const SearchBar = () => {
       </CustomeButtonGroup>
 
       <CustomeSearchInput />
+
+      <CustomeSelectInput
+        SelectIconName={FaCity}
+        selectData={["mohand", "mostafa", "abadlabary"]}
+      />
+      <CustomeSelectInput
+        SelectIconName={FaUserMd}
+        selectData={["mohand", "mostafa", "abadlabary"]}
+      />
     </SearchBarWraper>
   );
 };
