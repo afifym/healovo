@@ -47,6 +47,7 @@ const SearchBar = () => {
         color="primary"
         aria-label="contained primary button group"
       >
+        <Button>click</Button>
         <SearchTabBtn onClick={HandleClick} name="name">
           Name
         </SearchTabBtn>

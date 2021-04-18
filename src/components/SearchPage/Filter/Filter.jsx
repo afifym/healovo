@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Button } from "@material-ui/core";
 import SingleFilter from "./SingleFilter";
 import Typography from "@material-ui/core/Typography";
+import DoctorRating from "../DoctorRating";
 
 const FilterHeader = styled.header`
   width: 100%;
@@ -24,7 +25,16 @@ const Filter = () => {
   const Filters = [
     { filterName: "Location", filterData: ["Any", "Video", "Home", "Clinic"] },
     { filterName: "Gender", filterData: ["Any", "Male", "Female"] },
-    { filterName: "Rating", filterData: [1, 2, 3, 4, 5] },
+    {
+      filterName: "Rating",
+      filterData: [
+        <DoctorRating RatingVal={1} />,
+        <DoctorRating RatingVal={2} />,
+        <DoctorRating RatingVal={3} />,
+        <DoctorRating RatingVal={4} />,
+        <DoctorRating RatingVal={5} />,
+      ],
+    },
     {
       filterName: "Price",
       filterData: ["Any", "Less than $30", "$30-$50", "Movre than $50"],
