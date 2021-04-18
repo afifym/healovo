@@ -1,0 +1,5 @@
+export const PUBLISHABLE_KEY =
+  'pk_test_51Ihi79GcvS47xCEGBYin9HZDoUgZ4v9EfxQg0tPgR6OiTyeoTPB4sNRaQ2f54a5Fi7GWv9vdPJa1dc7ZCgTLgbEe005mHwG0wv';
+
+export const SECRET_KEY =
+  'sk_test_51Ihi79GcvS47xCEGECEIJXz8FPPtZYs9ViMNhHzitejjZjo3Evsfe5q5t6DIegHwRkmS4gAGm2sZwH5DxbNIacNb00TiJzTCwa';
