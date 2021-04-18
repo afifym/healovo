@@ -15,32 +15,25 @@ const HorizontalLine = styled.div`
   margin: 20px 0;
 `;
 
-const SingleFilter = () => {
+const SingleFilter = ({ SingleFilter }) => {
+  const { filterName, filterData } = SingleFilter;
+  const CheckboxBg = {
+    background: "#fff !important",
+  };
   return (
     <>
       <Typography variant="h6" gutterBottom>
-        h5. Heading
+        {filterName}
       </Typography>
       <CheckBoxWraper>
-        <FormControlLabel
-          control={<Checkbox name="checkedB" color="primary" />}
-          label="Any"
-        />
-
-        <FormControlLabel
-          control={<Checkbox name="checkedB" color="primary" />}
-          label="Vedio"
-        />
-
-        <FormControlLabel
-          control={<Checkbox name="checkedB" color="primary" />}
-          label="Home"
-        />
-
-        <FormControlLabel
-          control={<Checkbox name="checkedB" color="primary" />}
-          label="Clinc"
-        />
+        {filterData.map((singleF) => (
+          <FormControlLabel
+            control={
+              <Checkbox name={singleF} style={CheckboxBg} color="primary" />
+            }
+            label={singleF}
+          />
+        ))}
 
         <HorizontalLine />
       </CheckBoxWraper>

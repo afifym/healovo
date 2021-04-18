@@ -15,6 +15,19 @@ const FilterWraper = styled.div`
   padding: 0 20px;
 `;
 const Filter = () => {
+  const Filters = [
+    { filterName: "Location", filterData: ["Any", "Video", "Home", "Clinic"] },
+    { filterName: "Gender", filterData: ["Any", "Male", "Female"] },
+    { filterName: "Rating", filterData: [1, 2, 3, 4, 5] },
+    {
+      filterName: "Price",
+      filterData: ["Any", "Less than $30", "$30-$50", "Movre than $50"],
+    },
+    {
+      filterName: "open now",
+      filterData: ["open now"],
+    },
+  ];
   return (
     <FilterWraper>
       <FilterHeader>
@@ -30,9 +43,9 @@ const Filter = () => {
         <Button>Clear All</Button>
       </FilterHeader>
 
-      <SingleFilter />
-      <SingleFilter />
-      <SingleFilter />
+      {Filters.map((Filter) => (
+        <SingleFilter SingleFilter={Filter} />
+      ))}
     </FilterWraper>
   );
 };

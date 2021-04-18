@@ -79,6 +79,8 @@ const ContactDoctorWraper = styled(Box)`
 `;
 const ContactDoctor = styled(Box)`
   padding-right: 15px;
+  display: flex;
+  align-items: center;
 `;
 
 const goldColor = { color: "#FEC565" };
@@ -90,8 +92,9 @@ const singleInfoStyle = {
   lineHeight: "1.5",
 };
 
-const SingletDoctorCon = { paddingLeft: "7.5px" };
+const SingletDoctorCon = { paddingLeft: "7.5px", fontSize: 16 };
 
+const IconeColor = { color: "#2D50EF" };
 const SearchCard = ({ Doctor }) => {
   const {
     id,
@@ -197,7 +200,12 @@ const SearchCard = ({ Doctor }) => {
 
               <ContactDoctorWraper>
                 <ContactDoctor>
-                  <BiClinic size={17} style={{ color: "#2D50EF" }} />
+                  <BiClinic
+                    size={17}
+                    style={{
+                      color: CommunicationMethods.clinc ? "#2D50EF" : "gray",
+                    }}
+                  />
                   <Typography
                     variant="span"
                     component="span"
@@ -208,7 +216,12 @@ const SearchCard = ({ Doctor }) => {
                 </ContactDoctor>
 
                 <ContactDoctor>
-                  <ImHome size={15} style={{ color: "#2D50EF" }} />
+                  <ImHome
+                    size={15}
+                    style={{
+                      color: CommunicationMethods.home ? "#2D50EF" : "gray",
+                    }}
+                  />
                   <Typography
                     variant="span"
                     component="span"
@@ -221,7 +234,9 @@ const SearchCard = ({ Doctor }) => {
                 <ContactDoctor>
                   <BsFillCameraVideoFill
                     size={16}
-                    style={{ color: "#2D50EF" }}
+                    style={{
+                      color: CommunicationMethods.video ? "#2D50EF" : "gray",
+                    }}
                   />
                   <Typography
                     variant="span"

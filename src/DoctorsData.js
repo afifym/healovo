@@ -42,7 +42,7 @@ export const DoctorsData = [
     CommunicationMethods: { clinc: true, home: false, video: false },
     ReservationDates: [
       { day: "Mon", availablePeriod: "1:00 pm - 6:00 pm" },
-      { day: "Tue", availablePeriod: "1:00 pm - 6:00 pm" },
+
       { day: "Wed", availablePeriod: "5:00 pm - 12:00 pm" },
       { day: "Thurs", availablePeriod: "5:00 pm - 12:00 pm" },
     ],

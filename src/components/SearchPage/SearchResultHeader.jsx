@@ -12,6 +12,10 @@ const CustomeHeader = styled.header`
   justify-content: space-between;
   width: 100%;
   padding-top: 20px;
+  @media (max-width: 959px) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 `;
 
 const CustomeSelect = styled(Select)`
@@ -44,12 +48,12 @@ const HorizontalLine = styled.div`
   margin: 20px 0;
 `;
 
-const SearchResultHeader = () => {
+const SearchResultHeader = ({ searchResultNumber }) => {
   return (
     <>
       <CustomeHeader>
         <Typography variant="h6" component="h6" style={{ fontWeight: 700 }}>
-          205 result
+          {searchResultNumber} result
         </Typography>
         <SortBox component="div">
           <Typography variant="span" component="span">
