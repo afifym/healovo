@@ -7,10 +7,11 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 450px;
   text-align: center;
-  padding: 4em 2em;
+  padding: 6em 2em;
   border: 1px solid ${({ theme }) => theme.colors.main1};
+  border-top: none;
+  border-bottom: none;
 
   ${({ left }) =>
     left &&
@@ -31,6 +32,18 @@ const Wrapper = styled.div`
       border-top-right-radius: ${({ theme }) =>
         theme.borderRadiuses.borderRadius1};
     `}
+
+  @media (max-width: 1300px) {
+    border-radius: ${({ theme }) => theme.borderRadiuses.borderRadius1};
+    border-color: ${({ theme }) => theme.colors.light1};
+    margin: 1em;
+    box-shadow: ${({ theme }) => theme.shadows.shadow1};
+  }
+
+  @media (max-width: 500px) {
+    padding: 3em 1em;
+    width: 400px;
+  }
 `;
 
 const ForDoctorsItem = ({ left, right, title, details, icon }) => {
@@ -47,7 +60,10 @@ const ForDoctorsItem = ({ left, right, title, details, icon }) => {
           {title}
         </Typography>
       </Box>
-      <Typography color='primary' style={{ width: '400px' }}>
+      <Typography
+        color='secondary'
+        style={{ maxWidth: '400px', opacity: '0.8' }}
+      >
         {details}
       </Typography>
     </Wrapper>

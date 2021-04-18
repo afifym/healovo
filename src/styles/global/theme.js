@@ -41,12 +41,6 @@ export const muiTheme = createMuiTheme({
   typography: {
     fontFamily: styledTheme.fonts.main,
   },
-  shape: {
-    borderRadius: styledTheme.borderRadiuses.borderRadius1,
-  },
-  shadows: {
-    [1]: '4px 4px 29px rgba(87, 87, 87, 0.25)',
-  },
   overrides: {
     MuiButton: {
       root: {
