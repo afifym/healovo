@@ -31,8 +31,6 @@ function Alert(props) {
 
 const AddUser = ({ users, fetch, setFetch }) => {
   const [status, setStatus] = useState('none');
-  console.log('rerender');
-
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',

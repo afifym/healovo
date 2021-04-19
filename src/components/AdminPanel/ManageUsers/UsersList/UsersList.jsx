@@ -256,6 +256,7 @@ export default function UsersList({ users, fetch, setFetch }) {
 
       const rowData = Object.keys(response.data).map((key) => {
         let item = response.data[key];
+
         return createData(
           key,
           item.firstName + ' ' + item.lastName,

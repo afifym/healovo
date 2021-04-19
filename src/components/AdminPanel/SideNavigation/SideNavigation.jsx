@@ -9,6 +9,7 @@ import { BsCardList } from 'react-icons/bs';
 import { FaDownload } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import {
+  Box,
   Divider,
   Drawer,
   IconButton,
@@ -18,85 +19,6 @@ import {
 import styled from 'styled-components';
 
 const drawerWidth = 240;
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: 36,
-  },
-  menuButtonHidden: {
-    display: 'none',
-  },
-  title: {
-    flexGrow: 1,
-  },
-  drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
-    },
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 240,
-  },
-}));
-
 const StyledLink = styled(Link)`
   font-weight: 700;
   font-size: 1rem;
@@ -104,35 +26,60 @@ const StyledLink = styled(Link)`
 `;
 
 const SideNavigation = () => {
-  const classes = useStyles();
-
   return (
     <div>
-      <Drawer style={{ backgroundColor: 'blue' }} variant='permanent' open>
+      <div
+        style={{
+          width: '300px',
+          position: 'static',
+          backgroundColor: 'white',
+          height: '100%',
+        }}
+      >
         <List>
           <ListItem button>
             <StyledLink to='/admin'>
-              <ListItemText primary='Dashboard' />
+              <Box display='flex' alignItems='center'>
+                <MdDashboard size={20} style={{ margin: '0 1em' }} />
+                <ListItemText primary='Dashboard' />
+              </Box>
             </StyledLink>
           </ListItem>
           <ListItem button>
             <StyledLink to='/admin/patients'>
-              <ListItemText primary='Manage Patients' />
+              <Box display='flex' alignItems='center'>
+                <FiUsers size={20} style={{ margin: '0 1em' }} />
+                <ListItemText primary='Manage Patients' />
+              </Box>
             </StyledLink>
           </ListItem>
           <ListItem button>
             <StyledLink to='/admin/doctors'>
-              <ListItemText primary='Manage Doctors' />
+              <Box display='flex' alignItems='center'>
+                <FaUserNurse size={20} style={{ margin: '0 1em' }} />
+                <ListItemText primary='Manage Doctors' />
+              </Box>
+            </StyledLink>
+          </ListItem>
+          <ListItem button>
+            <StyledLink to='/admin/appointments'>
+              <Box display='flex' alignItems='center'>
+                <BsCardList size={20} style={{ margin: '0 1em' }} />
+                <ListItemText primary='Manage Appointments' />
+              </Box>
             </StyledLink>
           </ListItem>
           <ListItem button>
             <StyledLink to='/admin/unverified'>
-              <ListItemText primary='Unverified' />
+              <Box display='flex' alignItems='center'>
+                <FaDownload size={20} style={{ margin: '0 1em' }} />
+                <ListItemText primary='Unverified Doctors' />
+              </Box>
             </StyledLink>
           </ListItem>
         </List>
         <Divider />
-      </Drawer>
+      </div>
     </div>
   );
 };
