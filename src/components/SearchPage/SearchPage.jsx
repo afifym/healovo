@@ -51,20 +51,32 @@ const SearchPage = () => {
   const [doctorsFilter, setDoctorsFilter] = useState(doctors);
   const [filterSettings, setFilterSettings] = useState(defaultFilterSetting);
 
-  const handleCheckBoxChange = (event, idx, propsfilterName) => {
+  const handleCheckBoxChange = (event, idx, filterName) => {
     const filterSettingCopy = JSON.parse(JSON.stringify(filterSettings));
-    filterSettingCopy[idx]["filterData"] = {
-      ...filterSettingCopy[idx]["filterData"],
-      [event.target.name]: event.target.checked,
-    };
-    console.log(filterSettingCopy[idx]);
+
+    if (event.target.name != "any") {
+      filterSettingCopy[idx]["filterData"] = {
+        ...filterSettingCopy[idx]["filterData"],
+        [event.target.name]: event.target.checked,
+        any: false,
+      };
+    } else if (event.target.name == "any") {
+      for (const mohand in filterSettingCopy[idx]["filterData"]) {
+        filterSettingCopy[idx]["filterData"][mohand] = false;
+      }
+      filterSettingCopy[idx]["filterData"] = {
+        ...filterSettingCopy[idx]["filterData"],
+        [event.target.name]: event.target.checked,
+        any: true,
+      };
+    } else {
+      filterSettingCopy[idx]["filterData"] = {
+        ...filterSettingCopy[idx]["filterData"],
+        [event.target.name]: event.target.checked,
+      };
+    }
+
     setFilterSettings(filterSettingCopy);
-    console.log("filterSettingCopy", filterSettingCopy);
-    console.log("filterSettings", filterSettings);
-    console.log(
-      'filterSettings[idx]["filterData"]`]',
-      filterSettings[idx]["filterData"]
-    );
 
     /*
 
