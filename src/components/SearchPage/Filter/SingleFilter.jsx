@@ -20,20 +20,19 @@ const FilterNameStyle = {
   fontWeight: "700 ",
 };
 
-const SingleFilter = ({ SingleFilter, filterSettings, idx }) => {
+const SingleFilter = ({
+  SingleFilter,
+  filterSettings,
+  idx,
+  onCheckBoxChange,
+}) => {
   const { filterName, filterData } = SingleFilter;
 
   const UI = (data) => {
     const ulList = [];
-    let counter = 0;
-    console.log();
+
     for (const singleFilter in data) {
       //  'filterSettings[counter++]["filterData"][singleFilter]',
-      console.log("singleFilter", singleFilter);
-      console.log(
-        "filterSettings[counter++]",
-        filterSettings[idx]["filterData"][`${singleFilter}`]
-      );
 
       ulList.push(
         <FormControlLabel
@@ -41,6 +40,8 @@ const SingleFilter = ({ SingleFilter, filterSettings, idx }) => {
             <Checkbox
               checked={filterSettings[idx]["filterData"][`${singleFilter}`]}
               color="primary"
+              name={singleFilter}
+              onChange={(e) => onCheckBoxChange(e, idx, filterName)}
             />
           }
           label={data[singleFilter]}

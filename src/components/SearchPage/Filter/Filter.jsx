@@ -62,7 +62,7 @@ const Filters = [
   },
 ];
 
-const Filter = ({ filterSettings }) => {
+const Filter = ({ filterSettings, onCheckBoxChange }) => {
   return (
     <FilterWraper>
       <FilterHeader>
@@ -85,6 +85,7 @@ const Filter = ({ filterSettings }) => {
               idx={idx}
               SingleFilter={Filter}
               filterSettings={filterSettings}
+              onCheckBoxChange={onCheckBoxChange}
             />
           );
         })}

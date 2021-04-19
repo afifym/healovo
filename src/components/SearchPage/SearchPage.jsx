@@ -51,6 +51,56 @@ const SearchPage = () => {
   const [doctorsFilter, setDoctorsFilter] = useState(doctors);
   const [filterSettings, setFilterSettings] = useState(defaultFilterSetting);
 
+  const handleCheckBoxChange = (event, idx, propsfilterName) => {
+    const filterSettingCopy = JSON.parse(JSON.stringify(filterSettings));
+    filterSettingCopy[idx]["filterData"] = {
+      ...filterSettingCopy[idx]["filterData"],
+      [event.target.name]: event.target.checked,
+    };
+    console.log(filterSettingCopy[idx]);
+    setFilterSettings(filterSettingCopy);
+    console.log("filterSettingCopy", filterSettingCopy);
+    console.log("filterSettings", filterSettings);
+    console.log(
+      'filterSettings[idx]["filterData"]`]',
+      filterSettings[idx]["filterData"]
+    );
+
+    /*
+
+
+    
+    
+      setFilterSettings({
+      ...filterSettings,
+      [filterSettings[idx]["filterData"][`${event.target.name}`]]:
+        event.target.checked,
+    }); */
+    //event.target.checked
+    /*
+    console.log("idx", idx);
+    const like = [
+      ...filterSettings,
+      {
+        filterName: propsfilterName,
+        filterData: {
+          ...filterSettings[idx]["filterData"],
+        },
+      },
+    ];
+    console.log("like", like);
+    setFilterSettings(like);
+    
+    */
+  };
+  /*
+    const handleCheckBoxChange = (event,idx, singleFilter, event) => {
+    setFilterSettings({
+      ...state,
+      [filterSettings[idx]["filterData"][`${event.target.name}`]]: checked,
+    });
+  };
+   */
   return (
     <div style={{ background: "#F1F2F4" }}>
       <Container style={{ padding: "100px 0 50px 0" }}>
@@ -60,7 +110,10 @@ const SearchPage = () => {
           <Hidden smDown>
             <Grid item md={3}>
               <Box pr={5}>
-                <Filter filterSettings={filterSettings} />
+                <Filter
+                  filterSettings={filterSettings}
+                  onCheckBoxChange={handleCheckBoxChange}
+                />
               </Box>
             </Grid>
           </Hidden>

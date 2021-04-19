@@ -20,8 +20,7 @@ import { useState } from "react";
 import AvailableTimeLine from "./AvailableTimeLine";
 import Paper from "@material-ui/core/Paper";
 import Hidden from "@material-ui/core/Hidden";
-import DoctorRating from '../DoctorRating'
-
+import DoctorRating from "../DoctorRating";
 
 const CustomePaper = styled(Paper)`
   background: #ffffff;
@@ -111,21 +110,9 @@ const SearchCard = ({ Doctor }) => {
     reservationDates,
     price,
   } = Doctor;
-  console.log(
-    id,
-    image,
-    name,
-    degree,
-    location,
-    specialty,
-    rate,
-    communicationMethods,
-    reservationDates,
-    price
-  );
+
   return (
     <CustomePaper>
-    
       <SearchCardWraperGrid container>
         <SearchHeaderGrid
           item
