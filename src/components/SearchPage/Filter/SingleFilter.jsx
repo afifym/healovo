@@ -17,9 +17,7 @@ const HorizontalLine = styled.div`
 
 const SingleFilter = ({ SingleFilter }) => {
   const { filterName, filterData } = SingleFilter;
-  const CheckboxBg = {
-    background: "#fff !important",
-  };
+
 
   const FilterNameStyle = {
     fontWeight: "700 ",
@@ -35,7 +33,7 @@ const SingleFilter = ({ SingleFilter }) => {
           <FormControlLabel
             key={idx}
             control={
-              <Checkbox name={singleF} style={CheckboxBg} color="primary" />
+              <Checkbox name={singleF} color="primary" />
             }
             label={singleF}
           />

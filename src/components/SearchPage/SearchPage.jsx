@@ -12,9 +12,26 @@ import { useState } from "react";
 import { DoctorsData } from "../../DoctorsData";
 import SearchResultHeader from "./SearchResultHeader";
 
+const defaultFilterSetting =[
+  { filterName: "Location", filterData: ["Any"] },
+
+  { filterName: "Gender", filterData:"Any" },
+
+  {filterName: "Rating", filterData: ['Any']},
+
+  { filterName: "Price", filterData: ["Any"]},
+
+ 
+  ]
+
 const SearchPage = () => {
   console.log("Doctors", DoctorsData);
-  const [Doctors, setDoctors] = useState(DoctorsData);
+  const [doctors, setdoctors] = useState(DoctorsData);
+  const [doctorsFilter , setDoctorsFilter] = useState()
+  const [filterSttings,setFilterSttings] = useState(defaultFilterSetting)
+
+
+  
   return (
     <div style={{ background: "#F1F2F4" }}>
       <Container style={{ padding: "100px 0 50px 0" }}>
@@ -30,9 +47,9 @@ const SearchPage = () => {
           </Hidden>
 
           <Grid item xs={12} md={9}>
-            <SearchResultHeader searchResultNumber={Doctors.length} />
-            {Doctors.map((Doctor, idx) => (
-              <SearchCard key={idx} Doctor={Doctor} />
+            <SearchResultHeader searchResultNumber={doctors.length} />
+            {doctors.map((doctor, idx) => (
+              <SearchCard key={idx} Doctor={doctor} />
             ))}
 
             <PaginationSearch />
