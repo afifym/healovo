@@ -55,17 +55,18 @@ const SearchBar = () => {
         return <CustomeSearchInput />;
       case "specialty":
         return (
-          <CustomeSelectInput
-            SelectIconName={FaCity}
+         
+           <CustomeSelectInput
+            SelectIconName={FaUserMd}
             selectData={["mohand", "mostafa", "abadlabary"]}
           />
         );
       case "city":
         return (
-          <CustomeSelectInput
-            SelectIconName={FaUserMd}
+           <CustomeSelectInput
+            SelectIconName={FaCity}
             selectData={["mohand", "mostafa", "abadlabary"]}
-          />
+          /> 
         );
     }
   };
@@ -79,7 +80,6 @@ const SearchBar = () => {
         <SearchTabBtn
           onClick={() => setSearchBy("name")}
           style={searchBy == "name" ? activeBtn : {}}
-          name="name"
         >
           Name
         </SearchTabBtn>
@@ -92,7 +92,6 @@ const SearchBar = () => {
         <SearchTabBtn
           style={searchBy == "city" ? activeBtn : {}}
           onClick={() => setSearchBy("city")}
-          name="City"
         >
           City
         </SearchTabBtn>

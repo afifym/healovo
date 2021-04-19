@@ -31,8 +31,9 @@ const SingleFilter = ({ SingleFilter }) => {
         {filterName}
       </Typography>
       <CheckBoxWraper>
-        {filterData.map((singleF) => (
+        {filterData.map((singleF, idx) => (
           <FormControlLabel
+            key={idx}
             control={
               <Checkbox name={singleF} style={CheckboxBg} color="primary" />
             }

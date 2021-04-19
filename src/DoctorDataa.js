@@ -1,4 +1,5 @@
 
+
 export const DoctorsData = [
   {
     id: 1,
@@ -36,7 +37,7 @@ export const DoctorsData = [
     degree: "Masters in Ophthalmologist",
     image: "doctorAvtar.png",
     specialty: "Ophthalmologist",
-    rate: "4",
+    rate: "2",
     location: "Tanta Egypt",
     communicationMethods: { clinic: true, home: false, video: true },
     reservationDates: [
@@ -66,7 +67,7 @@ export const DoctorsData = [
     degree: "Masters in medicine",
     image: "doctorAvtar.png",
     specialty: "Respiratory Specialist",
-    rate: "3",
+    rate: "2",
     location: "cario Egypt",
     communicationMethods: { clinic: true, home: true, video: true },
     reservationDates: [

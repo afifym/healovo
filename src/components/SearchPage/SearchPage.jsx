@@ -4,7 +4,7 @@ import SearchBar from "./SearchBar";
 import Container from "@material-ui/core/Container";
 import Hidden from "@material-ui/core/Hidden";
 
-import SearchCard from "../SearchCard/SearchCard";
+import SearchCard from "./SearchCard/SearchCard";
 import PaginationSearch from "./PaginationSearch";
 
 import DrawerFilter from "./Filter/DrawerFilter";
@@ -14,10 +14,10 @@ import SearchResultHeader from "./SearchResultHeader";
 
 const SearchPage = () => {
   console.log("Doctors", DoctorsData);
-  const [Doctors, useDoctors] = useState(DoctorsData);
+  const [Doctors, setDoctors] = useState(DoctorsData);
   return (
     <div style={{ background: "#F1F2F4" }}>
-      <Container Container style={{ padding: "100px 0 50px 0" }}>
+      <Container style={{ padding: "100px 0 50px 0" }}>
         <SearchBar />
 
         <Grid container>
@@ -31,8 +31,8 @@ const SearchPage = () => {
 
           <Grid item xs={12} md={9}>
             <SearchResultHeader searchResultNumber={Doctors.length} />
-            {Doctors.map((Doctor) => (
-              <SearchCard Doctor={Doctor} />
+            {Doctors.map((Doctor, idx) => (
+              <SearchCard key={idx} Doctor={Doctor} />
             ))}
 
             <PaginationSearch />

@@ -28,7 +28,6 @@ const Filter = () => {
     {
       filterName: "Rating",
       filterData: [
-        <DoctorRating RatingVal={1} />,
         <DoctorRating RatingVal={2} />,
         <DoctorRating RatingVal={3} />,
         <DoctorRating RatingVal={4} />,
@@ -59,8 +58,8 @@ const Filter = () => {
         <Button>Clear All</Button>
       </FilterHeader>
       <FilterBody>
-        {Filters.map((Filter) => (
-          <SingleFilter SingleFilter={Filter} />
+        {Filters.map((Filter, idx) => (
+          <SingleFilter key={idx} SingleFilter={Filter} />
         ))}
       </FilterBody>
     </FilterWraper>

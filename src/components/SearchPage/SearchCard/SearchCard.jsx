@@ -15,12 +15,13 @@ import { ImHome } from "react-icons/im";
 import { FaSearch } from "react-icons/fa";
 
 import { IoLocationSharp } from "react-icons/io5";
-import GradientButton from "./../shared/GradientButton/GradientButton";
+import GradientButton from "./../../shared/GradientButton/GradientButton";
 import { useState } from "react";
 import AvailableTimeLine from "./AvailableTimeLine";
 import Paper from "@material-ui/core/Paper";
 import Hidden from "@material-ui/core/Hidden";
-import DoctorRating from "../SearchPage/DoctorRating";
+import DoctorRating from '../DoctorRating'
+
 
 const CustomePaper = styled(Paper)`
   background: #ffffff;
@@ -96,33 +97,35 @@ const singleInfoStyle = {
 const SingletDoctorCon = { paddingLeft: "7.5px", fontSize: 16 };
 
 const IconeColor = { color: "#2D50EF" };
+
 const SearchCard = ({ Doctor }) => {
   const {
     id,
-    avtarImg,
+    image,
     name,
     degree,
     location,
-    Specialty,
+    specialty,
     rate,
-    CommunicationMethods,
-    ReservationDates,
+    communicationMethods,
+    reservationDates,
     price,
   } = Doctor;
   console.log(
     id,
-    avtarImg,
+    image,
     name,
     degree,
     location,
-    Specialty,
+    specialty,
     rate,
-    CommunicationMethods,
-    ReservationDates,
+    communicationMethods,
+    reservationDates,
     price
   );
   return (
     <CustomePaper>
+    
       <SearchCardWraperGrid container>
         <SearchHeaderGrid
           item
@@ -133,7 +136,7 @@ const SearchCard = ({ Doctor }) => {
           alignItems="flex-start"
         >
           <ImgWraper>
-            <img src={avtarImg} alt="" />
+            <img src={image} alt="" />
           </ImgWraper>
         </SearchHeaderGrid>
 
@@ -145,13 +148,9 @@ const SearchCard = ({ Doctor }) => {
           >
             <Box>
               <Typography variant="h5" gutterBottom>
-                {` Dr. ${name.firstName} ${name.lastName}`}
+                {` Dr. ${name.first} ${name.last}`}
               </Typography>
-              <Typography
-                variant="span"
-                component="p"
-                style={{ paddingBottom: 7 }}
-              >
+              <Typography component="p" style={{ paddingBottom: 7 }}>
                 {`${degree}`}
               </Typography>
 
@@ -171,15 +170,15 @@ const SearchCard = ({ Doctor }) => {
             <Grid item md={6}>
               <SingleInfo>
                 <FaBriefcaseMedical size={17} style={{ color: "#2D50EF" }} />
-                <Typography variant="p" component="p" style={singleInfoStyle}>
-                  {`${Specialty}`}
+                <Typography component="p" style={singleInfoStyle}>
+                  {`${specialty}`}
                 </Typography>
               </SingleInfo>
 
               <SingleInfo>
                 <IoLocationSharp size={17} style={{ color: "#2D50EF" }} />
-                <Typography variant="p" component="p" style={singleInfoStyle}>
-                  {`${location.Governorate}, ${location.Country}`}
+                <Typography component="p" style={singleInfoStyle}>
+                  {location}
                 </Typography>
               </SingleInfo>
 
@@ -188,15 +187,11 @@ const SearchCard = ({ Doctor }) => {
                   <BiClinic
                     size={17}
                     style={{
-                      color: CommunicationMethods.clinc ? "#2D50EF" : "gray",
+                      color: communicationMethods.clinic ? "#2D50EF" : "gray",
                     }}
                   />
-                  <Typography
-                    variant="span"
-                    component="span"
-                    style={SingletDoctorCon}
-                  >
-                    Clinc
+                  <Typography component="span" style={SingletDoctorCon}>
+                    clinic
                   </Typography>
                 </ContactDoctor>
 
@@ -204,14 +199,10 @@ const SearchCard = ({ Doctor }) => {
                   <ImHome
                     size={15}
                     style={{
-                      color: CommunicationMethods.home ? "#2D50EF" : "gray",
+                      color: communicationMethods.home ? "#2D50EF" : "gray",
                     }}
                   />
-                  <Typography
-                    variant="span"
-                    component="span"
-                    style={SingletDoctorCon}
-                  >
+                  <Typography component="span" style={SingletDoctorCon}>
                     Home
                   </Typography>
                 </ContactDoctor>
@@ -220,14 +211,10 @@ const SearchCard = ({ Doctor }) => {
                   <BsFillCameraVideoFill
                     size={16}
                     style={{
-                      color: CommunicationMethods.video ? "#2D50EF" : "gray",
+                      color: communicationMethods.video ? "#2D50EF" : "gray",
                     }}
                   />
-                  <Typography
-                    variant="span"
-                    component="span"
-                    style={SingletDoctorCon}
-                  >
+                  <Typography component="span" style={SingletDoctorCon}>
                     Vedio
                   </Typography>
                 </ContactDoctor>
@@ -236,7 +223,7 @@ const SearchCard = ({ Doctor }) => {
 
             <Grid item md={6}>
               <Hidden xsDown>
-                <AvailableTimeLine ReservationDates={ReservationDates} />
+                <AvailableTimeLine reservationDates={reservationDates} />
               </Hidden>
             </Grid>
           </SearchBody__bodyGrid>
@@ -256,8 +243,8 @@ const SearchCard = ({ Doctor }) => {
             <Grid item sm={6}>
               <GradientButton
                 width="150px"
-                lightCircle
-                blueBg
+                lightCircle={true}
+                blueBg={true}
                 style={{ padding: "5px 22px !important" }}
                 icon={<FaSearch color="#hsl(229, 86%, 56%)" size={12} />}
               >

@@ -5,8 +5,9 @@ import { Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 
 const DoctorRating = ({ RatingVal }) => {
-  const [value, setValue] = useState(RatingVal);
 
+  const [value, setValue] = useState(parseInt(RatingVal));
+  
   return (
     <div>
       <Box component="fieldset" borderColor="transparent">

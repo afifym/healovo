@@ -69,8 +69,8 @@ const CustomeSelectInput = ({ SelectIconName, selectData }) => {
         <SelectIconName color={"#2D50EF"} />
       </label>
       <select>
-        {selectData.map((option) => (
-          <option>{option}</option>
+        {selectData.map((option, idx) => (
+          <option key={idx}>{option}</option>
         ))}
       </select>
       <label className="arrowIcon" htmlFor="">

@@ -56,9 +56,7 @@ const SearchResultHeader = ({ searchResultNumber }) => {
           {searchResultNumber} result
         </Typography>
         <SortBox component="div">
-          <Typography variant="span" component="span">
-            Sort By
-          </Typography>
+          <Typography component="span">Sort By</Typography>
           <FormControl variant="outlined">
             <InputLabel id="demo-simple-select-outlined-label">Age</InputLabel>
             <CustomeSelect

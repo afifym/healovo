@@ -40,7 +40,6 @@ const PaginationSearch = () => {
   return (
     <CustomePagination className={classes.root}>
       <Pagination
-        style={{ "MuiPagination-ul": "0 auto !important " }}
         count={10}
         variant="outlined"
         boundaryCount={1}

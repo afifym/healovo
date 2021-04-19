@@ -16,15 +16,15 @@ const ListStyle = {
 
 const SpanStyle = { paddingRight: 15, width: 55 };
 
-const AvailableTimeLine = ({ ReservationDates }) => {
+const AvailableTimeLine = ({ reservationDates }) => {
   return (
     <List style={ListStyle}>
-      {ReservationDates.map((singleReserv) => (
-        <CustomeListItem>
+      {reservationDates.map((singleReserv, idx) => (
+        <CustomeListItem key={idx}>
           <Typography style={SpanStyle} compotent="span">
             {singleReserv.day}
           </Typography>
-          {singleReserv.availablePeriod}
+          {singleReserv.period}
         </CustomeListItem>
       ))}
     </List>
