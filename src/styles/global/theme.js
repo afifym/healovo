@@ -45,8 +45,8 @@ export const muiTheme = createMuiTheme({
     MuiButton: {
       root: {
         fontWeight: 'bold',
-        background: styledTheme.gradients.gradient3,
-        color: styledTheme.colors.dark1,
+        // background: styledTheme.gradients.gradient3,
+        // color: styledTheme.colors.dark1,
         fontFamily: styledTheme.fonts.main,
         textTransform: 'capitalize',
         transition: 'all 0.1s ease',
