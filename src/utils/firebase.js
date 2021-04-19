@@ -10,25 +10,35 @@ const firebaseConfig = {
   appId: '1:142171972024:web:09b72a0fc03c5f9bb9ef4d',
   measurementId: 'G-NZEYQQLWJW',
 };
-firebase.initlializeApp(firebaseConfig);
+
+// useEffect(async () => {
+//   try {
+//     const data = await fetchPatients();
+//   } catch (error) {
+//     console.log('error');
+//   }
+// }, []);
+
+firebase.initializeApp(firebaseConfig);
 
 export const developmentAPI = 'https://healovo-default-rtdb.firebaseio.com';
 export const api = 'https://healovo-default-rtdb.firebaseio.com';
 
-// const jsonToArray = (data) => {
-//   const userData = Object.keys(data).map((key) => {
-//     return { ...data[key], id: key };
-//   });
-//   return userData;
-// };
+export const jsonToArray = (data) => {
+  const userData = Object.keys(data).map((key) => {
+    return { ...data[key], id: key.toString() };
+  });
+  return userData;
+};
 
 export const fetchPatients = async () => {
   const response = await axios.get(api + '/patients.json');
-  return response;
+  return jsonToArray(response.data);
 };
+
 export const fetchOnePatient = async (id) => {
   const response = await axios.get(api + `/patients/${id}.json`);
-  return response;
+  return jsonToArray(response.data);
 };
 export const addPatient = async (data) => {
   const response = await axios.post(api + '/patients.json', data);
@@ -41,11 +51,11 @@ export const deletePatient = async (id) => {
 
 export const fetchDoctors = async () => {
   const response = await axios.get(api + '/doctors.json');
-  return response;
+  return jsonToArray(response.data);
 };
 export const fetchOneDoctor = async (id) => {
   const response = await axios.get(api + `/doctors/${id}.json`);
-  return response;
+  return jsonToArray(response.data);
 };
 export const addDoctor = async (data) => {
   const response = await axios.post(api + '/doctors.json', data);
@@ -57,3 +67,12 @@ export const deleteDoctor = async (id) => {
 };
 
 export default firebase;
+
+// appointments = {
+//   id: 'firebase',
+//   patientID: 'id',
+//   doctorID: 'id',
+//   type: 'clinic',
+//   date: '11-11-2011',
+//   time: '1:00 pm to 2:00 pm',
+// };
