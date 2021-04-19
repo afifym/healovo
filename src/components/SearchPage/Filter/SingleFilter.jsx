@@ -37,7 +37,12 @@ const SingleFilter = ({ SingleFilter, filterSettings, idx }) => {
 
       ulList.push(
         <FormControlLabel
-          control={<Checkbox color="primary" />}
+          control={
+            <Checkbox
+              checked={filterSettings[idx]["filterData"][`${singleFilter}`]}
+              color="primary"
+            />
+          }
           label={data[singleFilter]}
         />
       );
