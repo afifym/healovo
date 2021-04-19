@@ -27,7 +27,7 @@ const defaultFilterSetting =[
 const SearchPage = () => {
   console.log("Doctors", DoctorsData);
   const [doctors, setdoctors] = useState(DoctorsData);
-  const [doctorsFilter , setDoctorsFilter] = useState()
+  const [doctorsFilter , setDoctorsFilter] = useState(doctors)
   const [filterSttings,setFilterSttings] = useState(defaultFilterSetting)
 
 
@@ -41,14 +41,14 @@ const SearchPage = () => {
           <Hidden smDown>
             <Grid item md={3}>
               <Box pr={5}>
-                <Filter />
+                <Filter filterSttings />
               </Box>
             </Grid>
           </Hidden>
 
           <Grid item xs={12} md={9}>
-            <SearchResultHeader searchResultNumber={doctors.length} />
-            {doctors.map((doctor, idx) => (
+            <SearchResultHeader searchResultNumber={doctorsFilter.length} />
+            {doctorsFilter.map((doctor, idx) => (
               <SearchCard key={idx} Doctor={doctor} />
             ))}
 

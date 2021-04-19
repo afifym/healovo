@@ -23,12 +23,12 @@ const FilterBody = styled.div`
 
 const Filter = () => {
   const Filters = [
-    { filterName: "Communicate via", filterData: ["Any", "Video", "Home", "Clinic"] },
+    { filterName: "Location", filterData: ["Any", "Video", "Home", "Clinic"] },
     { filterName: "Gender", filterData: ["Any", "Male", "Female"] },
     {
       filterName: "Rating",
       filterData: [
-           'Any' ,
+        "Any",
         <DoctorRating RatingVal={2} />,
         <DoctorRating RatingVal={3} />,
         <DoctorRating RatingVal={4} />,
