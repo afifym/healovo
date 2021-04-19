@@ -15,6 +15,13 @@ firebase.initlializeApp(firebaseConfig);
 export const developmentAPI = 'https://healovo-default-rtdb.firebaseio.com';
 export const api = 'https://healovo-default-rtdb.firebaseio.com';
 
+// const jsonToArray = (data) => {
+//   const userData = Object.keys(data).map((key) => {
+//     return { ...data[key], id: key };
+//   });
+//   return userData;
+// };
+
 export const fetchPatients = async () => {
   const response = await axios.get(api + '/patients.json');
   return response;
