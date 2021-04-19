@@ -1,5 +1,3 @@
-
-
 export const DoctorsData = [
   {
     id: 1,
@@ -90,5 +88,101 @@ export const DoctorsData = [
     global disability.`,
     type: "doctor",
     joinDate: "13-05-1997",
+  },
+];
+
+const defaultFilterSetting = [
+  {
+    filterName: "Location",
+    filterData: [
+      { Any: true },
+      { Video: false },
+      { Home: false },
+      { Clinic: false },
+    ],
+  },
+  {
+    filterName: "Rating",
+    filterData: [
+      { Any: true },
+      { 2: false },
+      { 3: false },
+      { 4: false },
+      { 5: false },
+    ],
+  },
+  {
+    filterName: "Gender",
+    filterData: [{ Any: true }, { Male: false }, { Female: false }],
+  },
+  {
+    filterName: "Price",
+    filterData: [
+      { Any: true },
+      { "Less than $30": false },
+      { "$30-$50": false },
+      { "More than $50": false },
+    ],
+  },
+  {
+    filterName: "open now",
+    filterData: [{ "open now": false }],
+  },
+];
+
+const defaultFilterSetting = [
+  {
+    filterName: "Location",
+    filterData: ["Any", "Video", "Home", "Clinic"],
+  },
+  {
+    filterName: "Rating",
+    filterData: ["Any", "2", "3", "4", "5"],
+  },
+  {
+    filterName: "Gender",
+    filterData: ["Any", "Male", "Female"],
+  },
+  {
+    filterName: "Price",
+    filterData: ["Any", "Less than $30", "$30-$50", "More than $50"],
+  },
+  {
+    filterName: "open now",
+    filterData: ["open now"],
+  },
+];
+
+const defaultFilterSetting = [
+  {
+    filterName: "Location",
+    filterData: {
+      any: true,
+      video: false,
+      home: false,
+      clinic: false,
+    },
+  },
+
+  {
+    filterName: "Gender",
+    filterData: { any: true, male: false, female: false },
+  },
+  {
+    filterName: "Rating",
+    filterData: { any: true, 2: false, 3: false, 4: false, 5: false },
+  },
+  {
+    filterName: "Price",
+    filterData: {
+      any: true,
+      "Less than $30": false,
+      "$30-$50": false,
+      "More than $50": false,
+    },
+  },
+  {
+    filterName: "open now",
+    filterData: { "open now": false },
   },
 ];

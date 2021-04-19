@@ -21,29 +21,48 @@ const FilterBody = styled.div`
   padding-top: 20px;
 `;
 
-const Filter = () => {
-  const Filters = [
-    { filterName: "Location", filterData: ["Any", "Video", "Home", "Clinic"] },
-    { filterName: "Gender", filterData: ["Any", "Male", "Female"] },
-    {
-      filterName: "Rating",
-      filterData: [
-        "Any",
-        <DoctorRating RatingVal={2} />,
-        <DoctorRating RatingVal={3} />,
-        <DoctorRating RatingVal={4} />,
-        <DoctorRating RatingVal={5} />,
-      ],
+const Filters = [
+  {
+    filterName: "Location",
+    filterData: {
+      any: "Any",
+      video: "Video",
+      home: "Home",
+      clinic: "Clinic",
     },
-    {
-      filterName: "Price",
-      filterData: ["Any", "Less than $30", "$30-$50", "Movre than $50"],
+  },
+  {
+    filterName: "Gender",
+
+    filterData: { any: "Any", male: "Male", female: "Female" },
+  },
+  {
+    filterName: "Rating",
+    filterData: {
+      any: "Any",
+      2: <DoctorRating RatingVal={2} />,
+      3: <DoctorRating RatingVal={3} />,
+      4: <DoctorRating RatingVal={4} />,
+      5: <DoctorRating RatingVal={5} />,
     },
-    {
-      filterName: "open now",
-      filterData: ["open now"],
+  },
+  {
+    filterName: "Price",
+    filterUiData: ["Any", "Less than $30", "$30-$50", "Movre than $50"],
+    filterData: {
+      any: "Any",
+      "Less than $30": "Less than $30",
+      "$30-$50": "$30-$50",
+      "More than $50": "More than $50",
     },
-  ];
+  },
+  {
+    filterName: "open now",
+    filterData: { "open now": "open now" },
+  },
+];
+
+const Filter = ({ filterSettings }) => {
   return (
     <FilterWraper>
       <FilterHeader>
@@ -59,9 +78,16 @@ const Filter = () => {
         <Button>Clear All</Button>
       </FilterHeader>
       <FilterBody>
-        {Filters.map((Filter, idx) => (
-          <SingleFilter key={idx} SingleFilter={Filter} />
-        ))}
+        {Filters.map((Filter, idx) => {
+          return (
+            <SingleFilter
+              key={idx}
+              idx={idx}
+              SingleFilter={Filter}
+              filterSettings={filterSettings}
+            />
+          );
+        })}
       </FilterBody>
     </FilterWraper>
   );

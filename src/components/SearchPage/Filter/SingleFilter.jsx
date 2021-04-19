@@ -20,44 +20,39 @@ const FilterNameStyle = {
   fontWeight: "700 ",
 };
 
-const SingleFilter = ({ SingleFilter }) => {
+const SingleFilter = ({ SingleFilter, filterSettings, idx }) => {
   const { filterName, filterData } = SingleFilter;
 
-  const list = {};
-  for (let i = 0; i < filterData.length; i++) {
-    list[filterData[i]] = false;
-  }
+  const UI = (data) => {
+    const ulList = [];
+    let counter = 0;
+    console.log();
+    for (const singleFilter in data) {
+      //  'filterSettings[counter++]["filterData"][singleFilter]',
+      console.log("singleFilter", singleFilter);
+      console.log(
+        "filterSettings[counter++]",
+        filterSettings[idx]["filterData"][`${singleFilter}`]
+      );
 
-  const [checkedList, setCheckedList] = useState(list);
-  console.log("checkedList", checkedList);
+      ulList.push(
+        <FormControlLabel
+          control={<Checkbox color="primary" />}
+          label={data[singleFilter]}
+        />
+      );
+    }
 
-  const handleChange = (event) => {
-    setCheckedList({
-      ...checkedList,
-      [event.target.name]: event.target.checked,
-    });
-    console.log("event", event.target.checked);
+    return ulList;
   };
+
   return (
     <>
       <Typography variant="h6" style={FilterNameStyle} gutterBottom>
         {filterName}
       </Typography>
       <CheckBoxWraper>
-        {filterData.map((singleF, idx) => (
-          <FormControlLabel
-            key={idx}
-            control={
-              <Checkbox
-                onChange={handleChange}
-                name={singleF}
-                color="primary"
-              />
-            }
-            label={singleF}
-          />
-        ))}
-
+        {UI(filterData)}
         <HorizontalLine />
       </CheckBoxWraper>
     </>
