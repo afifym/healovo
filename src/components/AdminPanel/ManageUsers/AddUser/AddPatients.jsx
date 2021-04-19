@@ -14,13 +14,21 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { addPatient } from '../../../../utils/firebase';
 
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+
+import {
+  deleteDoctor,
+  deletePatient,
+  fetchPatients,
+  fetchDoctors,
+  jsonToArray,
+} from '../../../../utils/firebase';
 
 function Alert(props) {
   return (
@@ -61,6 +69,10 @@ const AddUser = ({ fetch, setFetch }) => {
   const [status, setStatus] = useState('none');
   const [formData, setFormData] = useState(initialState);
   const [medicationData, setMedicationData] = useState(medicationInitialState);
+
+  useEffect(async () => {
+    const json = await fetchPatients();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
