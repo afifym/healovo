@@ -11,10 +11,12 @@ import DrawerFilter from "./Filter/DrawerFilter";
 import { useState } from "react";
 import { DoctorsData } from "../../DoctorsData";
 import SearchResultHeader from "./SearchResultHeader";
+import { useEffect } from "react";
 
 const defaultFilterSetting = [
   {
     filterName: "Location",
+    filterNameDB: "communicationMethods",
     filterData: {
       any: true,
       video: false,
@@ -25,14 +27,17 @@ const defaultFilterSetting = [
 
   {
     filterName: "Gender",
+    filterNameDB: "gender",
     filterData: { any: true, male: false, female: false },
   },
   {
     filterName: "Rating",
+    filterNameDB: "rate",
     filterData: { any: true, 2: false, 3: false, 4: false, 5: false },
   },
   {
     filterName: "Price",
+    filterNameDB: "price",
     filterData: {
       any: true,
       "Less than $30": false,
@@ -42,16 +47,72 @@ const defaultFilterSetting = [
   },
   {
     filterName: "open now",
+    filterNameDB: "open now",
     filterData: { "open now": false },
   },
 ];
 
+let schena = {
+  rate: "2",
+
+  communicationMethods: { clinic: true, home: true, video: true },
+
+  gender: "male",
+
+  price: 35,
+};
+/*
+const hand = () => {
+  defaultFilterSetting.map((singleFilter)=>{
+   
+
+    for(let item in singleFilter.filterData ){
+      if(singleFilter.filterData[item] == true){
+
+      } 
+    }
+  })
+};
+
+const handl = (){
+  switch(title){
+    case 'Location':
+
+    case 'Gender':
+
+      case 'Rating':
+
+        case 'Price':
+
+          case 'open now':
+  }
+}
+
+const handlB = (filter)=>{
+  const doctorsCopy = JSON.parse(JSON.stringify(doctors));
+  const realFilter ;
+  switch(filter){
+
+    case 'rate' :
+    
+    case 'gender':
+      case 'price' :
+        case 'communicationMethods' :
+
+  }
+    
+      doctorsCopy.map((doctor)=>{
+       doctor[realFilter] ==
+      })
+}
+
+*/
 const SearchPage = () => {
   const [doctors, setdoctors] = useState(DoctorsData);
   const [doctorsFilter, setDoctorsFilter] = useState(doctors);
   const [filterSettings, setFilterSettings] = useState(defaultFilterSetting);
 
-  const handleCheckBoxChange = (event, idx, filterName) => {
+  const handleCheckBoxChange = (event, idx) => {
     const filterSettingCopy = JSON.parse(JSON.stringify(filterSettings));
 
     if (event.target.name != "any") {
@@ -61,8 +122,8 @@ const SearchPage = () => {
         any: false,
       };
     } else if (event.target.name == "any") {
-      for (const mohand in filterSettingCopy[idx]["filterData"]) {
-        filterSettingCopy[idx]["filterData"][mohand] = false;
+      for (const item in filterSettingCopy[idx]["filterData"]) {
+        filterSettingCopy[idx]["filterData"][item] = false;
       }
       filterSettingCopy[idx]["filterData"] = {
         ...filterSettingCopy[idx]["filterData"],
@@ -77,42 +138,28 @@ const SearchPage = () => {
     }
 
     setFilterSettings(filterSettingCopy);
-
-    /*
-
-
-    
-    
-      setFilterSettings({
-      ...filterSettings,
-      [filterSettings[idx]["filterData"][`${event.target.name}`]]:
-        event.target.checked,
-    }); */
-    //event.target.checked
-    /*
-    console.log("idx", idx);
-    const like = [
-      ...filterSettings,
-      {
-        filterName: propsfilterName,
-        filterData: {
-          ...filterSettings[idx]["filterData"],
-        },
-      },
-    ];
-    console.log("like", like);
-    setFilterSettings(like);
-    
-    */
   };
-  /*
-    const handleCheckBoxChange = (event,idx, singleFilter, event) => {
-    setFilterSettings({
-      ...state,
-      [filterSettings[idx]["filterData"][`${event.target.name}`]]: checked,
+  const generalfun = () => {
+    filterSettings.map((filter) => {
+      const dFS = filter.filterNameDB;
+      const fData = filter.filterData;
+      const filterDoctorResult = [];
+      if (dFS == "gender" || dFS == "communicationMethods" || dFS == "rate") {
+        for (const filterItem in fData) {
+          if (fData[filterItem] == true) {
+            let x = doctors.filter((doctor) => doctor[dFS] == filterItem);
+            x.length > 0 && filterDoctorResult.push(x);
+            console.log("xxxxxxxx", filterDoctorResult);
+          }
+        }
+      }
     });
   };
-   */
+
+  useEffect(() => {
+    generalfun();
+  }, [handleCheckBoxChange]);
+
   return (
     <div style={{ background: "#F1F2F4" }}>
       <Container style={{ padding: "100px 0 50px 0" }}>
