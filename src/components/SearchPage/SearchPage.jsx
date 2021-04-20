@@ -174,11 +174,17 @@ const SearchPage = () => {
     });
 
     console.log("xxxxxxxx", filterDoctorResult);
+    return filterDoctorResult;
   };
 
   useEffect(() => {
-    generalfun();
-  }, [handleCheckBoxChange]);
+    const reuslt = generalfun();
+    if (reuslt.length == 0) {
+      setDoctorsFilter(doctors);
+    } else {
+      setDoctorsFilter(reuslt);
+    }
+  }, [filterSettings]);
 
   return (
     <div style={{ background: "#F1F2F4" }}>
