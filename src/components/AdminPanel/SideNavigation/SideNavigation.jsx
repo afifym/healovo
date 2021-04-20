@@ -1,24 +1,15 @@
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import clsx from 'clsx';
 import { FiUsers } from 'react-icons/fi';
 import { FaUserNurse } from 'react-icons/fa';
 import { MdDashboard } from 'react-icons/md';
 import { BsCardList } from 'react-icons/bs';
 import { FaDownload } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import {
-  Box,
-  Divider,
-  Drawer,
-  IconButton,
-  List,
-  makeStyles,
-} from '@material-ui/core';
+import { Box, Divider, List } from '@material-ui/core';
 import styled from 'styled-components';
 
-const drawerWidth = 240;
 const StyledLink = styled(Link)`
   font-weight: 700;
   font-size: 1rem;

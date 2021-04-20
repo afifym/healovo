@@ -48,6 +48,10 @@ export const deletePatient = async (id) => {
   const response = await axios.delete(api + `/patients/${id}.json`);
   return response;
 };
+export const updatePatient = async (id, data) => {
+  const response = await axios.put(api + `/patients/${id}.json`, data);
+  return response;
+};
 
 export const fetchDoctors = async () => {
   const response = await axios.get(api + '/doctors.json');
@@ -63,6 +67,26 @@ export const addDoctor = async (data) => {
 };
 export const deleteDoctor = async (id) => {
   const response = await axios.delete(api + `/doctors/${id}.json`);
+  return response;
+};
+export const updateDoctor = async (id, data) => {
+  const response = await axios.put(api + `/doctors/${id}.json`, data);
+  return response;
+};
+
+// ###########################
+// Appointments
+// ###########################
+export const fetchAppointments = async () => {
+  const response = await axios.get(api + '/appointments.json');
+  return jsonToArray(response.data);
+};
+export const addAppointment = async (data) => {
+  const response = await axios.post(api + '/appointments.json', data);
+  return response;
+};
+export const deleteAppointment = async (id) => {
+  const response = await axios.delete(api + `/appointments/${id}.json`);
   return response;
 };
 

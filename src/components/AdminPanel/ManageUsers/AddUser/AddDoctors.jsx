@@ -10,11 +10,24 @@ import {
 import MuiAlert from '@material-ui/lab/Alert';
 import FormControl from '@material-ui/core/FormControl';
 import { useState } from 'react';
-import { addPatient, updatePatient } from '../../../../utils/firebase';
+import { addDoctor, updateDoctor } from '../../../../utils/firebase';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import styled, { css } from 'styled-components';
+
+import Input from '@material-ui/core/Input';
+import Chip from '@material-ui/core/Chip';
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
 const Wrapper = styled.div`
   padding: 1em;
@@ -38,28 +51,22 @@ function Alert(props) {
 
 const initialState = {
   name: { first: '', last: '' },
-  age: '',
+  degree: '',
+  specialty: '',
+  rate: '',
+  price: '',
   image: '',
   email: '',
   password: '',
   gender: '',
   phone: [],
   location: '',
-
-  vitals: {
-    height: '',
-    weight: '',
-    massIndex: '',
-    fat: '',
-    bbi: '',
-  },
-  medications: [],
+  reservationDates: [],
 };
 
-const medicationInitialState = {
-  name: '',
-  type: '',
-  duration: '',
+const reservationDatesInitialState = {
+  day: '',
+  period: '',
 };
 
 const phoneInitialState = '';
@@ -67,8 +74,9 @@ const phoneInitialState = '';
 const AddUser = ({ fetch, setFetch, update, selected }) => {
   const [status, setStatus] = useState('none');
   const [formData, setFormData] = useState(initialState);
-  const [medicationData, setMedicationData] = useState(medicationInitialState);
+  const [reservation, setReservation] = useState(reservationDatesInitialState);
   const [phoneData, setPhoneData] = useState(phoneInitialState);
+  const [methods, setMethods] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,17 +90,20 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
             updateData[key] = formData[key];
         }
 
-        console.log(updateData);
-
         selected.forEach(async (id) => {
-          const response = await updatePatient(id, updateData);
+          const response = await updateDoctor(id, updateData);
           const data = response.data;
         });
       } else {
-        const response = await addPatient({
+        const commMethods = { home: false, clinic: false, video: false };
+        methods.forEach((method) => {
+          commMethods[method] = true;
+        });
+        const response = await addDoctor({
           ...formData,
           joinDate: new Date().toISOString().slice(0, 10),
-          type: 'patient',
+          type: 'doctor',
+          communicationMethods: commMethods,
         });
         const data = response.data;
       }
@@ -107,7 +118,7 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
     }, 3000);
 
     setFormData(initialState);
-    setMedicationData(medicationInitialState);
+    setReservation(reservationDatesInitialState);
     setPhoneData(phoneInitialState);
     setFetch(!fetch);
   };
@@ -122,7 +133,7 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
               color='primary'
               style={{ margin: '0.2em 1em', fontWeight: '700' }}
             >
-              {update ? 'UPDATE PATIENTS' : 'ADD PATIENTS'}
+              {update ? 'UPDATE DOCTORS' : 'ADD DOCTORS'}
             </Typography>
             <Divider />
 
@@ -170,20 +181,62 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
                   }
                 />
                 <TextField
-                  id='age'
-                  label='Age'
+                  id='degree'
+                  label='Degree'
                   style={{ margin: 8 }}
-                  placeholder='Age'
+                  placeholder='Degree'
                   InputLabelProps={{
                     shrink: true,
                   }}
                   variant='outlined'
-                  value={formData.age}
+                  value={formData.degree}
                   onChange={(e) =>
-                    setFormData({ ...formData, age: e.target.value })
+                    setFormData({ ...formData, degree: e.target.value })
+                  }
+                />
+                <TextField
+                  id='specialty'
+                  label='Specialty'
+                  style={{ margin: 8 }}
+                  placeholder='Specialty'
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant='outlined'
+                  value={formData.specialty}
+                  onChange={(e) =>
+                    setFormData({ ...formData, specialty: e.target.value })
                   }
                 />
 
+                <TextField
+                  id='rate'
+                  label='Rate'
+                  style={{ margin: 8 }}
+                  placeholder='Rate'
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant='outlined'
+                  value={formData.rate}
+                  onChange={(e) =>
+                    setFormData({ ...formData, rate: e.target.value })
+                  }
+                />
+                <TextField
+                  id='price'
+                  label='Price'
+                  style={{ margin: 8 }}
+                  placeholder='Price'
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant='outlined'
+                  value={formData.price}
+                  onChange={(e) =>
+                    setFormData({ ...formData, price: e.target.value })
+                  }
+                />
                 <TextField
                   id='email'
                   label='Email'
@@ -228,7 +281,7 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
                 />
                 <TextField
                   id='address'
-                  label='Address'
+                  label='Location'
                   style={{ margin: 8 }}
                   placeholder='location'
                   InputLabelProps={{
@@ -238,6 +291,21 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
                   value={formData.location}
                   onChange={(e) =>
                     setFormData({ ...formData, location: e.target.value })
+                  }
+                />
+                <TextField
+                  id='overview'
+                  label='Overview'
+                  style={{ margin: 8 }}
+                  placeholder='Overview'
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant='outlined'
+                  multiline
+                  value={formData.overview}
+                  onChange={(e) =>
+                    setFormData({ ...formData, overview: e.target.value })
                   }
                 />
                 <FormControl style={{ minWidth: '100px' }}>
@@ -285,7 +353,6 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
                   type='button'
                   color='secondary'
                   variant='contained'
-                  style={{ margin: '1em 0' }}
                   onClick={() => {
                     setFormData({
                       ...formData,
@@ -303,100 +370,54 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
                 ))}
               </Box>
             </Box>
-            <Box display='flex' border={1} m={1} borderRadius={16} p={1}>
+            <Box
+              display='flex'
+              alignItems='center'
+              justifyContent='space-between'
+              border={1}
+              m={1}
+              borderRadius={16}
+              p={1}
+            >
               <Typography
                 variant='h6'
                 color='secondary'
                 style={{ margin: '0 0.5em', width: '250px' }}
               >
-                Vitals
+                Communiction Methods
               </Typography>
-              <div>
-                <TextField
-                  id='height'
-                  label='Height (cm)'
-                  style={{ margin: 8 }}
-                  placeholder='height'
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant='outlined'
-                  value={formData.vitals.height}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      vitals: { ...formData.vitals, height: e.target.value },
-                    })
-                  }
-                />
-                <TextField
-                  id='weight'
-                  label='Weight (kg)'
-                  style={{ margin: 8 }}
-                  placeholder='weight'
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant='outlined'
-                  value={formData.vitals.weight}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      vitals: { ...formData.vitals, weight: e.target.value },
-                    })
-                  }
-                />
-                <TextField
-                  id='mass-index'
-                  label='Mass Index (BMI)'
-                  style={{ margin: 8 }}
-                  placeholder='Mass Index'
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant='outlined'
-                  value={formData.vitals.massIndex}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      vitals: { ...formData.vitals, massIndex: e.target.value },
-                    })
-                  }
-                />
-                <TextField
-                  id='fat'
-                  label='Fat (%)'
-                  style={{ margin: 8 }}
-                  placeholder='Fat'
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant='outlined'
-                  value={formData.vitals.fat}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      vitals: { ...formData.vitals, fat: e.target.value },
-                    })
-                  }
-                />
-                <TextField
-                  id='bbi'
-                  label='BBI (c)'
-                  style={{ margin: 8 }}
-                  placeholder='BBI'
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant='outlined'
-                  value={formData.vitals.bbi}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      vitals: { ...formData.vitals, bbi: e.target.value },
-                    })
-                  }
-                />
+              <div className='' style={{ width: '60%' }}>
+                <FormControl style={{ width: '100%' }}>
+                  <InputLabel id='comm-methods'>
+                    Communication Methods
+                  </InputLabel>
+                  <Select
+                    labelId='comm-methods'
+                    id='comm-methods-select'
+                    multiple
+                    value={methods}
+                    onChange={(e) => setMethods(e.target.value)}
+                    input={<Input id='select-multiple-chip' />}
+                    renderValue={(selected) => (
+                      <div>
+                        {selected.map((value) => (
+                          <Chip key={value} label={value} />
+                        ))}
+                      </div>
+                    )}
+                    MenuProps={MenuProps}
+                  >
+                    {['clinic', 'home', 'video'].map((type) => (
+                      <MenuItem
+                        key={type}
+                        value={type}
+                        // style={getStyles(type, personName, theme)}
+                      >
+                        {type}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
             </Box>
             <Box border={1} borderRadius={16} p={1} m={1}>
@@ -406,57 +427,40 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
                   color='secondary'
                   style={{ margin: '0 1em' }}
                 >
-                  Medications
+                  Reservation Dates
                 </Typography>
                 <div>
                   <TextField
-                    id='medicationName'
-                    label='Name'
+                    id='reservationDay'
+                    label='Day'
                     style={{ margin: 8 }}
-                    placeholder='Name'
+                    placeholder='Day'
                     InputLabelProps={{
                       shrink: true,
                     }}
                     variant='outlined'
-                    value={medicationData.name}
+                    value={reservation.day}
                     onChange={(e) =>
-                      setMedicationData({
-                        ...medicationData,
-                        name: e.target.value,
+                      setReservation({
+                        ...reservation,
+                        day: e.target.value,
                       })
                     }
                   />
                   <TextField
-                    id='medicationType'
-                    label='Type'
+                    id='reservationPeriod'
+                    label='Period'
                     style={{ margin: 8 }}
-                    placeholder='Type'
+                    placeholder='Period'
                     InputLabelProps={{
                       shrink: true,
                     }}
                     variant='outlined'
-                    value={medicationData.type}
+                    value={reservation.period}
                     onChange={(e) =>
-                      setMedicationData({
-                        ...medicationData,
-                        type: e.target.value,
-                      })
-                    }
-                  />
-                  <TextField
-                    id='medicationDuration'
-                    label='Duration'
-                    style={{ margin: 8 }}
-                    placeholder='Duration'
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant='outlined'
-                    value={medicationData.duration}
-                    onChange={(e) =>
-                      setMedicationData({
-                        ...medicationData,
-                        duration: e.target.value,
+                      setReservation({
+                        ...reservation,
+                        period: e.target.value,
                       })
                     }
                   />
@@ -467,20 +471,22 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
                   type='button'
                   color='secondary'
                   variant='contained'
-                  style={{ margin: '1em 0' }}
                   onClick={() => {
                     setFormData({
                       ...formData,
-                      medications: [...formData.medications, medicationData],
+                      reservationDates: [
+                        ...formData.reservationDates,
+                        reservation,
+                      ],
                     });
-                    setMedicationData(medicationInitialState);
+                    setReservation(reservationDatesInitialState);
                   }}
                 >
-                  Add Medication
+                  Add Reservation
                 </Button>
-                {formData.medications.map((m, i) => (
+                {formData.reservationDates.map((m, i) => (
                   <Alert key={i} severity='info' style={{ margin: '0.5em 0' }}>
-                    {m.name}, {m.type}, {m.duration}
+                    {m.day}, {m.period}
                   </Alert>
                 ))}
               </Box>
@@ -494,7 +500,7 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
                 color='primary'
                 size='large'
               >
-                {update ? 'Update Patient' : 'Add Patient'}
+                {update ? 'Update Doctor' : 'Add Doctor'}
               </Button>
               {status === 'success' && (
                 <Alert severity='success'>Success!</Alert>

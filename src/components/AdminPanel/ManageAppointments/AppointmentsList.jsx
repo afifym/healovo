@@ -20,16 +20,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { MdDelete } from 'react-icons/md';
 import { FaFilter } from 'react-icons/fa';
-import { Container, Divider, LinearProgress } from '@material-ui/core';
-import {
-  deleteDoctor,
-  deletePatient,
-  fetchPatients,
-  fetchDoctors,
-} from '../../../../utils/firebase';
+import { Container, LinearProgress } from '@material-ui/core';
+import { fetchAppointments, deleteAppointment } from '../../../utils/firebase';
 
-function createData(id, name, age, email, joinDate) {
-  return { id, name, age, email, joinDate };
+function createData(id, patientID, doctorID, type, date) {
+  return { id, patientID, doctorID, type, date };
 }
 
 function descendingComparator(a, b, orderBy) {
@@ -65,10 +60,15 @@ const headCells = [
     disablePadding: true,
     label: 'ID',
   },
-  { id: 'name', numeric: true, disablePadding: false, label: 'Name' },
-  { id: 'age', numeric: true, disablePadding: false, label: 'Age' },
-  { id: 'email', numeric: true, disablePadding: false, label: 'Email' },
-  { id: 'joinDate', numeric: true, disablePadding: false, label: 'Join Date' },
+  {
+    id: 'patientID',
+    numeric: true,
+    disablePadding: false,
+    label: 'Patient ID',
+  },
+  { id: 'doctorID', numeric: true, disablePadding: false, label: 'Doctor ID' },
+  { id: 'type', numeric: true, disablePadding: false, label: 'Type' },
+  { id: 'date', numeric: true, disablePadding: false, label: 'Date' },
 ];
 
 function EnhancedTableHead(props) {
@@ -181,7 +181,7 @@ const EnhancedTableToolbar = (props) => {
           color='primary'
           style={{ fontWeight: '700' }}
         >
-          CURRENT {props.users.toUpperCase()}
+          CURRENT APPOINTMENTS
         </Typography>
       )}
 
@@ -231,15 +231,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function UsersList({
+export default function AppointmentsList({
   users,
   fetch,
   setFetch,
-  update,
   setUpdate,
   selected,
   setSelected,
-  noselect,
 }) {
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
@@ -251,22 +249,18 @@ export default function UsersList({
   const [rows, setRows] = useState([]);
   const [status, setStatus] = useState('');
 
-  const fetchUsers = async () => {
+  const fetchData = async () => {
+    console.log('fetchData');
     try {
-      let data;
-      if (users === 'patients') {
-        data = await fetchPatients();
-      } else if (users === 'doctors') {
-        data = await fetchDoctors();
-      }
+      const data = await fetchAppointments();
 
       const rowData = data.map((item) => {
         return createData(
           item.id,
-          item.name?.first || '' + ' ' + item.name?.last || '',
-          item.age,
-          item.email,
-          item.joinDate
+          item.patientID,
+          item.doctorID,
+          item.type,
+          item.date
         );
       });
 
@@ -281,26 +275,22 @@ export default function UsersList({
       setStatus('awaiting');
 
       try {
-        if (users === 'patients') {
-          const response = await deletePatient(id);
-        } else if (users === 'doctors') {
-          const response = await deleteDoctor(id);
-        }
+        const response = await deleteAppointment(id);
       } catch (error) {
         console.log(error);
       }
 
       setStatus('');
     });
-    fetchUsers();
+    fetchData();
   };
 
   useEffect(() => {
-    fetchUsers();
+    fetchData();
   }, []);
 
   useEffect(() => {
-    fetchUsers();
+    fetchData();
   }, [fetch]);
 
   const handleRequestSort = (event, property) => {
@@ -310,8 +300,6 @@ export default function UsersList({
   };
 
   const handleSelectAllClick = (event) => {
-    if (noselect) return;
-
     if (event.target.checked) {
       const newSelecteds = rows.map((n) => n.id);
       setSelected(newSelecteds);
@@ -321,8 +309,6 @@ export default function UsersList({
   };
 
   const handleClick = (event, id) => {
-    if (noselect) return;
-
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
 
@@ -423,10 +409,10 @@ export default function UsersList({
                         >
                           {row.id}
                         </TableCell>
-                        <TableCell align='right'>{row.name}</TableCell>
-                        <TableCell align='right'>{row.age}</TableCell>
-                        <TableCell align='right'>{row.email}</TableCell>
-                        <TableCell align='right'>{row.joinDate}</TableCell>
+                        <TableCell align='right'>{row.patientID}</TableCell>
+                        <TableCell align='right'>{row.doctorID}</TableCell>
+                        <TableCell align='right'>{row.type}</TableCell>
+                        <TableCell align='right'>{row.date}</TableCell>
                       </TableRow>
                     );
                   })}

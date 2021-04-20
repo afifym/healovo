@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import SideNavigation from './SideNavigation/SideNavigation';
 
 import styled from 'styled-components';
-import ManageUsers from './ManageUsers/ManageUsers';
 import ManagePatients from './ManageUsers/ManagePatients';
+import ManageDoctors from './ManageUsers/ManageDoctors';
+
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AdminSummary from './AdminSummary/AdminSummary';
 import ManageAppointments from './ManageAppointments/ManageAppointments';
@@ -27,7 +28,7 @@ const AdminPanel = () => {
             />
             <Route
               path='/admin/doctors'
-              render={() => <ManageUsers users={'doctors'} />}
+              render={() => <ManageDoctors users={'doctors'} />}
             />
             <Route path='/admin/appointments' component={ManageAppointments} />
           </Switch>

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import UsersList from './UsersList/UsersList';
-import AddPatients from './AddUser/AddPatients';
+import AddDoctors from './AddUser/AddDoctors';
 
-const ManagePatients = ({ users }) => {
+const ManageDoctors = ({ users }) => {
   const [fetch, setFetch] = useState(false);
   const [update, setUpdate] = useState(false);
   const [selected, setSelected] = useState([]);
 
   return (
     <div>
-      <AddPatients
+      <AddDoctors
         selected={selected}
         update={update}
         fetch={fetch}
@@ -27,4 +27,4 @@ const ManagePatients = ({ users }) => {
   );
 };
 
-export default ManagePatients;
+export default ManageDoctors;
