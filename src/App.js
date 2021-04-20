@@ -22,7 +22,7 @@ function App() {
         <Route path='/book/:id' component={Book} />
         <Route path='/patient-dashboard' component={PatientDashboard} />
         <Route path='/doctor-dashboard' component={DoctorDashboard} />
-        <Route path='/admin-dashboard' component={Admin} />
+        <Route path='/admin' component={Admin} />
         <Route path='*' component={NotFound} />
       </Switch>
     </Router>

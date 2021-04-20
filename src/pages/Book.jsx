@@ -1,5 +1,5 @@
 import React from 'react';
-import MetaDecorator from '../utils/MetaDecorator';
+import MetaDecorator from '../components/shared/MetaDecorator/MetaDecorator';
 
 const Book = () => {
   return (
