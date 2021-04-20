@@ -8,6 +8,7 @@ import DoctorProfile from './pages/DoctorProfile';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Book from './pages/Book';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path='/patient-dashboard' component={PatientDashboard} />
         <Route path='/doctor-dashboard' component={DoctorDashboard} />
         <Route path='/admin-dashboard' component={Admin} />
+        <Route path='*' component={NotFound} />
       </Switch>
     </Router>
   );
