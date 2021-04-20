@@ -1,4 +1,3 @@
-
 export const DoctorsData = [
   {
     id: 1,
@@ -16,7 +15,7 @@ export const DoctorsData = [
     ],
     email: "mohand.mostafa9811@gmail.com",
     password: "mohnad",
-    gender: "male",
+    gender: "female",
     phone: ["01288040837", "040350017"],
     price: 35,
     overview: `I am an ophthalmologist and a graduate of Mid-career Masters

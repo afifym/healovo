@@ -140,20 +140,22 @@ const SearchPage = () => {
     setFilterSettings(filterSettingCopy);
   };
   const generalfun = () => {
+    const filterDoctorResult = [];
     filterSettings.map((filter) => {
       const dFS = filter.filterNameDB;
       const fData = filter.filterData;
-      const filterDoctorResult = [];
-      if (dFS == "gender" || dFS == "communicationMethods" || dFS == "rate") {
+
+      if (dFS == "gender" || dFS == "rate") {
         for (const filterItem in fData) {
           if (fData[filterItem] == true) {
             let x = doctors.filter((doctor) => doctor[dFS] == filterItem);
-            x.length > 0 && filterDoctorResult.push(x);
-            console.log("xxxxxxxx", filterDoctorResult);
+
+            x.length > 0 && filterDoctorResult.push(...x);
           }
         }
       }
     });
+    console.log("xxxxxxxx", filterDoctorResult);
   };
 
   useEffect(() => {
