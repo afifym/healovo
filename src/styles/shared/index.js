@@ -51,6 +51,7 @@ export const StyledButton = styled(Button)`
 
   font-size: 1.1rem !important;
   box-shadow: 4px 4px 29px rgba(87, 87, 87, 0.25) !important;
+  border-radius: 50px !important;
 
   & > span {
     width: ${({ width }) => width || '190px'};
@@ -64,8 +65,8 @@ export const StyledButton = styled(Button)`
     background-color: ${({ theme }) => theme.colors.main1};
   }
 
-  ${({ blueBg }) =>
-    blueBg &&
+  ${({ switchcolors }) =>
+    switchcolors === 1 &&
     css`
       background: ${({ theme }) => theme.gradients.gradient4} !important;
 
@@ -75,21 +76,17 @@ export const StyledButton = styled(Button)`
           fill: ${({ theme }) => theme.colors.main1};
         }
       }
-    `}
 
-  ${({ lightCircle }) =>
-    lightCircle &&
-    css`
       .MuiButton-endIcon {
         background-color: ${({ theme }) => theme.colors.light1};
       }
     `}
 
-  ${({ darkCircle }) =>
-    darkCircle &&
+  ${({ lightcircle }) =>
+    lightcircle &&
     css`
       .MuiButton-endIcon {
-        background-color: ${({ theme }) => theme.colors.dark1};
+        background-color: ${({ theme }) => theme.colors.light1};
       }
     `}
 

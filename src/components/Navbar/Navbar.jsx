@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import styled from "styled-components/macro";
-import {RiMenu3Fill} from "react-icons/ri";
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components/macro';
+import { RiMenu3Fill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
@@ -8,11 +8,11 @@ const Navbar = () => {
 
   return (
     <Wrapper>
-      <div style={{ width: "150px" }}>
+      <div style={{ width: '150px' }}>
         <img
-          src="assets/images/logo.svg"
-          alt="Healovo Logo"
-          style={{ width: "100%" }}
+          src='assets/images/logo.svg'
+          alt='Healovo Logo'
+          style={{ width: '100%' }}
           // used in our library
         />
       </div>
@@ -30,7 +30,7 @@ const Navbar = () => {
           <StyledLink to='/login'>Login</StyledLink>
         </LinkWrapper>
         <Link to='/signup'>
-        <Button>Signup</Button>
+          <Button>Signup</Button>
         </Link>
       </Links>
     </Wrapper>
@@ -49,7 +49,7 @@ const LinkWrapper = styled.div`
 const Wrapper = styled.div`
   padding: 0 4.375rem;
   color: #000000;
-  background-color: #eaeaf8;
+  /* background-color: #eaeaf8; */
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -61,11 +61,23 @@ const Links = styled.div`
   align-items: baseline;
   position: relative;
 
+  transition: all 0.2s linear;
+
   @media (max-width: 1100px) {
     flex-direction: column;
     width: 100%;
+    display: flex;
+
     align-items: center;
-    display: ${({ open }) => (open ? "flex" : "none")};
+    visibility: hidden;
+    opacity: 0;
+
+    ${({ open }) =>
+      open &&
+      css`
+        visibility: visible;
+        opacity: 1;
+      `}
   }
 `;
 
@@ -78,13 +90,12 @@ const StyledLink = styled(Link)`
   cursor: pointer;
   transition: all 0.1s linear;
 
-
   &:hover {
     color: #2d50ef;
   }
 
   &:after {
-    content: "";
+    content: '';
     display: block;
     width: 0;
     border-bottom: 0.15rem solid #2d50ef;
@@ -109,6 +120,12 @@ const Button = styled.button`
   outline: none;
   cursor: pointer;
   margin: 0.938rem 0 0.938rem 0.938rem;
+
+  transition: all 0.1s linear;
+
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
 const Icon = styled.div`

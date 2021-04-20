@@ -1,11 +1,13 @@
-import React from 'react'
+import React from 'react';
+import MetaDecorator from '../utils/MetaDecorator';
 
 const Book = () => {
-    return (
-        <h2>
-           Book 
-        </h2>
-    )
-}
+  return (
+    <div>
+      <MetaDecorator title='Healovo | Book' description='Appointment booking' />
+      <h2>Book</h2>
+    </div>
+  );
+};
 
-export default Book
+export default Book;

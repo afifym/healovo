@@ -1,11 +1,16 @@
-import React from 'react'
+import React from 'react';
+import MetaDecorator from '../utils/MetaDecorator';
 
 const Home = () => {
-    return (
-        <h2>
-            Home
-        </h2>
-    )
-}
+  return (
+    <div>
+      <MetaDecorator
+        title='Healovo | Home'
+        description='A medical booking website that connects doctors with patients'
+      />
+      <h2>Home</h2>
+    </div>
+  );
+};
 
-export default Home
+export default Home;
