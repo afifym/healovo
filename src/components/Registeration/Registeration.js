@@ -17,15 +17,17 @@ import * as Yup from "yup";
 import { TextField, RadioGroup, CheckboxWithLabel } from "formik-material-ui";
 import GradientButton from "../shared/GradientButton/GradientButton";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
+import { addDoctor, addPatient, auth } from "../../utils/firebase";
+import { Link } from "react-router-dom";
 
 const initialValues = {
-  accountType: "",
+  type: "",
   first: "",
   last: "",
   password: "",
   confirmPassword: "",
   email: "",
-  phoneNumbers: [""],
+  phone: [""],
   verificationCode: "",
   terms: false,
   news: false,
@@ -33,13 +35,31 @@ const initialValues = {
   degree: "",
   university: "",
 };
-
-const sleep = (time) => new Promise((acc) => setTimeout(acc, time));
-
 // Acts like sending API request
+// const sleep = (time) => new Promise((acc) => setTimeout(acc, time));
+
 const onSubmit = async (values) => {
-  await sleep(3000);
-  console.log(values);
+  let {
+    first,
+    last,
+    confirmPassword,
+    news,
+    terms,
+    verificationCode,
+    ...withoutAdditionals
+  } = values;
+  const name = { first, last };
+  const { email, password } = values;
+
+  if (values.type === "doctor") {
+    let data = { name, ...withoutAdditionals };
+    await addDoctor(data);
+  } else if (values.type === "patient") {
+    let { degree, speciality, university, ...data } = withoutAdditionals;
+    data = { name, ...data };
+    await addPatient(data);
+  }
+  await auth.createUserWithEmailAndPassword(email, password);
 };
 
 function Registeration() {
@@ -52,16 +72,14 @@ function Registeration() {
           <FormikStep
             label="Account Type"
             validationSchema={Yup.object({
-              accountType: Yup.string().required(
-                "Please select the account type!"
-              ),
+              type: Yup.string().required("Please select the account type!"),
             })}
           >
             <Field
-              name="accountType"
+              name="type"
               component={RadioGroup}
               label="Account Type"
-              aria-label="accountType"
+              aria-label="type"
               control="radio"
             >
               <FormControlLabel
@@ -78,7 +96,7 @@ function Registeration() {
               />
             </Field>
 
-            <ErrorMessage name="accountType" component="h3" />
+            <ErrorMessage name="type" component="h5" style={{ color: "red" }} />
           </FormikStep>
 
           <FormikStep
@@ -92,7 +110,7 @@ function Registeration() {
               password: Yup.string()
                 .required("Password is Required!")
                 .min(6, "Password must be at least 6 characters"),
-              phoneNumber: Yup.array().min(1, "Phone is Required!"),
+              phone: Yup.array().required("Phone is Required!"),
               confirmPassword: Yup.string()
                 .oneOf([Yup.ref("password"), ""], "Passwords must match")
                 .required("Confirm Password is Required!"),
@@ -104,17 +122,17 @@ function Registeration() {
             <Grid container spacing={2}>
               <Grid item>
                 <Box paddingBottom={2}>
-                  <Button variant="contained" type="button">
+                  <GradientButton variant="contained" type="button">
                     Signup With Google
-                  </Button>
+                  </GradientButton>
                 </Box>
               </Grid>
 
               <Grid item>
                 <Box paddingBottom={2}>
-                  <Button variant="contained" type="button">
+                  <GradientButton variant="contained" type="button">
                     Signup With Facebook
-                  </Button>
+                  </GradientButton>
                 </Box>
               </Grid>
             </Grid>
@@ -125,7 +143,7 @@ function Registeration() {
                   <Field
                     name="first"
                     component={TextField}
-                    label="First Name"
+                    label="First Name*"
                     variant="outlined"
                   />
                 </Grid>
@@ -133,7 +151,7 @@ function Registeration() {
                   <Field
                     name="last"
                     component={TextField}
-                    label="Last Name"
+                    label="Last Name*"
                     variant="outlined"
                   />
                 </Grid>
@@ -146,28 +164,28 @@ function Registeration() {
                   <Field
                     name="email"
                     component={TextField}
-                    label="Email"
+                    label="Email*"
                     type="email"
                     variant="outlined"
                   />
                 </Grid>
 
                 <Grid item>
-                  <FieldArray name="phoneNumbers">
+                  <FieldArray name="phone">
                     {(fieldArrayProps) => {
                       const { push, remove, form } = fieldArrayProps;
                       const { values } = form;
-                      const { phoneNumbers } = values;
+                      const { phone } = values;
                       return (
                         <Box>
-                          {phoneNumbers.map((phoneNumber, idx) => (
+                          {phone.map((phoneNumber, idx) => (
                             <div key={idx}>
                               <Field
                                 style={{ marginBottom: "1rem" }}
                                 variant="outlined"
                                 component={TextField}
                                 label="Phone*"
-                                name={`phoneNumbers[${idx}]`}
+                                name={`phone[${idx}]`}
                               />
                               {idx === 0 && (
                                 <Button type="button" onClick={() => push("")}>
@@ -198,7 +216,7 @@ function Registeration() {
                   <Field
                     name="password"
                     component={TextField}
-                    label="password"
+                    label="password*"
                     type="password"
                     variant="outlined"
                   />
@@ -207,7 +225,7 @@ function Registeration() {
                   <Field
                     name="confirmPassword"
                     component={TextField}
-                    label="Confirm Password"
+                    label="Confirm Password*"
                     type="password"
                     variant="outlined"
                   />
@@ -221,7 +239,7 @@ function Registeration() {
                 name="terms"
                 Label={{ label: "I’ve read and agreed on" }}
               />
-              <a href="#">Terms of Service</a>
+              <Link to="#">Terms of Service</Link>
               <ErrorMessage
                 name="terms"
                 component="h5"
@@ -286,19 +304,17 @@ function Registeration() {
             })}
           >
             <Box paddingBottom={2}>
-              <h3>
-                We’ve sent a 6-digit code, please check your email
-                (***47@gmail.com)
-              </h3>
+              <h3>We’ve sent a 6-digit code, please check your E-mail</h3>
               <Field
                 name="verificationCode"
+                style={{ margin: "1rem 0px" }}
                 component={TextField}
-                label="Verification"
+                label="Verification*"
                 variant="outlined"
                 placeholder="6-digit Code"
               />
               <p>
-                <a href="#">Resend code</a>
+                <Link to="#">Resend code</Link>
               </p>
             </Box>
           </FormikStep>
@@ -362,8 +378,9 @@ export function FormikStepper({ children, ...props }) {
             {step > 0 ? (
               <Grid item>
                 <Button
-                  width="150px"
                   disabled={isSubmitting}
+                  size="large"
+                  color="secondary"
                   onClick={() => setStep((s) => s - 1)}
                 >
                   Back
@@ -375,7 +392,6 @@ export function FormikStepper({ children, ...props }) {
                 startIcon={
                   isSubmitting ? <CircularProgress size="1rem" /> : null
                 }
-                width="150px"
                 disabled={isSubmitting}
                 size="large"
                 color="primary"
@@ -383,7 +399,7 @@ export function FormikStepper({ children, ...props }) {
                 type="submit"
               >
                 {isLastStep() ? "Explore" : "Next"}
-                <IoIosArrowDroprightCircle color="#ffffff" size="2rem" />
+                <IoIosArrowDroprightCircle color="#ffffff" size="1.5rem" />
               </Button>
             </Grid>
           </Grid>
