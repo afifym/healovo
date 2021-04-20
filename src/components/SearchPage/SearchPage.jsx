@@ -141,6 +141,7 @@ const SearchPage = () => {
   };
   const generalfun = () => {
     const filterDoctorResult = [];
+    const doctorFilterResult = [];
     filterSettings.map((filter) => {
       const dFS = filter.filterNameDB;
       const fData = filter.filterData;
@@ -150,11 +151,28 @@ const SearchPage = () => {
           if (fData[filterItem] == true) {
             let x = doctors.filter((doctor) => doctor[dFS] == filterItem);
 
-            x.length > 0 && filterDoctorResult.push(...x);
+            if (x.length > 0) {
+              let theCompeletArray = [...x];
+              for (let i = 0; i < x.length; i++) {
+                if (filterDoctorResult.length > 0) {
+                  for (let j = 0; j < filterDoctorResult.length; j++) {
+                    if (x[i].id == filterDoctorResult[j].id) {
+                      theCompeletArray = theCompeletArray.filter(
+                        (doctor) => doctor.id != x[i].id
+                      );
+                    }
+                  }
+                } else {
+                }
+              }
+
+              filterDoctorResult.push(...theCompeletArray);
+            }
           }
         }
       }
     });
+
     console.log("xxxxxxxx", filterDoctorResult);
   };
 
