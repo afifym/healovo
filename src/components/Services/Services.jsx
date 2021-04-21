@@ -40,7 +40,7 @@ const Services = () => {
             <ServicesItem
               title='Online'
               details='Easily reach out to your doctor with Video Call'
-              icon={<FaVideo size={35} />}
+              icon={<FaVideo size={37} />}
             />
           </Grid>
         </Box>
