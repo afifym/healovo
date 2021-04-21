@@ -18,15 +18,18 @@ import Select from '@material-ui/core/Select';
 import { useHistory } from 'react-router-dom';
 
 const Wrapper = styled.div`
-  width: fit-content;
-
   @media (max-width: 480px) {
+    width: 100%;
+    padding: 0 0.5em;
+
     .feeling {
       font-size: 1.7rem;
     }
     .find {
       font-size: 2.5rem;
+      white-space: no-wrap;
     }
+
     .book {
       font-size: 1.4rem !important;
     }
@@ -46,6 +49,7 @@ const StyledRadioControl = styled(FormControlLabel)`
   box-shadow: 7px 7px 30px rgba(180, 180, 180, 0.25);
   margin: 0;
   padding: 0;
+
   .MuiTypography-root {
     font-weight: 700;
   }
@@ -61,12 +65,12 @@ const StyledRadioControl = styled(FormControlLabel)`
         color: ${({ theme }) => theme.colors.main1};
       }
     `}
-
+  /* 
   @media (max-width: 420px) {
     width: 90px !important;
     height: 90px !important;
     margin: 0 !important;
-  }
+  } */
 
   &:hover {
     border: 2px solid ${({ theme }) => theme.colors.main1};
@@ -89,8 +93,9 @@ const useStyles = makeStyles(() => ({
     marginLeft: '10px',
   },
   customeCountianer: {
-    maxWidth: 580,
-    minWidth: '100px',
+    // maxWidth: 580,
+    // minWidth: '100px',
+    width: '100%',
     margin: '0 auto',
     background: 'linear-gradient(152.21deg, #FFFFFF 48.23%, #CFCDC6 100%)',
     boxShadow: '4px 4px 30px rgba(91, 85, 85, 0.25)',
@@ -100,8 +105,8 @@ const useStyles = makeStyles(() => ({
       background: 'none',
       boxShadow: 'none',
       borderRadius: '0px',
-      padding: '0 5px',
-      paddingTop: 25,
+      padding: '0 0',
+      // paddingTop: 25,
     },
   },
   box: {
@@ -134,14 +139,6 @@ const useStyles = makeStyles(() => ({
       fontSize: '1.979rem',
     },
   },
-  IconGroup: {
-    padding: '60px 0 30px 0',
-  },
-  smellContainer: {
-    maxWidth: 500,
-    width: '90%',
-    margin: '0 auto',
-  },
 }));
 
 const IconWrapper = styled.span`
@@ -156,12 +153,19 @@ const IconWrapper = styled.span`
 
 const RadioWrapper = styled.div`
   position: relative;
-  width: 33.2%;
+  width: 40%;
   text-align: center;
 
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 0.1em;
+
+  .MuiFormControlLabel-labelPlacementBottom {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
   ${({ isactive }) =>
     isactive &&
     css`
@@ -225,7 +229,7 @@ const SearchCard = () => {
   return (
     <Wrapper>
       <div className={classes.customeCountianer}>
-        <header>
+        <header style={{ width: '100%' }}>
           <Typography
             variant='h4'
             className={`${classes.heading} ${classes.headingBg} feeling`}
@@ -236,7 +240,7 @@ const SearchCard = () => {
           </Typography>
           <Typography
             variant='h2'
-            className={`${classes.heading} ${classes.customeHeading} find`}
+            className={`${classes.heading} find`}
             component='h2'
             color='secondary'
           >
@@ -273,7 +277,7 @@ const SearchCard = () => {
                 my={4}
                 display='flex'
                 alignItems='center'
-                justifyContent='space-around'
+                justifyContent='space-between'
                 style={{ width: '100%' }}
               >
                 <RadioWrapper isactive={formData.type === 'clinic' ? 1 : 0}>

@@ -21,7 +21,10 @@ const Wrapper = styled.div`
   min-height: 100vh;
 
   @media (max-width: 540px) {
-    background-image: none;
+    background-image: url('/assets/images/header-bg-left.svg');
+    background-repeat: no-repeat;
+    background-position: 0% 100px;
+    background-size: 60%;
   }
 `;
 

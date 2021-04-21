@@ -41,7 +41,7 @@ const LinkWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 1125px) {
+  @media (max-width: 1130px) {
     flex-direction: column;
   }
 `;
@@ -61,12 +61,12 @@ const Wrapper = styled.div`
     width: 180px;
   }
 
-  @media (max-width: 1100px) {
+  @media (max-width: 1130px) {
     ${({ open }) =>
       open &&
       css`
         background-color: white;
-        position: relative;
+        position: absolute;
         z-index: 30;
       `}
   }
@@ -84,7 +84,7 @@ const Links = styled.div`
   align-items: baseline;
   position: relative;
 
-  @media (max-width: 1100px) {
+  @media (max-width: 1130px) {
     flex-direction: column;
     width: 100%;
     display: flex;
@@ -154,7 +154,7 @@ const Icon = styled.div`
   cursor: pointer;
   padding: 1.563rem 0;
 
-  @media (max-width: 1100px) {
+  @media (max-width: 1130px) {
     display: flex;
   }
 `;
