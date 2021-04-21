@@ -1,12 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import { ThemeProvider as MuiThemeProvider } from '@material-ui/core';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { ThemeProvider as MuiThemeProvider } from "@material-ui/core";
 import {
   ThemeProvider as StyledThemeProvider,
   createGlobalStyle,
-} from 'styled-components';
-import { muiTheme, styledTheme } from './styles/global/theme';
+} from "styled-components";
+import { muiTheme, styledTheme } from "./styles/global/theme";
 
 const GlobalStyles = createGlobalStyle`
     * {
@@ -49,5 +49,5 @@ ReactDOM.render(
       </React.StrictMode>
     </StyledThemeProvider>
   </MuiThemeProvider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
