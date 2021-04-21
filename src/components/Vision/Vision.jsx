@@ -1,17 +1,7 @@
-import {
-  Container,
-  Card,
-  Grid,
-  Box,
-  Typography,
-  Paper,
-} from '@material-ui/core';
-
+import { Container, Grid, Box } from '@material-ui/core';
 import React from 'react';
 import styled from 'styled-components';
-
 import VisionCard from './VisionCard/VisionCard';
-
 import { BiBookHeart } from 'react-icons/bi';
 import { FaHandHoldingHeart } from 'react-icons/fa';
 import { RiUserHeartFill } from 'react-icons/ri';
@@ -36,7 +26,7 @@ const Vision = () => {
   return (
     <Wrapper>
       <Container>
-        <Grid container justify='center'>
+        <Grid container justify='center' alignItems='center'>
           <Grid item md={6} xs={9}>
             <Box
               display='flex'
@@ -45,9 +35,9 @@ const Vision = () => {
               m={2}
             >
               <img
-                src='/assets/images/vision.jpg'
+                src='/assets/images/vision.webp'
                 alt='our vision'
-                style={{ width: '80%' }}
+                style={{ maxWidth: '400px', minWidth: '300px' }}
               />
             </Box>
           </Grid>
@@ -61,17 +51,17 @@ const Vision = () => {
             >
               <VisionCard
                 title='Our Vision'
-                details='Something about mission bla bla Something about'
+                details='Helping our users reach out to their doctors in a comfortable way'
                 iconComponent={<BiBookHeart size={45} />}
               />
               <VisionCard
                 title='Our Mission'
-                details='Something about mission bla bla Something about'
+                details='Passiontely solving communication problems in the medical field'
                 iconComponent={<FaHandHoldingHeart size={45} />}
               />
               <VisionCard
                 title='Our Values'
-                details='Something about mission bla bla Something about'
+                details='We believe in taking the extra step tainting our work with excellence'
                 iconComponent={<RiUserHeartFill size={45} />}
               />
             </Box>

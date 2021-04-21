@@ -1,3 +1,4 @@
+import { Button } from '@material-ui/core';
 import styled, { css } from 'styled-components';
 
 export const GradientHolder = styled.span`
@@ -37,4 +38,83 @@ export const GradientHolder = styled.span`
       border-radius: 50%;
       padding: 2em;
     `}
+`;
+
+export const StyledButton = styled(Button)`
+  position: relative;
+
+  background: linear-gradient(
+    to right bottom,
+    #ffffff 0%,
+    #e7e8e9 95.44%
+  ) !important;
+
+  font-size: 1.1rem !important;
+  box-shadow: 4px 4px 29px rgba(87, 87, 87, 0.25) !important;
+  border-radius: 50px !important;
+
+  & > span {
+    width: ${({ width }) => width || '190px'};
+    color: ${({ theme }) => theme.colors.main1};
+  }
+
+  .MuiButton-endIcon {
+    position: absolute;
+    right: 15px;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.colors.main1};
+  }
+
+  ${({ switchcolors }) =>
+    switchcolors === 1 &&
+    css`
+      background: ${({ theme }) => theme.gradients.gradient4} !important;
+
+      & > span {
+        color: ${({ theme }) => theme.colors.light1};
+        svg {
+          fill: ${({ theme }) => theme.colors.main1};
+        }
+      }
+
+      .MuiButton-endIcon {
+        background-color: ${({ theme }) => theme.colors.light1};
+      }
+    `}
+
+  ${({ lightcircle }) =>
+    lightcircle &&
+    css`
+      .MuiButton-endIcon {
+        background-color: ${({ theme }) => theme.colors.light1};
+      }
+    `}
+
+  svg {
+    margin: 0.45em;
+  }
+`;
+
+export const StyledHeading = styled.h2`
+  margin: 2em auto;
+  font-size: 3rem;
+  text-align: center;
+  position: relative;
+  color: ${({ theme }) => theme.colors.dark1};
+
+  &:after {
+    position: absolute;
+    content: '';
+    background: ${({ theme }) => theme.gradients.gradient4};
+    height: 7px;
+    width: 150px;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50px;
+  }
+
+  @media (max-width: 700px) {
+    font-size: 2.4rem;
+  }
 `;
