@@ -14,8 +14,6 @@ import PatientProfile from './pages/PatientProfile';
 import ContactUs from './pages/ContactUs';
 import About from './pages/About';
 
-import ForDoctors from './components/ForDoctors/ForDoctors';
-
 function App() {
   return (
     <Router>
