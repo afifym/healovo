@@ -1,16 +1,16 @@
 import React from 'react';
 import MetaDecorator from '../components/shared/MetaDecorator/MetaDecorator';
 
-const Login = () => {
+const Admin = () => {
   return (
     <div>
       <MetaDecorator
-        title='Healovo | Login'
-        description='login page for Healovo website'
+        title='Admin | Healovo'
+        description='The admin dashboard of Healovo medical booking website'
       />
-      <h2>Login</h2>
+      <h2>Admin</h2>
     </div>
   );
 };
 
-export default Login;
+export default Admin;
