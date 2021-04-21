@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { Box, Typography } from '@material-ui/core';
 
 const Wrapper = styled.div`
+  margin: 2em 0;
   background-color: ${({ theme }) => theme.colors.light1};
   display: flex;
   flex-direction: column;
@@ -17,20 +18,16 @@ const Wrapper = styled.div`
     left &&
     css`
       border: none;
-      border-bottom-left-radius: ${({ theme }) =>
-        theme.borderRadiuses.borderRadius1};
-      border-top-left-radius: ${({ theme }) =>
-        theme.borderRadiuses.borderRadius1};
+      border-bottom-left-radius: 50px;
+      border-top-left-radius: 50px;
     `}
 
   ${({ right }) =>
     right &&
     css`
       border: none;
-      border-bottom-right-radius: ${({ theme }) =>
-        theme.borderRadiuses.borderRadius1};
-      border-top-right-radius: ${({ theme }) =>
-        theme.borderRadiuses.borderRadius1};
+      border-bottom-right-radius: 50px;
+      border-top-right-radius: 50px;
     `}
 
   @media (max-width: 1300px) {
@@ -62,7 +59,7 @@ const ForDoctorsItem = ({ left, right, title, details, icon }) => {
       </Box>
       <Typography
         color='secondary'
-        style={{ maxWidth: '400px', opacity: '0.8' }}
+        style={{ maxWidth: '400px', opacity: '0.9' }}
       >
         {details}
       </Typography>

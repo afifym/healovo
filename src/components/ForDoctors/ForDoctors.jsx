@@ -2,22 +2,24 @@ import { Box } from '@material-ui/core';
 import React from 'react';
 import styled from 'styled-components';
 import ForDoctorsItem from './ForDoctorsItem/ForDoctorsItem';
-
+import GradientButton from '../shared/GradientButton/GradientButton';
 import { IoMdChatboxes } from 'react-icons/io';
 import { BsCreditCard } from 'react-icons/bs';
 import { BiCalendarCheck } from 'react-icons/bi';
+import { FaChevronRight } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
   background-image: url('/assets/images/forDoctors.svg');
   background-repeat: no-repeat;
-  background-size: 900px;
-  background-position: 100% 80%;
+  background-size: 1000px;
+  background-position: 100% 50%;
 
   background-color: ${({ theme }) => theme.colors.main1};
   box-shadow: ${({ theme }) => theme.shadows.shadow1};
   color: ${({ theme }) => theme.colors.light1};
   width: 100%;
-  padding: 1em;
+  padding: 4em 1em;
 `;
 
 const StyledHeading = styled.h2`
@@ -34,7 +36,7 @@ const StyledHeading = styled.h2`
 
 const ForDoctors = () => {
   return (
-    <Wrapper className=''>
+    <Wrapper>
       <StyledHeading>
         Healovo for <span>Doctors</span>
       </StyledHeading>
@@ -63,6 +65,13 @@ const ForDoctors = () => {
           details='Don’t own a clinic? easy! you can make appointments in patient’s residence'
           icon={<BiCalendarCheck size={80} color='hsl(229, 86%, 56%)' />}
         />
+      </Box>
+      <Box display='flex' justifyContent='center' my={5}>
+        <Link to='/signup'>
+          <GradientButton icon={<FaChevronRight color='white' size={13} />}>
+            Join Now
+          </GradientButton>
+        </Link>
       </Box>
     </Wrapper>
   );
