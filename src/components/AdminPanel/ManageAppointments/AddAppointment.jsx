@@ -2,10 +2,8 @@ import {
   Box,
   Button,
   Divider,
-  FormGroup,
   TextField,
   Typography,
-  Snackbar,
   LinearProgress,
   Paper,
   MenuItem,
@@ -13,11 +11,7 @@ import {
   InputLabel,
 } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import { useState } from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import { addAppointment } from '../../../utils/firebase';
@@ -77,7 +71,7 @@ const AddAppointment = ({ fetch, setFetch, update }) => {
   };
 
   return (
-    <Box display='flex' flexDirection='column' m='auto' maxWidth={1000}>
+    <Box display='flex' flexDirection='column' m='auto' maxWidth={1100}>
       <Paper style={{ padding: '2em' }}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <form onSubmit={handleSubmit}>
@@ -127,42 +121,13 @@ const AddAppointment = ({ fetch, setFetch, update }) => {
                     setFormData({ ...formData, doctorID: e.target.value })
                   }
                 />
-              </div>
-              <Box>
-                <div>
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <KeyboardDatePicker
-                      disableToolbar
-                      variant='inline'
-                      format='MM-dd-yyyy'
-                      margin='normal'
-                      id='date-picker-inline'
-                      label='Date picker inline'
-                      value={selectedDate}
-                      onChange={(date) => setSelectedDate(date)}
-                      KeyboardButtonProps={{
-                        'aria-label': 'change date',
-                      }}
-                    />
-                  </MuiPickersUtilsProvider>
-                </div>
-                <div>
-                  <KeyboardTimePicker
-                    margin='normal'
-                    id='time-picker'
-                    label='Time picker'
-                    value={selectedDate}
-                    onChange={(date) => setSelectedDate(date)}
-                    KeyboardButtonProps={{
-                      'aria-label': 'change time',
-                    }}
-                  />
-                </div>
-              </Box>
-              <Box>
-                <FormControl style={{ minWidth: '100px' }}>
-                  <InputLabel id='appointmentType'>Type</InputLabel>
+                <FormControl>
+                  <InputLabel id='appointmentType' style={{ margin: '0.2em' }}>
+                    Type
+                  </InputLabel>
                   <Select
+                    style={{ padding: '0.2em' }}
+                    variant='filled'
                     labelId='appointmentType'
                     id='type'
                     value={formData.type}
@@ -175,7 +140,36 @@ const AddAppointment = ({ fetch, setFetch, update }) => {
                     <MenuItem value='video'>Video</MenuItem>
                   </Select>
                 </FormControl>
+              </div>
+              <Box>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    disableToolbar
+                    variant='inline'
+                    format='MM-dd-yyyy'
+                    margin='normal'
+                    id='date-picker-inline'
+                    label='Date picker inline'
+                    value={selectedDate}
+                    onChange={(date) => setSelectedDate(date)}
+                    KeyboardButtonProps={{
+                      'aria-label': 'change date',
+                    }}
+                  />
+                </MuiPickersUtilsProvider>
+                <KeyboardTimePicker
+                  style={{ marginLeft: '2em' }}
+                  margin='normal'
+                  id='time-picker'
+                  label='Time picker'
+                  value={selectedDate}
+                  onChange={(date) => setSelectedDate(date)}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change time',
+                  }}
+                />
               </Box>
+              <Box></Box>
             </Box>
             <Box display='flex'>
               <Button

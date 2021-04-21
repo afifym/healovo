@@ -10,6 +10,8 @@ const firebaseConfig = {
   appId: '1:142171972024:web:09b72a0fc03c5f9bb9ef4d',
   measurementId: 'G-NZEYQQLWJW',
 };
+firebase.initializeApp(firebaseConfig);
+export const api = 'https://healovo-default-rtdb.firebaseio.com';
 
 // useEffect(async () => {
 //   try {
@@ -19,11 +21,6 @@ const firebaseConfig = {
 //   }
 // }, []);
 
-firebase.initializeApp(firebaseConfig);
-
-export const developmentAPI = 'https://healovo-default-rtdb.firebaseio.com';
-export const api = 'https://healovo-default-rtdb.firebaseio.com';
-
 export const jsonToArray = (data) => {
   const userData = Object.keys(data).map((key) => {
     return { ...data[key], id: key.toString() };
@@ -31,14 +28,16 @@ export const jsonToArray = (data) => {
   return userData;
 };
 
+// ###########################
+// PATIENTS
+// ###########################
 export const fetchPatients = async () => {
   const response = await axios.get(api + '/patients.json');
   return jsonToArray(response.data);
 };
-
 export const fetchOnePatient = async (id) => {
   const response = await axios.get(api + `/patients/${id}.json`);
-  return jsonToArray(response.data);
+  return response.data;
 };
 export const addPatient = async (data) => {
   const response = await axios.post(api + '/patients.json', data);
@@ -53,13 +52,16 @@ export const updatePatient = async (id, data) => {
   return response;
 };
 
+// ###########################
+// DOCTORS
+// ###########################
 export const fetchDoctors = async () => {
   const response = await axios.get(api + '/doctors.json');
   return jsonToArray(response.data);
 };
 export const fetchOneDoctor = async (id) => {
   const response = await axios.get(api + `/doctors/${id}.json`);
-  return jsonToArray(response.data);
+  return response.data;
 };
 export const addDoctor = async (data) => {
   const response = await axios.post(api + '/doctors.json', data);
@@ -75,11 +77,15 @@ export const updateDoctor = async (id, data) => {
 };
 
 // ###########################
-// Appointments
+// APPOINTMENTS
 // ###########################
 export const fetchAppointments = async () => {
   const response = await axios.get(api + '/appointments.json');
   return jsonToArray(response.data);
+};
+export const fetchOneAppointment = async (id) => {
+  const response = await axios.get(api + `/appointments/${id}.json`);
+  return response.data;
 };
 export const addAppointment = async (data) => {
   const response = await axios.post(api + '/appointments.json', data);
@@ -89,14 +95,9 @@ export const deleteAppointment = async (id) => {
   const response = await axios.delete(api + `/appointments/${id}.json`);
   return response;
 };
+export const updateAppointment = async (id, data) => {
+  const response = await axios.put(api + `/appointments/${id}.json`, data);
+  return response;
+};
 
 export default firebase;
-
-// appointments = {
-//   id: 'firebase',
-//   patientID: 'id',
-//   doctorID: 'id',
-//   type: 'clinic',
-//   date: '11-11-2011',
-//   time: '1:00 pm to 2:00 pm',
-// };

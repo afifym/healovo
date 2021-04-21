@@ -113,7 +113,7 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
   };
 
   return (
-    <Box display='flex' flexDirection='column' m='auto' maxWidth={1000}>
+    <Box display='flex' flexDirection='column' m='auto' maxWidth={1100}>
       <Paper>
         <Wrapper update={update}>
           <form onSubmit={handleSubmit}>
@@ -241,8 +241,12 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
                   }
                 />
                 <FormControl style={{ minWidth: '100px' }}>
-                  <InputLabel id='gender'>Gender</InputLabel>
+                  <InputLabel id='gender' style={{ margin: '0.2em' }}>
+                    Gender
+                  </InputLabel>
                   <Select
+                    style={{ padding: '0.2em' }}
+                    variant='filled'
                     labelId='gender'
                     id='gender'
                     value={formData.gender}
