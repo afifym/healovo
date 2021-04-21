@@ -13,20 +13,10 @@ import Appointments from './pages/Appointments';
 import PatientProfile from './pages/PatientProfile';
 import ContactUs from './pages/ContactUs';
 import About from './pages/About';
-<<<<<<< HEAD
-import Navbar from './components/Navbar/Navbar';
-=======
-import Services from './components/Services/Services';
->>>>>>> Services
 
 function App() {
   return (
     <Router>
-<<<<<<< HEAD
-      <Navbar />
-=======
-      <Services />
->>>>>>> Services
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />
