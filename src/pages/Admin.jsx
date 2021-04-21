@@ -10,7 +10,6 @@ const Admin = () => {
         description='The admin dashboard of Healovo medical booking website'
       />
       <AdminPanel />
-      <h2>Admin</h2>
     </div>
   );
 };
