@@ -8,7 +8,7 @@ const Navbar = () => {
 
   return (
     <Wrapper open={open}>
-      <div style={{ width: '180px' }}>
+      <div className='logo-wrapper'>
         <img
           src='assets/images/healovo.svg'
           alt='Healovo Logo'
@@ -41,7 +41,7 @@ const LinkWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 1100px) {
+  @media (max-width: 1125px) {
     flex-direction: column;
   }
 `;
@@ -57,12 +57,25 @@ const Wrapper = styled.div`
   width: 100%;
   transition: all 0.2s linear;
 
+  .logo-wrapper {
+    width: 180px;
+  }
+
   @media (max-width: 1100px) {
     ${({ open }) =>
       open &&
       css`
         background-color: white;
+        position: relative;
+        z-index: 30;
       `}
+  }
+
+  @media (max-width: 400px) {
+    padding: 0 1em;
+    .logo-wrapper {
+      width: 160px;
+    }
   }
 `;
 

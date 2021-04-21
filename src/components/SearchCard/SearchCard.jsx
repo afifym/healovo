@@ -18,6 +18,8 @@ import Select from '@material-ui/core/Select';
 import { useHistory } from 'react-router-dom';
 
 const Wrapper = styled.div`
+  width: fit-content;
+
   @media (max-width: 480px) {
     .feeling {
       font-size: 1.7rem;
@@ -34,7 +36,7 @@ const Wrapper = styled.div`
 const StyledRadioControl = styled(FormControlLabel)`
   background: ${({ theme }) => theme.gradients.gradient1};
   border-radius: 15px;
-  width: 100px;
+  width: 100%;
   height: 100px;
   display: flex;
   align-items: center;
@@ -42,7 +44,8 @@ const StyledRadioControl = styled(FormControlLabel)`
   color: #6c7288;
   transition: color 0.2s ease;
   box-shadow: 7px 7px 30px rgba(180, 180, 180, 0.25);
-
+  margin: 0;
+  padding: 0;
   .MuiTypography-root {
     font-weight: 700;
   }
@@ -87,7 +90,7 @@ const useStyles = makeStyles(() => ({
   },
   customeCountianer: {
     maxWidth: 580,
-    minWidth: 320,
+    minWidth: '100px',
     margin: '0 auto',
     background: 'linear-gradient(152.21deg, #FFFFFF 48.23%, #CFCDC6 100%)',
     boxShadow: '4px 4px 30px rgba(91, 85, 85, 0.25)',
@@ -97,7 +100,7 @@ const useStyles = makeStyles(() => ({
       background: 'none',
       boxShadow: 'none',
       borderRadius: '0px',
-      padding: '0 15px',
+      padding: '0 5px',
       paddingTop: 25,
     },
   },
@@ -153,6 +156,12 @@ const IconWrapper = styled.span`
 
 const RadioWrapper = styled.div`
   position: relative;
+  width: 33.2%;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
   ${({ isactive }) =>
     isactive &&
     css`

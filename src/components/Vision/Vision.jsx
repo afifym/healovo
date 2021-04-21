@@ -8,11 +8,13 @@ import { RiUserHeartFill } from 'react-icons/ri';
 
 const Wrapper = styled.div`
   width: 100%;
+  padding: 7em 0;
   background-color: ${({ theme }) => theme.colors.main2};
 
   .vision-card {
     cursor: pointer;
     transition: all 0.2s ease;
+    color: ${({ theme }) => theme.colors.dark1};
 
     &:hover {
       background-color: ${({ theme }) => theme.colors.main1};

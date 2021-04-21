@@ -21,7 +21,7 @@ const Services = () => {
       <Container>
         <StyledHeading>Our Services</StyledHeading>
         <Box m='auto' maxWidth='800px'>
-          <Grid container spacing={7}>
+          <Grid container>
             <ServicesItem
               title='Doctors'
               details='We have some of the best doctors!'

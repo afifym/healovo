@@ -17,6 +17,7 @@ const IconWrapper = styled.div`
 const StyledGradientHolder = styled(GradientHolder)`
   cursor: pointer;
   transition: all 0.2s ease;
+  margin: 1em 0;
   .heading {
     margin-top: 0.5em;
     margin-bottom: 0.3em;

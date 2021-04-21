@@ -17,7 +17,6 @@ import About from './pages/About';
 function App() {
   return (
     <Router>
-      <ForDoctors />
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />

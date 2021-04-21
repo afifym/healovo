@@ -6,9 +6,6 @@ import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.main2};
-  position: absolute;
-  bottom: 0;
-  left: 0;
   width: 100%;
 
   .list-title {
