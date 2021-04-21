@@ -14,9 +14,12 @@ import PatientProfile from './pages/PatientProfile';
 import ContactUs from './pages/ContactUs';
 import About from './pages/About';
 
+import ForDoctors from './components/ForDoctors/ForDoctors';
+
 function App() {
   return (
     <Router>
+      <ForDoctors />
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />
