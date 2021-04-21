@@ -50,7 +50,7 @@ const Footer = () => {
         >
           <Link to='/'>
             <img
-              src='/assets/images/healovo.svg'
+              src='/assets/images/healovo-black.svg'
               alt='healovo'
               style={{ width: '220px' }}
             />

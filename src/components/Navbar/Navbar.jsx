@@ -10,7 +10,7 @@ const Navbar = () => {
     <Wrapper open={open}>
       <div className='logo-wrapper'>
         <img
-          src='assets/images/healovo.svg'
+          src='/assets/images/healovo-black.svg'
           alt='Healovo Logo'
           style={{ width: '100%' }}
           // used in our library
