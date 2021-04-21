@@ -1,7 +1,7 @@
 import { StyledButton } from '../../../styles/shared';
 import React from 'react';
 
-const GradientButton = ({ width, switchcolors, icon, children }) => {
+const GradientButton = ({ width, switchcolors, icon, children, ...props }) => {
   return (
     <StyledButton
       width={width}
@@ -9,6 +9,7 @@ const GradientButton = ({ width, switchcolors, icon, children }) => {
       size='large'
       endIcon={icon}
       variant='contained'
+      {...props}
     >
       {children}
     </StyledButton>

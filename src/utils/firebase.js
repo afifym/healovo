@@ -37,7 +37,7 @@ export const fetchPatients = async () => {
 };
 export const fetchOnePatient = async (id) => {
   const response = await axios.get(api + `/patients/${id}.json`);
-  return jsonToArray(response.data);
+  return response.data;
 };
 export const addPatient = async (data) => {
   const response = await axios.post(api + '/patients.json', data);
@@ -61,7 +61,7 @@ export const fetchDoctors = async () => {
 };
 export const fetchOneDoctor = async (id) => {
   const response = await axios.get(api + `/doctors/${id}.json`);
-  return jsonToArray(response.data);
+  return response.data;
 };
 export const addDoctor = async (data) => {
   const response = await axios.post(api + '/doctors.json', data);
@@ -85,7 +85,7 @@ export const fetchAppointments = async () => {
 };
 export const fetchOneAppointment = async (id) => {
   const response = await axios.get(api + `/appointments/${id}.json`);
-  return jsonToArray(response.data);
+  return response.data;
 };
 export const addAppointment = async (data) => {
   const response = await axios.post(api + '/appointments.json', data);

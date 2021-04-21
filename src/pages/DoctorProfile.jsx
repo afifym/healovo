@@ -1,7 +1,7 @@
 import React from 'react';
-import MetaDecorator from '../utils/MetaDecorator';
+import MetaDecorator from '../components/shared/MetaDecorator/MetaDecorator';
 
-const DoctorProfile = () => {
+const DoctorProfile = ({ match }) => {
   return (
     <div>
       <MetaDecorator
@@ -9,6 +9,7 @@ const DoctorProfile = () => {
         description='A profile overview of the doctor'
       />
       <h2>Doctor Profile</h2>
+      <h3>{match.params.doctorID}</h3>
     </div>
   );
 };

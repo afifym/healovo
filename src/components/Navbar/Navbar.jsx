@@ -7,8 +7,8 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <Wrapper>
-      <div style={{ width: '150px' }}>
+    <Wrapper open={open}>
+      <div style={{ width: '180px' }}>
         <img
           src='assets/images/logo.svg'
           alt='Healovo Logo'
@@ -49,19 +49,27 @@ const LinkWrapper = styled.div`
 const Wrapper = styled.div`
   padding: 0 4.375rem;
   color: #000000;
-  /* background-color: #eaeaf8; */
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  position: absolute;
+  width: 100%;
+  transition: all 0.2s linear;
+
+  @media (max-width: 1100px) {
+    ${({ open }) =>
+      open &&
+      css`
+        background-color: white;
+      `}
+  }
 `;
 
 const Links = styled.div`
   display: flex;
   align-items: baseline;
   position: relative;
-
-  transition: all 0.2s linear;
 
   @media (max-width: 1100px) {
     flex-direction: column;

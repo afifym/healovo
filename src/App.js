@@ -9,6 +9,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Book from './pages/Book';
 import NotFound from './pages/NotFound';
+import Appointments from './pages/Appointments';
+import PatientProfile from './pages/PatientProfile';
 import Navbar from './components/Navbar/Navbar';
 
 function App() {
@@ -20,11 +22,13 @@ function App() {
         <Route path='/login' component={Login} />
         <Route path='/signup' component={Signup} />
         <Route path='/search' component={Search} />
-        <Route path='/doctors/:id' component={DoctorProfile} />
-        <Route path='/book/:id' component={Book} />
+        <Route path='/doctors/:doctorID' component={DoctorProfile} />
+        <Route path='/patients/:patientID' component={PatientProfile} />
+        <Route path='/book/:doctorID' component={Book} />
         <Route path='/patient-dashboard' component={PatientDashboard} />
         <Route path='/doctor-dashboard' component={DoctorDashboard} />
-        <Route path='/admin-dashboard' component={Admin} />
+        <Route path='/admin' component={Admin} />
+        <Route path='/appointments/:appointmentID' component={Appointments} />
         <Route path='*' component={NotFound} />
       </Switch>
     </Router>
