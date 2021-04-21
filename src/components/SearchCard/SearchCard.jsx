@@ -64,6 +64,10 @@ const StyledRadioControl = styled(FormControlLabel)`
     height: 90px !important;
     margin: 0 !important;
   }
+
+  &:hover {
+    border: 2px solid ${({ theme }) => theme.colors.main1};
+  }
 `;
 
 const useStyles = makeStyles(() => ({
