@@ -13,10 +13,12 @@ import Appointments from './pages/Appointments';
 import PatientProfile from './pages/PatientProfile';
 import ContactUs from './pages/ContactUs';
 import About from './pages/About';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
   return (
     <Router>
+      <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />
