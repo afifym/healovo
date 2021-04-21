@@ -65,12 +65,6 @@ const StyledRadioControl = styled(FormControlLabel)`
         color: ${({ theme }) => theme.colors.main1};
       }
     `}
-  /* 
-  @media (max-width: 420px) {
-    width: 90px !important;
-    height: 90px !important;
-    margin: 0 !important;
-  } */
 
   &:hover {
     border: 2px solid ${({ theme }) => theme.colors.main1};
@@ -160,6 +154,10 @@ const RadioWrapper = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0 0.1em;
+
+  @media (max-width: 420px) {
+    width: 30% !important;
+  }
 
   .MuiFormControlLabel-labelPlacementBottom {
     margin: 0 !important;
