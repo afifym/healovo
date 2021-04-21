@@ -11,6 +11,8 @@ import Book from './pages/Book';
 import NotFound from './pages/NotFound';
 import Appointments from './pages/Appointments';
 import PatientProfile from './pages/PatientProfile';
+import ContactUs from './pages/ContactUs';
+import About from './pages/About';
 import Navbar from './components/Navbar/Navbar';
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
         <Route path='/doctor-dashboard' component={DoctorDashboard} />
         <Route path='/admin' component={Admin} />
         <Route path='/appointments/:appointmentID' component={Appointments} />
+        <Route path='/contact' component={ContactUs} />
+        <Route path='/about' component={About} />
         <Route path='*' component={NotFound} />
       </Switch>
     </Router>
