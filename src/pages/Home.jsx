@@ -1,0 +1,26 @@
+import React from 'react';
+import MetaDecorator from '../components/shared/MetaDecorator/MetaDecorator';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  background-image: url('/assets/images/stetho.jpg'),
+    url('/assets/images/header-bg-left.svg');
+  background-repeat: no-repeat, no-repeat;
+  background-position: 100% 100%, 0% 400px;
+  background-size: contain, 30%;
+  min-height: 100vh;
+`;
+
+const Home = () => {
+  return (
+    <Wrapper>
+      <MetaDecorator
+        title='Healovo | Home'
+        description='A medical booking website that connects doctors with patients'
+      />
+      <h2>Home</h2>
+    </Wrapper>
+  );
+};
+
+export default Home;
