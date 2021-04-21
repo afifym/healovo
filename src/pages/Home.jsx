@@ -6,8 +6,8 @@ const Wrapper = styled.div`
   background-image: url('/assets/images/stetho.jpg'),
     url('/assets/images/header-bg-left.svg');
   background-repeat: no-repeat, no-repeat;
-  background-position: 100% 100%, 0% 400px;
-  background-size: contain, 30%;
+  background-position: top right, 0% 400px;
+  background-size: 900px, 30%;
   min-height: 100vh;
 `;
 
