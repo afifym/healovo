@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FaChevronRight } from 'react-icons/fa';
 import GradientButton from '../shared/GradientButton/GradientButton';
 import { Box, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
   text-align: center;
@@ -33,6 +34,7 @@ const Curious = () => {
             className='title'
             variant='h2'
             component='h2'
+            color='secondary'
             style={{ fontWeight: 700 }}
           >
             Curious yet?
@@ -45,14 +47,15 @@ const Curious = () => {
           >
             It only takes a few minutes to get up and start running!
           </Typography>
-          <GradientButton
-            width='210px'
-            lightCircle
-            blueBg
-            icon={<FaChevronRight color='hsl(229, 86%, 56%)' size={13} />}
-          >
-            Get Started
-          </GradientButton>
+          <Link to='/signup'>
+            <GradientButton
+              width='210px'
+              switchcolors
+              icon={<FaChevronRight color='hsl(229, 86%, 56%)' size={13} />}
+            >
+              Get Started
+            </GradientButton>
+          </Link>
         </div>
       </Box>
     </Wrapper>
