@@ -1,100 +1,127 @@
 import React from 'react';
 import styled from 'styled-components';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
+  background-color: ${({ theme }) => theme.colors.main2};
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  .list-title {
+    font-weight: 600;
+  }
   ul {
     margin-top: 1em;
   }
   li {
     padding: 0.3em 0;
+    font-weight: 500;
+    cursor: pointer;
+    &:hover {
+      a {
+        color: ${({ theme }) => theme.colors.main1};
+        border-bottom: 2px solid ${({ theme }) => theme.colors.main1};
+      }
+    }
   }
 
   a {
     color: ${({ theme }) => theme.colors.dark1};
+  }
+
+  @media (max-width: 768px) {
   }
 `;
 
 const Footer = () => {
   return (
     <Wrapper>
-      <Box p={3} display='flex' alignItems='center' justifyContent='center'>
-        <Grid className='debug' justify='center' container spacing={1}>
-          <Grid item lg={2} sm={4}>
-            <Box
-              display='flex'
-              alignItems='center'
-              justifyContent='center'
-              style={{ height: '100%' }}
-            >
-              <Link to='/'>
-                <img
-                  src='/assets/images/healovo.svg'
-                  alt='healovo'
-                  style={{ width: '220px' }}
-                />
-              </Link>
-            </Box>
-          </Grid>
-          <Grid item lg={1} sm={1}></Grid>
-          <Grid item lg={3} sm={4}>
-            <Typography variant='h5'>About Healovo</Typography>
-            <Box>
-              <ul>
-                <li>
-                  <a href='#'>Pricing</a>
-                </li>
-                <li>
-                  <a href='#'>Careers</a>
-                </li>
-                <li>
-                  <a href='#'>Trust</a>
-                </li>
-                <li>
-                  <a href='#'>Privacy Policy</a>
-                </li>
-              </ul>
-            </Box>
-          </Grid>
-          <Grid item lg={3} sm={4}>
-            <Typography variant='h5'>Help</Typography>
-            <Box>
-              <ul>
-                <li>
-                  <a href='#'>Support Center</a>
-                </li>
-                <li>
-                  <a href='#'>FAQ</a>
-                </li>
-                <li>
-                  <a href='#'>Tutorials</a>
-                </li>
-                <li>
-                  <a href='#'>Contact Us</a>
-                </li>
-              </ul>
-            </Box>
-          </Grid>
-          <Grid item lg={3} sm={4}>
-            <Typography variant='h5'>Services</Typography>
-            <Box>
-              <ul>
-                <li>
-                  <a href='#'>Payments</a>
-                </li>
-                <li>
-                  <a href='#'>Video Meeting</a>
-                </li>
-                <li>
-                  <a href='#'>Refund Policy</a>
-                </li>
-              </ul>
-            </Box>
-          </Grid>
-        </Grid>
+      <Box p={3} display='flex' justifyContent='space-around' flexWrap='wrap'>
+        <Box
+          display='flex'
+          alignItems='center'
+          justifyContent='center'
+          alignSelf='center'
+          m={3}
+          my={3}
+          style={{ width: '220px' }}
+          className='img-wrapper'
+        >
+          <Link to='/'>
+            <img
+              src='/assets/images/healovo.svg'
+              alt='healovo'
+              style={{ width: '220px' }}
+            />
+          </Link>
+        </Box>
+        <Box m={3} my={3} style={{ width: '220px' }}>
+          <Typography className='list-title' variant='h5' color='secondary'>
+            About Healovo
+          </Typography>
+          <Box>
+            <ul>
+              <li>
+                <Link to='/'>Pricing</Link>
+              </li>
+              <li>
+                <Link to='/'>Careers</Link>
+              </li>
+              <li>
+                <Link to='/'>Trust</Link>
+              </li>
+              <li>
+                <Link to='/'>Privacy Policy</Link>
+              </li>
+            </ul>
+          </Box>
+        </Box>
+        <Box m={3} my={3} style={{ width: '220px' }}>
+          <Typography className='list-title' variant='h5' color='secondary'>
+            Help
+          </Typography>
+          <Box>
+            <ul>
+              <li>
+                <Link to='/'>Support Center</Link>
+              </li>
+              <li>
+                <Link to='/'>FAQ</Link>
+              </li>
+              <li>
+                <Link to='/'>Tutorials</Link>
+              </li>
+              <li>
+                <Link to='/'>Contact Us</Link>
+              </li>
+            </ul>
+          </Box>
+        </Box>
+        <Box m={3} my={3} style={{ width: '220px' }}>
+          <Typography className='list-title' variant='h5' color='secondary'>
+            Services
+          </Typography>
+          <Box>
+            <ul>
+              <li>
+                <Link to='/'>Payments</Link>
+              </li>
+              <li>
+                <Link to='/'>Video Meeting</Link>
+              </li>
+              <li>
+                <Link to='/'>Emergencies</Link>
+              </li>
+              <li>
+                <Link to='/'>Refund Policy</Link>
+              </li>
+            </ul>
+          </Box>
+        </Box>
       </Box>
     </Wrapper>
   );

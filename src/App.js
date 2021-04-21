@@ -11,11 +11,10 @@ import Book from './pages/Book';
 import NotFound from './pages/NotFound';
 import Appointments from './pages/Appointments';
 import PatientProfile from './pages/PatientProfile';
-import Footer from './components/Footer/Footer';
+
 function App() {
   return (
     <Router>
-      <Footer />
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />
