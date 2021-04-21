@@ -7,17 +7,23 @@ import styled from 'styled-components';
 const StyledButton = styled(Button)`
   position: relative;
   text-align: left;
+  border-radius: 50px;
+  padding: 1em;
+  background: ${({ theme }) => theme.gradients.gradient4};
 
   .MuiButton-label {
     display: block;
     text-align: left;
     padding-left: 3em;
+    margin: 1em;
+    color: white;
   }
 
   .MuiButton-startIcon {
     position: absolute;
     left: 25px;
-    top: 10px;
+    top: 55%;
+    transform: translateY(-50%);
   }
 `;
 
@@ -88,10 +94,10 @@ const MobileApp = () => {
       <div className='container'>
         <h2>Download Our App</h2>
         <span className='btn-wrapper'>
-          <StyledButton color='primary' startIcon={<AiFillAndroid size={25} />}>
+          <StyledButton startIcon={<AiFillAndroid color='white' size={30} />}>
             For Andriod
           </StyledButton>
-          <StyledButton color='primary' startIcon={<FaAppStoreIos size={25} />}>
+          <StyledButton startIcon={<FaAppStoreIos color='white' size={30} />}>
             For IOS
           </StyledButton>
         </span>
