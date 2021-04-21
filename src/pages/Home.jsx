@@ -18,13 +18,8 @@ const Home = () => {
         title='Healovo | Home'
         description='A medical booking website that connects doctors with patients'
       />
-<<<<<<< HEAD
       <h2>Home</h2>
     </Wrapper>
-=======
-      <SearchCard />
-    </div>
->>>>>>> SearchCard
   );
 };
 
