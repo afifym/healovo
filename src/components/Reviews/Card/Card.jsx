@@ -7,6 +7,7 @@ const CarouselContainer = styled.div`
   width: 600px;
   padding-top: 1rem;
   margin-top: 2rem;
+
   border-radius: 5px;
   box-shadow: ${({ theme }) => theme.shadows.shadow1};
   background-color: ${({ theme }) => theme.colors.light1};
