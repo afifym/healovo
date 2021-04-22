@@ -86,7 +86,8 @@ const SearchPage = () => {
           }
 
           if ([singleFilter["filterNameDB"]] == "communicationMethods") {
-            console.log(`"${[singleFilter["filterNameDB"]]}":"${filterItem}"`);
+            console.log(`"${filterItem}":${true}`);
+            arrRsult.push(`"${filterItem}":${true}`);
           }
         }
       }
