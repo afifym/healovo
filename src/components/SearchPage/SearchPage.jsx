@@ -12,6 +12,7 @@ import { useState } from "react";
 import { DoctorsData } from "../../DoctorsData";
 import SearchResultHeader from "./SearchResultHeader";
 import { useEffect } from "react";
+import Fuse from "fuse.js";
 
 const defaultFilterSetting = [
   {
@@ -61,56 +62,68 @@ let schena = {
 
   price: 35,
 };
-/*
-const hand = () => {
-  defaultFilterSetting.map((singleFilter)=>{
-   
 
-    for(let item in singleFilter.filterData ){
-      if(singleFilter.filterData[item] == true){
-
-      } 
-    }
-  })
-};
-
-const handl = (){
-  switch(title){
-    case 'Location':
-
-    case 'Gender':
-
-      case 'Rating':
-
-        case 'Price':
-
-          case 'open now':
-  }
-}
-
-const handlB = (filter)=>{
-  const doctorsCopy = JSON.parse(JSON.stringify(doctors));
-  const realFilter ;
-  switch(filter){
-
-    case 'rate' :
-    
-    case 'gender':
-      case 'price' :
-        case 'communicationMethods' :
-
-  }
-    
-      doctorsCopy.map((doctor)=>{
-       doctor[realFilter] ==
-      })
-}
-
-*/
 const SearchPage = () => {
   const [doctors, setdoctors] = useState(DoctorsData);
   const [doctorsFilter, setDoctorsFilter] = useState(doctors);
   const [filterSettings, setFilterSettings] = useState(defaultFilterSetting);
+
+  const goodBye = () => {
+    let x = [
+      {
+        $or: [
+          { rate: "2" }, // Starts with "lock"
+          { rate: "3" }, // Does not have "arts"
+        ],
+      },
+      {
+        $or: [
+          { gender: "female" }, // Starts with "lock"
+          { gender: "male" }, // Does not have "arts"
+        ],
+      },
+    ];
+    const arrRsult = [];
+    filterSettings.map((singleFilter) => {
+      const singleFObj = { $or: [] };
+      for (const filterItem in singleFilter["filterData"]) {
+        if (
+          singleFilter["filterData"][filterItem] == true &&
+          filterItem != "any"
+        ) {
+          singleFObj["$or"].push({
+            [singleFilter["filterNameDB"]]: filterItem,
+          });
+        }
+      }
+      singleFObj["$or"].length !== 0 && arrRsult.push(singleFObj);
+    });
+    console.log("ssssssss", arrRsult);
+    return arrRsult;
+  };
+
+  const handleFilter = () => {
+    const fuse = new Fuse(doctors, {
+      keys: [
+        "rate",
+        "gender",
+        "price",
+        "communicationMethods.clinic",
+        "communicationMethods.video",
+        "communicationMethods.home",
+      ],
+    });
+    console.log("fuse", fuse);
+
+    const result = fuse.search({
+      $and: [goodBye()],
+    });
+
+    console.log("result", result);
+    const stateResult = result.map((result) => result.item);
+    console.log("stateResult", stateResult);
+    setDoctorsFilter(stateResult);
+  };
 
   const handleCheckBoxChange = (event, idx) => {
     const filterSettingCopy = JSON.parse(JSON.stringify(filterSettings));
@@ -184,6 +197,8 @@ const SearchPage = () => {
     } else {
       setDoctorsFilter(reuslt);
     }
+
+    goodBye();
   }, [filterSettings]);
 
   return (
