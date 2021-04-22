@@ -69,61 +69,42 @@ const SearchPage = () => {
   const [filterSettings, setFilterSettings] = useState(defaultFilterSetting);
 
   const goodBye = () => {
-    let x = [
-      {
-        $or: [
-          { rate: "2" }, // Starts with "lock"
-          { rate: "3" }, // Does not have "arts"
-        ],
-      },
-      {
-        $or: [
-          { gender: "female" }, // Starts with "lock"
-          { gender: "male" }, // Does not have "arts"
-        ],
-      },
-    ];
     const arrRsult = [];
     filterSettings.map((singleFilter) => {
-      const singleFObj = { $or: [] };
       for (const filterItem in singleFilter["filterData"]) {
         if (
           singleFilter["filterData"][filterItem] == true &&
           filterItem != "any"
         ) {
-          singleFObj["$or"].push({
-            [singleFilter["filterNameDB"]]: filterItem,
-          });
+          if (
+            [singleFilter["filterNameDB"]] == "gender" ||
+            [singleFilter["filterNameDB"]] == "rate"
+          ) {
+            arrRsult.push(
+              `"${[singleFilter["filterNameDB"]]}":"${filterItem}"`
+            );
+          }
         }
       }
-      singleFObj["$or"].length !== 0 && arrRsult.push(singleFObj);
     });
     console.log("ssssssss", arrRsult);
     return arrRsult;
   };
 
   const handleFilter = () => {
-    const fuse = new Fuse(doctors, {
-      includeScore: true,
-      keys: [
-        "rate",
-        "gender",
-        "price",
-        "communicationMethods.clinic",
-        "communicationMethods.video",
-        "communicationMethods.home",
-      ],
-    });
-    console.log("fuse", fuse);
+    let result = goodBye();
 
-    const result = fuse.search({
-      $and: goodBye(),
+    let filterDoctorss = doctors.filter((doctor) => {
+      let strDoctor = JSON.stringify(doctor);
+      let xx = result.find((res) => {
+        console.log("resresresres", res);
+        return strDoctor.search(res) != -1;
+      });
+      if (xx) {
+        return doctor;
+      }
     });
-
-    console.log("result", result);
-    const stateResult = result.map((result) => result.item);
-    console.log("stateResult", stateResult);
-    setDoctorsFilter(stateResult);
+    console.log("filterDoctorss", filterDoctorss);
   };
 
   const handleCheckBoxChange = (event, idx) => {
