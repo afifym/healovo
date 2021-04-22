@@ -104,6 +104,7 @@ const SearchPage = () => {
 
   const handleFilter = () => {
     const fuse = new Fuse(doctors, {
+      includeScore: true,
       keys: [
         "rate",
         "gender",
@@ -116,7 +117,7 @@ const SearchPage = () => {
     console.log("fuse", fuse);
 
     const result = fuse.search({
-      $and: [goodBye()],
+      $and: goodBye(),
     });
 
     console.log("result", result);
@@ -191,14 +192,8 @@ const SearchPage = () => {
   };
 
   useEffect(() => {
-    const reuslt = generalfun();
-    if (reuslt.length == 0) {
-      setDoctorsFilter(doctors);
-    } else {
-      setDoctorsFilter(reuslt);
-    }
-
     goodBye();
+    handleFilter();
   }, [filterSettings]);
 
   return (
