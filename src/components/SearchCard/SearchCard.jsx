@@ -65,10 +65,13 @@ const StyledRadioControl = styled(FormControlLabel)`
     font-weight: 700;
   }
 
+  &:hover {
+    border: 2px solid ${({ theme }) => theme.colors.main1};
+  }
+
   ${({ isactive }) =>
     isactive &&
     css`
-      border: 2px solid ${({ theme }) => theme.colors.main1};
       .MuiTypography-root {
         color: ${({ theme }) => theme.colors.main1};
       }
@@ -76,10 +79,6 @@ const StyledRadioControl = styled(FormControlLabel)`
         color: ${({ theme }) => theme.colors.main1};
       }
     `}
-
-  &:hover {
-    border: 2px solid ${({ theme }) => theme.colors.main1};
-  }
 `;
 
 const useStyles = makeStyles(() => ({
@@ -156,7 +155,7 @@ const IconWrapper = styled.span`
 
 const RadioWrapper = styled.div`
   position: relative;
-  width: 28%;
+  width: 26%;
   text-align: center;
 
   display: flex;
@@ -287,9 +286,24 @@ const SearchCard = () => {
                 justifyContent='space-between'
                 style={{ width: '100%' }}
               >
-                <RadioWrapper isactive={formData.type === 'clinic' ? 1 : 0}>
+                <RadioWrapper isactive={formData.type === 'home' ? 1 : 0}>
                   <Icon>
                     <FaHome size={40} />
+                  </Icon>
+                  <StyledRadioControl
+                    isactive={formData.type === 'home' ? 1 : 0}
+                    value='home'
+                    control={
+                      <Radio color='primary' style={{ visibility: 'hidden' }} />
+                    }
+                    label='Home'
+                    labelPlacement='bottom'
+                  />
+                </RadioWrapper>
+
+                <RadioWrapper isactive={formData.type === 'clinic' ? 1 : 0}>
+                  <Icon>
+                    <FaClinicMedical size={40} />
                   </Icon>
                   <StyledRadioControl
                     isactive={formData.type === 'clinic' ? 1 : 0}
@@ -302,20 +316,6 @@ const SearchCard = () => {
                   />
                 </RadioWrapper>
 
-                <RadioWrapper isactive={formData.type === 'home' ? 1 : 0}>
-                  <Icon>
-                    <FaClinicMedical size={40} />
-                  </Icon>
-                  <StyledRadioControl
-                    isactive={formData.type === 'home' ? 1 : 0}
-                    value='home'
-                    control={
-                      <Radio color='primary' style={{ visibility: 'hidden' }} />
-                    }
-                    label='Home'
-                    labelPlacement='bottom'
-                  />
-                </RadioWrapper>
                 <RadioWrapper isactive={formData.type === 'video' ? 1 : 0}>
                   <Icon>
                     <FaVideo size={40} />

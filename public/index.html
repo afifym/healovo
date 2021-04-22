@@ -19,6 +19,7 @@
     <title>Healovo Medical Booking</title>
     <style>
       .preloader-mmm {
+        pointer-events: none;
         height: 100%;
         width: 100%;
         display: flex;
@@ -29,8 +30,9 @@
         left: 0;
         top: 0;
         background-color: white;
-        transition: opacity 0.2s ease;
+        transition: opacity 0.5s ease;
         overflow: hidden;
+        opacity: 1;
       }
 
       .container-mmm {
@@ -41,7 +43,7 @@
 
       .circle-mmm {
         position: absolute;
-        width: 300px;
+        width: 15%;
         animation: animate-loader 1s ease infinite;
       }
 
@@ -52,13 +54,12 @@
 
       .remove-loader-mmm {
         opacity: 0;
-        visibility: hidden;
         overflow: visible;
       }
 
       .heart-mmm {
         position: absolute;
-        width: 150px;
+        width: 7%;
       }
 
       @keyframes animate-loader {

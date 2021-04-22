@@ -5,7 +5,7 @@ import { Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.main2};
+  background-color: #f5f6f8;
   width: 100%;
 
   .list-title {

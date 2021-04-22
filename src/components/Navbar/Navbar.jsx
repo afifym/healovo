@@ -8,14 +8,14 @@ const Navbar = () => {
 
   return (
     <Wrapper open={open}>
-      <div className='logo-wrapper'>
+      <Link to='/' className='logo-wrapper'>
         <img
           src='/assets/images/healovo-black.svg'
           alt='Healovo Logo'
           style={{ width: '100%' }}
           // used in our library
         />
-      </div>
+      </Link>
 
       <Icon onClick={() => setOpen(!open)}>
         <RiMenu3Fill color='hsl(229, 86%, 56%)' size={40} />
@@ -59,6 +59,7 @@ const Wrapper = styled.div`
 
   .logo-wrapper {
     width: 180px;
+    text-decoration: none;
   }
 
   @media (max-width: 1130px) {

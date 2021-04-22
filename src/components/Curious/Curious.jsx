@@ -45,7 +45,7 @@ const Curious = () => {
             variant='h6'
             style={{ marginBottom: '70px' }}
           >
-            It only takes a few minutes to get up and start running!
+            It only takes a few minutes to get up and running!
           </Typography>
           <Link to='/signup'>
             <GradientButton
