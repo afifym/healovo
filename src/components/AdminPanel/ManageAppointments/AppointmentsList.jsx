@@ -238,6 +238,7 @@ export default function AppointmentsList({
   setUpdate,
   selected,
   setSelected,
+  noselect,
 }) {
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
@@ -250,7 +251,6 @@ export default function AppointmentsList({
   const [status, setStatus] = useState('');
 
   const fetchData = async () => {
-    console.log('fetchData');
     try {
       const data = await fetchAppointments();
 
@@ -300,6 +300,7 @@ export default function AppointmentsList({
   };
 
   const handleSelectAllClick = (event) => {
+    if (noselect) return;
     if (event.target.checked) {
       const newSelecteds = rows.map((n) => n.id);
       setSelected(newSelecteds);
@@ -309,6 +310,8 @@ export default function AppointmentsList({
   };
 
   const handleClick = (event, id) => {
+    if (noselect) return;
+
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
 

@@ -22,14 +22,25 @@ const Wrapper = styled.div`
     width: 100%;
     padding: 0 0.5em;
 
-    .feeling {
-      font-size: 1.7rem;
-    }
     .find {
       font-size: 2.5rem;
       white-space: no-wrap;
     }
+  }
 
+  @media (max-width: 650px) {
+    width: 100%;
+    padding: 0 0.5em;
+
+    .container {
+      /* min-width: 550px; */
+    }
+    .feeling {
+      font-size: 1.7rem;
+    }
+    .find {
+      font-size: 2.8rem;
+    }
     .book {
       font-size: 1.4rem !important;
     }
@@ -86,9 +97,7 @@ const useStyles = makeStyles(() => ({
   marginLeft: {
     marginLeft: '10px',
   },
-  customeCountianer: {
-    // maxWidth: 580,
-    // minWidth: '100px',
+  container: {
     width: '100%',
     margin: '0 auto',
     background: 'linear-gradient(152.21deg, #FFFFFF 48.23%, #CFCDC6 100%)',
@@ -96,11 +105,11 @@ const useStyles = makeStyles(() => ({
     borderRadius: '50px',
     padding: '80px 40px',
     ['@media (max-width:540px)']: {
+      minWidth: 'auto',
       background: 'none',
       boxShadow: 'none',
       borderRadius: '0px',
       padding: '0 0',
-      // paddingTop: 25,
     },
   },
   box: {
@@ -147,7 +156,7 @@ const IconWrapper = styled.span`
 
 const RadioWrapper = styled.div`
   position: relative;
-  width: 40%;
+  width: 28%;
   text-align: center;
 
   display: flex;
@@ -226,7 +235,7 @@ const SearchCard = () => {
 
   return (
     <Wrapper>
-      <div className={classes.customeCountianer}>
+      <div className={`${classes.container} container`}>
         <header style={{ width: '100%' }}>
           <Typography
             variant='h4'

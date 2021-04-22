@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   background-image: url('/assets/services.svg');
   background-repeat: no-repeat;
   background-position: 0 150px;
+  padding: 5em 0;
 `;
 
 const Services = () => {

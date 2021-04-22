@@ -30,13 +30,13 @@ const Wrapper = styled.div`
 
 const Home = () => {
   return (
-    <Wrapper className=''>
+    <Wrapper>
       <MetaDecorator
         title='Healovo | Home'
         description='A medical booking website that connects doctors with patients'
       />
       <Navbar />
-      <SearchCardWrapper className=''>
+      <SearchCardWrapper>
         <SearchCard className='search-card' />
       </SearchCardWrapper>
 
@@ -68,7 +68,7 @@ const Home = () => {
 const SearchCardWrapper = styled.div`
   display: flex;
   max-width: 80%;
-  padding-top: 10em;
+  padding-top: 12em;
   justify-content: center;
   .search-card {
     position: absolute;
@@ -76,6 +76,7 @@ const SearchCardWrapper = styled.div`
   }
 
   @media (max-width: 540px) {
+    padding-top: 8em;
     max-width: 100%;
   }
 `;

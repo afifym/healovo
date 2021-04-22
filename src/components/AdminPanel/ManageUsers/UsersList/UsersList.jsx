@@ -20,7 +20,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { MdDelete } from 'react-icons/md';
 import { FaFilter } from 'react-icons/fa';
-import { Container, Divider, LinearProgress } from '@material-ui/core';
+import { Container, LinearProgress } from '@material-ui/core';
 import {
   deleteDoctor,
   deletePatient,

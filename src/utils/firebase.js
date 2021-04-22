@@ -1,5 +1,7 @@
 import firebase from 'firebase';
 import axios from 'axios';
+import 'firebase/storage';
+
 const firebaseConfig = {
   apiKey: 'AIzaSyAvhrEd58Qmg_adFoaLwEjkemym4EKUD3s',
   authDomain: 'healovo.firebaseapp.com',

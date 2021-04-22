@@ -47,7 +47,7 @@ const LinkWrapper = styled.div`
 `;
 
 const Wrapper = styled.div`
-  padding: 0 4.375rem;
+  padding: 0.5em 4.375rem;
   color: #000000;
   display: flex;
   flex-wrap: wrap;

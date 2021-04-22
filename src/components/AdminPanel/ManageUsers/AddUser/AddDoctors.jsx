@@ -18,6 +18,8 @@ import styled, { css } from 'styled-components';
 
 import Input from '@material-ui/core/Input';
 import Chip from '@material-ui/core/Chip';
+import firebase from '../../../../utils/firebase';
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -54,6 +56,7 @@ const initialState = {
   degree: '',
   specialty: '',
   rate: '',
+  age: '',
   price: '',
   image: '',
   email: '',
@@ -123,6 +126,15 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
     setFetch(!fetch);
   };
 
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    const storageRef = firebase.storage().ref();
+    const fileRef = storageRef.child(file.name);
+    await fileRef.put(file);
+    const fileURL = await fileRef.getDownloadURL();
+    setFormData({ ...formData, image: fileURL });
+  };
+
   return (
     <Box display='flex' flexDirection='column' m='auto' maxWidth={1100}>
       <Paper>
@@ -147,6 +159,7 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
               </Typography>
               <div>
                 <TextField
+                  required
                   id='first-name'
                   label='First Name'
                   style={{ margin: 8 }}
@@ -164,6 +177,7 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
                   }
                 />
                 <TextField
+                  required
                   id='last-name'
                   label='Last Name'
                   style={{ margin: 8 }}
@@ -224,6 +238,23 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
                   }
                 />
                 <TextField
+                  required
+                  type='number'
+                  id='age'
+                  label='age'
+                  style={{ margin: 8 }}
+                  placeholder='Age'
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant='outlined'
+                  value={formData.age}
+                  onChange={(e) =>
+                    setFormData({ ...formData, age: e.target.value })
+                  }
+                />
+                <TextField
+                  type='number'
                   id='price'
                   label='Price'
                   style={{ margin: 8 }}
@@ -238,6 +269,8 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
                   }
                 />
                 <TextField
+                  required
+                  type='email'
                   id='email'
                   label='Email'
                   style={{ margin: 8 }}
@@ -265,20 +298,26 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
                     setFormData({ ...formData, password: e.target.value })
                   }
                 />
-                <TextField
-                  id='image'
-                  label='Image URL'
-                  style={{ margin: 8 }}
-                  placeholder='image'
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant='outlined'
-                  value={formData.image}
-                  onChange={(e) =>
-                    setFormData({ ...formData, image: e.target.value })
-                  }
-                />
+                <div>
+                  <span
+                    style={{
+                      fontWeight: 'bold',
+                      color: '#343949',
+                    }}
+                  >
+                    Image
+                  </span>
+                  <input
+                    type='file'
+                    id='image'
+                    label='Image URL'
+                    style={{ margin: 8 }}
+                    placeholder='image'
+                    accept='image/jpg'
+                    onChange={handleImageUpload}
+                  />
+                </div>
+
                 <TextField
                   id='address'
                   label='Location'
@@ -313,6 +352,7 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
                     Gender
                   </InputLabel>
                   <Select
+                    required
                     style={{ padding: '0.2em' }}
                     variant='filled'
                     labelId='gender'
