@@ -13,27 +13,37 @@ import Appointments from './pages/Appointments';
 import PatientProfile from './pages/PatientProfile';
 import ContactUs from './pages/ContactUs';
 import About from './pages/About';
+import AdminLoginPage from './pages/AdminLoginPage';
+import { AuthProvider } from './contexts/AuthContext';
+import PrivateRoute from './utils/PrivateRoute';
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path='/' component={Home} />
-        <Route path='/login' component={Login} />
-        <Route path='/signup' component={Signup} />
-        <Route path='/search' component={Search} />
-        <Route path='/doctors/:doctorID' component={DoctorProfile} />
-        <Route path='/patients/:patientID' component={PatientProfile} />
-        <Route path='/book/:doctorID' component={Book} />
-        <Route path='/patient-dashboard' component={PatientDashboard} />
-        <Route path='/doctor-dashboard' component={DoctorDashboard} />
-        <Route path='/admin' component={Admin} />
-        <Route path='/appointments/:appointmentID' component={Appointments} />
-        <Route path='/contact' component={ContactUs} />
-        <Route path='/about' component={About} />
-        <Route path='*' component={NotFound} />
-      </Switch>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route path='/login' component={Login} />
+          <Route path='/signup' component={Signup} />
+          <Route path='/search' component={Search} />
+          <Route path='/doctors/:doctorID' component={DoctorProfile} />
+          <Route path='/patients/:patientID' component={PatientProfile} />
+          <Route path='/book/:doctorID' component={Book} />
+          <Route path='/patient-dashboard' component={PatientDashboard} />
+          <Route path='/doctor-dashboard' component={DoctorDashboard} />
+          <PrivateRoute
+            path='/admin'
+            redirectURL='/admin-login'
+            component={Admin}
+          />
+          <Route path='/appointments/:appointmentID' component={Appointments} />
+          <Route path='/contact' component={ContactUs} />
+          <Route path='/about' component={About} />
+          <Route path='/admin-login' component={AdminLoginPage} />
+          <Route path='*' component={NotFound} />
+        </Switch>
+      </Router>
+    </AuthProvider>
   );
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { FiUsers } from 'react-icons/fi';
@@ -6,9 +6,11 @@ import { FaUserNurse } from 'react-icons/fa';
 import { MdDashboard } from 'react-icons/md';
 import { BsCardList } from 'react-icons/bs';
 import { FaDownload } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Box, Divider, List } from '@material-ui/core';
 import styled from 'styled-components';
+import { HiLogin } from 'react-icons/hi';
+import { useAuth } from '../../../contexts/AuthContext';
 
 const StyledLink = styled(Link)`
   font-weight: 700;
@@ -23,6 +25,19 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 const SideNavigation = () => {
+  const { currentUser, logout } = useAuth();
+  const [error, setError] = useState('');
+  const history = useHistory();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      history.push('/admin-login');
+    } catch (error) {
+      setError('Failed to logout');
+    }
+  };
+
   return (
     <Wrapper>
       <List>
@@ -82,6 +97,12 @@ const SideNavigation = () => {
               <ListItemText primary='Unverified Doctors' />
             </Box>
           </StyledLink>
+        </ListItem>
+        <ListItem style={{ color: 'white' }} button onClick={handleLogout}>
+          <Box display='flex' alignItems='center'>
+            <HiLogin size={20} style={{ margin: '0 1em' }} />
+            <ListItemText primary='Logout' />
+          </Box>
         </ListItem>
       </List>
       <Divider />

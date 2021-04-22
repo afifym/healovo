@@ -1,13 +1,14 @@
 import React from 'react';
 import SideNavigation from './SideNavigation/SideNavigation';
-
 import styled from 'styled-components';
 import ManagePatients from './ManageUsers/ManagePatients';
 import ManageDoctors from './ManageUsers/ManageDoctors';
-
 import { Route } from 'react-router-dom';
 import AdminSummary from './AdminSummary/AdminSummary';
 import ManageAppointments from './ManageAppointments/ManageAppointments';
+import AdminLogin from './AdminLogin';
+import { useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 
 const Wrapper = styled.div`
   position: relative;
@@ -17,6 +18,20 @@ const Wrapper = styled.div`
 `;
 
 const AdminPanel = () => {
+  const [error, setError] = useState('');
+  const { currentUser, logout } = useAuth();
+
+  const handleLogout = async () => {
+    setError('');
+
+    try {
+      await logout();
+      history.push('/admin-login');
+    } catch (error) {
+      setError('Failed to Logout');
+    }
+  };
+
   return (
     <Wrapper>
       <SideNavigation />
