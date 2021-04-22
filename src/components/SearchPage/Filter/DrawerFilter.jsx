@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-const DrawerFilter = () => {
+const DrawerFilter = ({ filterSettings, onCheckBoxChange, onClear }) => {
   const classes = useStyles();
   const [state, setState] = React.useState({ left: false });
 
@@ -58,7 +58,11 @@ const DrawerFilter = () => {
             onClick={toggleDrawer("left", true)}
             onKeyDown={toggleDrawer("left", false)}
           >
-            <Filter />
+            <Filter
+              onClear={onClear}
+              filterSettings={filterSettings}
+              onCheckBoxChange={onCheckBoxChange}
+            />
           </div>
         </Drawer>
       </>

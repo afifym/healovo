@@ -46,11 +46,6 @@ const defaultFilterSetting = [
       ">200": false,
     },
   },
-  {
-    filterName: "open now",
-    filterNameDB: "open now",
-    filterData: { "open now": false },
-  },
 ];
 
 const SearchPage = () => {
@@ -228,7 +223,11 @@ const SearchPage = () => {
         </Grid>
       </Container>
       <Hidden mdUp>
-        <DrawerFilter />
+        <DrawerFilter
+          onClear={handlClaer}
+          filterSettings={filterSettings}
+          onCheckBoxChange={handleCheckBoxChange}
+        />
       </Hidden>
     </div>
   );

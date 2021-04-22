@@ -56,10 +56,6 @@ const Filters = [
       ">200": "More than 200GEP",
     },
   },
-  {
-    filterName: "open now",
-    filterData: { "open now": "open now" },
-  },
 ];
 
 const Filter = ({ filterSettings, onCheckBoxChange, onClear }) => {
