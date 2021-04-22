@@ -20,7 +20,13 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import StepConnector from '@material-ui/core/StepConnector';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { FaUserCog } from 'react-icons/fa';
+import {
+  FaUserFriends,
+  FaUserEdit,
+  FaUserMd,
+  FaUserShield,
+  FaUserCheck,
+} from 'react-icons/fa';
 import clsx from 'clsx';
 import { FaUserNurse, FaUserAlt } from 'react-icons/fa';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
@@ -70,11 +76,11 @@ function ColorlibStepIcon(props) {
   const { active, completed } = props;
 
   const icons = {
-    1: <FaUserCog />,
-    2: <FaUserCog />,
-    3: <FaUserCog />,
-    4: <FaUserCog />,
-    5: <FaUserCog />,
+    1: <FaUserFriends />,
+    2: <FaUserEdit />,
+    3: <FaUserMd />,
+    4: <FaUserShield />,
+    5: <FaUserCheck />,
   };
 
   return (
@@ -295,6 +301,25 @@ function Registeration() {
                   />
                 </RadioWrapper>
               </Field>
+              <Box display='flex' justifyContent='center' my={4}>
+                <Typography
+                  variant='subtitl1'
+                  color='secondary'
+                  style={{ fontWeight: '500' }}
+                >
+                  Have an account?{' '}
+                  <Link
+                    to='/login'
+                    style={{
+                      textDecoration: 'underline',
+                      color: 'hsl(229, 86%, 56%)',
+                    }}
+                  >
+                    Login
+                  </Link>
+                </Typography>
+              </Box>
+
               <ErrorMessage
                 name='type'
                 component='h5'
@@ -392,7 +417,7 @@ function Registeration() {
                                       label='Phone*'
                                       name={`phone[${idx}]`}
                                     />
-                                    {idx === 0 && (
+                                    {/* {idx === 0 && (
                                       <Button
                                         type='button'
                                         onClick={() => push('')}
@@ -409,7 +434,7 @@ function Registeration() {
                                       >
                                         -
                                       </Button>
-                                    )}
+                                    )} */}
                                   </div>
                                 ))}
                               </Box>
@@ -454,17 +479,27 @@ function Registeration() {
                         type='checkbox'
                         component={CheckboxWithLabel}
                         name='terms'
-                        Label={{ label: 'I’ve read and agreed on' }}
+                        style={{ marginRight: '-0.5em' }}
                       />
-                      <Link
-                        style={{
-                          color: 'hsl(229, 86%, 56%)',
-                          textDecoration: 'underline',
-                        }}
-                        to='#'
-                      >
-                        Terms of Service
-                      </Link>
+                      <Box display='inline' m={0}>
+                        <Typography
+                          variant='subtitl1'
+                          color='secondary'
+                          style={{ fontWeight: '500', margin: '0' }}
+                        >
+                          I’ve read and agreed on{' '}
+                          <Link
+                            style={{
+                              color: 'hsl(229, 86%, 56%)',
+                              textDecoration: 'underline',
+                            }}
+                            to='/terms-of-service'
+                          >
+                            Terms of Service
+                          </Link>
+                        </Typography>
+                      </Box>
+
                       <ErrorMessage
                         name='terms'
                         component='h5'
