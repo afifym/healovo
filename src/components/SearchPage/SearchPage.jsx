@@ -84,6 +84,10 @@ const SearchPage = () => {
               `"${[singleFilter["filterNameDB"]]}":"${filterItem}"`
             );
           }
+
+          if ([singleFilter["filterNameDB"]] == "communicationMethods") {
+            console.log(`"${[singleFilter["filterNameDB"]]}":"${filterItem}"`);
+          }
         }
       }
     });
@@ -96,8 +100,8 @@ const SearchPage = () => {
 
     let filterDoctorss = doctors.filter((doctor) => {
       let strDoctor = JSON.stringify(doctor);
+      console.log("strDoctor", strDoctor);
       let xx = result.find((res) => {
-        console.log("resresresres", res);
         return strDoctor.search(res) != -1;
       });
       if (xx) {
@@ -105,6 +109,7 @@ const SearchPage = () => {
       }
     });
     console.log("filterDoctorss", filterDoctorss);
+    return filterDoctorss;
   };
 
   const handleCheckBoxChange = (event, idx) => {
@@ -174,7 +179,7 @@ const SearchPage = () => {
 
   useEffect(() => {
     goodBye();
-    handleFilter();
+    setDoctorsFilter(handleFilter());
   }, [filterSettings]);
 
   return (
