@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import {
   Box,
   Button,
-  Card,
-  CardContent,
-  CircularProgress,
   FormControlLabel,
   Grid,
+  LinearProgress,
   Radio,
   Step,
   StepLabel,
@@ -17,7 +15,6 @@ import { Field, Formik, Form, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { TextField, RadioGroup, CheckboxWithLabel } from 'formik-material-ui';
 import GradientButton from '../shared/GradientButton/GradientButton';
-import { IoIosArrowDroprightCircle } from 'react-icons/io';
 import { addDoctor, addPatient, auth } from '../../utils/firebase';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
@@ -27,6 +24,7 @@ import { FaUserCog } from 'react-icons/fa';
 import clsx from 'clsx';
 import { FaUserNurse, FaUserAlt } from 'react-icons/fa';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
 
 const initialValues = {
   type: '',
@@ -45,30 +43,6 @@ const initialValues = {
 };
 // Acts like sending API request
 // const sleep = (time) => new Promise((acc) => setTimeout(acc, time));
-
-const onSubmit = async (values) => {
-  let {
-    first,
-    last,
-    confirmPassword,
-    news,
-    terms,
-    verificationCode,
-    ...withoutAdditionals
-  } = values;
-  const name = { first, last };
-  const { email, password } = values;
-
-  if (values.type === 'doctor') {
-    let data = { name, ...withoutAdditionals };
-    await addDoctor(data);
-  } else if (values.type === 'patient') {
-    let { degree, speciality, university, ...data } = withoutAdditionals;
-    data = { name, ...data };
-    await addPatient(data);
-  }
-  await auth.createUserWithEmailAndPassword(email, password);
-};
 
 const useColorlibStepIconStyles = makeStyles({
   root: {
@@ -144,11 +118,20 @@ const ColorlibConnector = withStyles({
 
 const StyledStepper = styled(Stepper)``;
 
+const Wrapper = styled.div`
+  background-image: url('/assets/images/signup-bg.svg');
+  background-position: bottom bottom;
+  background-size: 100% 100vw;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+`;
+
 const StyledRadioControl = styled(FormControlLabel)`
   background: ${({ theme }) => theme.gradients.gradient1};
   border-radius: 15px;
-  width: 150px;
-  height: 150px;
+  width: 180px;
+  height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -161,7 +144,7 @@ const StyledRadioControl = styled(FormControlLabel)`
   }
 
   .MuiTypography-root {
-    margin-top: 1em;
+    margin-top: 2em;
     font-weight: 700;
   }
 
@@ -170,7 +153,7 @@ const StyledRadioControl = styled(FormControlLabel)`
     css`
       /* border: 2px solid ${({ theme }) => theme.colors.main1}; */
       background: ${({ theme }) => theme.gradients.gradient4};
-
+      border: none !important;
       .MuiTypography-root {
         color: white;
       }
@@ -204,10 +187,19 @@ const IconWrapper = styled.span`
   color: #6c7288;
   transition: all 0.2s ease;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e5e5e5;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+
   ${({ isactive }) =>
     isactive &&
     css`
       color: white;
+      background-color: #a7bcfb;
     `}
 `;
 
@@ -224,336 +216,369 @@ const RadioWrapper = styled.div`
 
 function Registeration() {
   const [isDoctor, setIsDoctor] = useState(false);
+  const history = useHistory();
+
+  const onSubmit = async (values) => {
+    let {
+      first,
+      last,
+      confirmPassword,
+      news,
+      terms,
+      verificationCode,
+      ...withoutAdditionals
+    } = values;
+    const name = { first, last };
+    const { email, password } = values;
+
+    if (values.type === 'doctor') {
+      let data = { name, ...withoutAdditionals };
+      await addDoctor(data);
+    } else if (values.type === 'patient') {
+      let { degree, speciality, university, ...data } = withoutAdditionals;
+      data = { name, ...data };
+      await addPatient(data);
+    }
+    await auth.createUserWithEmailAndPassword(email, password);
+    history.push('/dashboard');
+  };
 
   return (
-    <Card style={{ margin: '0 auto', paddingTop: '5em', minHeight: '100vh' }}>
-      <Box>
-        <FormikStepper initialValues={initialValues} onSubmit={onSubmit}>
-          <FormikStep
-            label='Account Type'
-            validationSchema={Yup.object({
-              type: Yup.string().required('Please select the account type!'),
-            })}
-          >
-            <Field
-              name='type'
-              component={RadioGroup}
-              label='Account Type'
-              aria-label='type'
-              control='radio'
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: '5em 0',
-                flexDirection: 'row',
-              }}
-            >
-              <RadioWrapper isactive={!isDoctor ? 1 : 0}>
-                <Icon isactive={!isDoctor ? 1 : 0}>
-                  <FaUserAlt size={35} />
-                </Icon>
-                <StyledRadioControl
-                  isactive={!isDoctor ? 1 : 0}
-                  labelPlacement='bottom'
-                  value='patient'
-                  label='Patient'
-                  control={<Radio />}
-                  onClick={() => setIsDoctor(false)}
-                />
-              </RadioWrapper>
-              <RadioWrapper isactive={isDoctor ? 1 : 0}>
-                <Icon isactive={isDoctor ? 1 : 0}>
-                  <FaUserNurse size={35} />
-                </Icon>
-                <StyledRadioControl
-                  isactive={isDoctor ? 1 : 0}
-                  labelPlacement='bottom'
-                  value='doctor'
-                  label='Doctor'
-                  control={<Radio />}
-                  onClick={() => setIsDoctor(true)}
-                />
-              </RadioWrapper>
-            </Field>
-            <ErrorMessage name='type' component='h5' style={{ color: 'red' }} />
-          </FormikStep>
-
-          <FormikStep
-            label='Registeration'
-            validationSchema={Yup.object({
-              first: Yup.string().required('First Name is Required!'),
-              last: Yup.string().required('Last Name is Required!'),
-              email: Yup.string()
-                .email('Invalid E-mail format!')
-                .required('Email is Required!'),
-              password: Yup.string()
-                .required('Password is Required!')
-                .min(6, 'Password must be at least 6 characters'),
-              phone: Yup.array().required('Phone is Required!'),
-              confirmPassword: Yup.string()
-                .oneOf([Yup.ref('password'), ''], 'Passwords must match')
-                .required('Confirm Password is Required!'),
-              terms: Yup.bool()
-                .oneOf([true], 'Must Accept Terms and Conditions')
-                .required('Must check the Terms!'),
-            })}
-          >
-            <Box
-              display='flex'
-              flexDirection='column'
-              justifyContent='center'
-              alignItems='center'
-            >
-              <Box>
-                <Box>
-                  <Box paddingBottom={2}>
-                    <GradientButton variant='contained' type='button'>
-                      Signup With Google
-                    </GradientButton>
-                  </Box>
-                  <Box paddingBottom={2}>
-                    <GradientButton variant='contained' type='button'>
-                      Signup With Facebook
-                    </GradientButton>
-                  </Box>
-                </Box>
-
-                <Box paddingBottom={2}>
-                  <Grid container spacing={2}>
-                    <Grid item>
-                      <Field
-                        name='first'
-                        component={TextField}
-                        label='First Name*'
-                        variant='outlined'
-                      />
-                    </Grid>
-                    <Grid item>
-                      <Field
-                        name='last'
-                        component={TextField}
-                        label='Last Name*'
-                        variant='outlined'
-                      />
-                    </Grid>
-                  </Grid>
-                </Box>
-
-                <Box paddingBottom={2}>
-                  <Grid container spacing={2}>
-                    <Grid item>
-                      <Field
-                        name='email'
-                        component={TextField}
-                        label='Email*'
-                        type='email'
-                        variant='outlined'
-                      />
-                    </Grid>
-
-                    <Grid item>
-                      <FieldArray name='phone'>
-                        {(fieldArrayProps) => {
-                          const { push, remove, form } = fieldArrayProps;
-                          const { values } = form;
-                          const { phone } = values;
-                          return (
-                            <Box>
-                              {phone.map((phoneNumber, idx) => (
-                                <div key={idx}>
-                                  <Field
-                                    style={{ marginBottom: '1rem' }}
-                                    variant='outlined'
-                                    component={TextField}
-                                    label='Phone*'
-                                    name={`phone[${idx}]`}
-                                  />
-                                  {idx === 0 && (
-                                    <Button
-                                      type='button'
-                                      onClick={() => push('')}
-                                      size='large'
-                                      style={{ boxShadow: 'none' }}
-                                    >
-                                      +
-                                    </Button>
-                                  )}
-                                  {idx > 0 && (
-                                    <Button
-                                      type='button'
-                                      onClick={() => remove(idx)}
-                                    >
-                                      -
-                                    </Button>
-                                  )}
-                                </div>
-                              ))}
-                            </Box>
-                          );
-                        }}
-                      </FieldArray>
-                    </Grid>
-                  </Grid>
-                </Box>
-
-                <Box paddingBottom={2}>
-                  <Grid container spacing={2}>
-                    <Grid item>
-                      <Field
-                        name='password'
-                        component={TextField}
-                        label='password*'
-                        type='password'
-                        variant='outlined'
-                      />
-                    </Grid>
-                    <Grid item>
-                      <Field
-                        name='confirmPassword'
-                        component={TextField}
-                        label='Confirm Password*'
-                        type='password'
-                        variant='outlined'
-                      />
-                    </Grid>
-                  </Grid>
-                </Box>
-                <Box
-                  display='flex'
-                  alignItems='center'
-                  justifyContent='center'
-                  m='auto'
-                  paddingBottom={2}
-                >
-                  <div>
-                    <Field
-                      type='checkbox'
-                      component={CheckboxWithLabel}
-                      name='terms'
-                      Label={{ label: 'I’ve read and agreed on' }}
-                    />
-                    <Link
-                      style={{
-                        color: 'hsl(229, 86%, 56%)',
-                        textDecoration: 'underline',
-                      }}
-                      to='#'
-                    >
-                      Terms of Service
-                    </Link>
-                    <ErrorMessage
-                      name='terms'
-                      component='h5'
-                      style={{ color: 'red' }}
-                    />
-                  </div>
-                </Box>
-              </Box>
-            </Box>
-          </FormikStep>
-
-          {isDoctor ? (
+    <Wrapper c>
+      <div style={{ margin: '0 auto', paddingTop: '4em', height: '100%' }}>
+        <Box>
+          <FormikStepper initialValues={initialValues} onSubmit={onSubmit}>
             <FormikStep
-              label='Additional Info'
-              validationSchema={Yup.object({
-                speciality: Yup.string().required(
-                  'Specialization is Required!'
-                ),
-                degree: Yup.string().required('Degree is Required!'),
-                university: Yup.string().required('University is Required!'),
-              })}
+              label='Account Type'
+              default
+              // validationSchema={Yup.object({
+              //   type: Yup.string().required('Please select the account type!'),
+              // })}
             >
-              <Box my={8} display='flex' justifyContent='center'>
-                <div>
-                  <Box paddingBottom={2}>
-                    <Field
-                      name='speciality'
-                      component={TextField}
-                      label='Speciality*'
-                      variant='outlined'
-                    />
-                  </Box>
-                  <Box paddingBottom={2}>
-                    <Field
-                      name='degree'
-                      component={TextField}
-                      label='Highest Degree*'
-                      variant='outlined'
-                    />
-                  </Box>
-                  <Box paddingBottom={2}>
-                    <Field
-                      name='university'
-                      component={TextField}
-                      label='University*'
-                      variant='outlined'
-                    />
-                  </Box>
-                </div>
-              </Box>
+              <Field
+                name='type'
+                component={RadioGroup}
+                label='Account Type'
+                aria-label='type'
+                control='radio'
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '5em 0',
+                  flexDirection: 'row',
+                }}
+              >
+                <RadioWrapper isactive={!isDoctor ? 1 : 0}>
+                  <Icon isactive={!isDoctor ? 1 : 0}>
+                    <FaUserAlt size={28} />
+                  </Icon>
+                  <StyledRadioControl
+                    isactive={!isDoctor ? 1 : 0}
+                    labelPlacement='bottom'
+                    value='patient'
+                    label='Patient'
+                    control={<Radio />}
+                    onClick={() => setIsDoctor(false)}
+                  />
+                </RadioWrapper>
+                <RadioWrapper isactive={isDoctor ? 1 : 0}>
+                  <Icon isactive={isDoctor ? 1 : 0}>
+                    <FaUserNurse size={28} />
+                  </Icon>
+                  <StyledRadioControl
+                    isactive={isDoctor ? 1 : 0}
+                    labelPlacement='bottom'
+                    value='doctor'
+                    label='Doctor'
+                    control={<Radio />}
+                    onClick={() => setIsDoctor(true)}
+                  />
+                </RadioWrapper>
+              </Field>
+              <ErrorMessage
+                name='type'
+                component='h5'
+                style={{ color: 'red' }}
+              />
             </FormikStep>
-          ) : null}
 
-          <FormikStep
-            label='Confirmation'
-            validationSchema={Yup.object({
-              verificationCode: Yup.string()
-                .required('Please Enter the verification code!')
-                .min(6, 'Must be 6-digits')
-                .max(6, 'Must be 6-digits'),
-            })}
-          >
-            <Box
-              display='flex'
-              alignItems='center'
-              justifyContent='center'
-              my={8}
+            <FormikStep
+              label='Registeration'
+              validationSchema={Yup.object({
+                first: Yup.string().required('First Name is Required!'),
+                last: Yup.string().required('Last Name is Required!'),
+                email: Yup.string()
+                  .email('Invalid E-mail format!')
+                  .required('Email is Required!'),
+                password: Yup.string()
+                  .required('Password is Required!')
+                  .min(6, 'Password must be at least 6 characters'),
+                phone: Yup.array().required('Phone is Required!'),
+                confirmPassword: Yup.string()
+                  .oneOf([Yup.ref('password'), ''], 'Passwords must match')
+                  .required('Confirm Password is Required!'),
+                terms: Yup.bool()
+                  .oneOf([true], 'Must Accept Terms and Conditions')
+                  .required('Must check the Terms!'),
+              })}
             >
               <Box
                 display='flex'
                 flexDirection='column'
-                aligItems='center'
                 justifyContent='center'
+                alignItems='center'
               >
-                <h3>We’ve sent a 6-digit code, please check your E-mail</h3>
-                <Field
-                  name='verificationCode'
-                  style={{ margin: '1rem 0px' }}
-                  component={TextField}
-                  label='Verification*'
-                  variant='outlined'
-                  placeholder='6-digit Code'
-                  style={{ margin: '2em 0' }}
-                />
-                <Link
-                  to='#'
-                  style={{ textAlign: 'center', color: 'hsl(229, 86%, 56%)' }}
-                >
-                  Resend code
-                </Link>
-              </Box>
-            </Box>
-          </FormikStep>
+                <Box>
+                  <Box>
+                    <Box paddingBottom={2}>
+                      <GradientButton variant='contained' type='button'>
+                        Signup With Google
+                      </GradientButton>
+                    </Box>
+                    <Box paddingBottom={2}>
+                      <GradientButton variant='contained' type='button'>
+                        Signup With Facebook
+                      </GradientButton>
+                    </Box>
+                  </Box>
 
-          <FormikStep label='Activation'>
-            <Box paddingBottom={2}>
-              <Typography
-                color='secondary'
-                variant='h5'
-                style={{
-                  width: '450px',
-                  textAlign: 'center',
-                  margin: '2em auto',
-                }}
+                  <Box paddingBottom={2}>
+                    <Grid container spacing={2}>
+                      <Grid item>
+                        <Field
+                          name='first'
+                          component={TextField}
+                          label='First Name*'
+                          variant='outlined'
+                        />
+                      </Grid>
+                      <Grid item>
+                        <Field
+                          name='last'
+                          component={TextField}
+                          label='Last Name*'
+                          variant='outlined'
+                        />
+                      </Grid>
+                    </Grid>
+                  </Box>
+
+                  <Box paddingBottom={2}>
+                    <Grid container spacing={2}>
+                      <Grid item>
+                        <Field
+                          name='email'
+                          component={TextField}
+                          label='Email*'
+                          type='email'
+                          variant='outlined'
+                        />
+                      </Grid>
+
+                      <Grid item>
+                        <FieldArray name='phone'>
+                          {(fieldArrayProps) => {
+                            const { push, remove, form } = fieldArrayProps;
+                            const { values } = form;
+                            const { phone } = values;
+                            return (
+                              <Box>
+                                {phone.map((phoneNumber, idx) => (
+                                  <div key={idx}>
+                                    <Field
+                                      style={{ marginBottom: '1rem' }}
+                                      variant='outlined'
+                                      component={TextField}
+                                      label='Phone*'
+                                      name={`phone[${idx}]`}
+                                    />
+                                    {idx === 0 && (
+                                      <Button
+                                        type='button'
+                                        onClick={() => push('')}
+                                        size='large'
+                                        style={{ boxShadow: 'none' }}
+                                      >
+                                        +
+                                      </Button>
+                                    )}
+                                    {idx > 0 && (
+                                      <Button
+                                        type='button'
+                                        onClick={() => remove(idx)}
+                                      >
+                                        -
+                                      </Button>
+                                    )}
+                                  </div>
+                                ))}
+                              </Box>
+                            );
+                          }}
+                        </FieldArray>
+                      </Grid>
+                    </Grid>
+                  </Box>
+
+                  <Box paddingBottom={2}>
+                    <Grid container spacing={2}>
+                      <Grid item>
+                        <Field
+                          name='password'
+                          component={TextField}
+                          label='password*'
+                          type='password'
+                          variant='outlined'
+                        />
+                      </Grid>
+                      <Grid item>
+                        <Field
+                          name='confirmPassword'
+                          component={TextField}
+                          label='Confirm Password*'
+                          type='password'
+                          variant='outlined'
+                        />
+                      </Grid>
+                    </Grid>
+                  </Box>
+                  <Box
+                    display='flex'
+                    alignItems='center'
+                    justifyContent='center'
+                    m='auto'
+                    paddingBottom={2}
+                  >
+                    <div>
+                      <Field
+                        type='checkbox'
+                        component={CheckboxWithLabel}
+                        name='terms'
+                        Label={{ label: 'I’ve read and agreed on' }}
+                      />
+                      <Link
+                        style={{
+                          color: 'hsl(229, 86%, 56%)',
+                          textDecoration: 'underline',
+                        }}
+                        to='#'
+                      >
+                        Terms of Service
+                      </Link>
+                      <ErrorMessage
+                        name='terms'
+                        component='h5'
+                        style={{ color: 'red' }}
+                      />
+                    </div>
+                  </Box>
+                </Box>
+              </Box>
+            </FormikStep>
+
+            {isDoctor ? (
+              <FormikStep
+                label='Additional Info'
+                validationSchema={Yup.object({
+                  speciality: Yup.string().required(
+                    'Specialization is Required!'
+                  ),
+                  degree: Yup.string().required('Degree is Required!'),
+                  university: Yup.string().required('University is Required!'),
+                })}
               >
-                Now we’re verifying your info! Till then you can explore our
-                services
-              </Typography>
-            </Box>
-          </FormikStep>
-        </FormikStepper>
-      </Box>
-    </Card>
+                <Box my={8} display='flex' justifyContent='center'>
+                  <div>
+                    <Box paddingBottom={2}>
+                      <Field
+                        name='speciality'
+                        component={TextField}
+                        label='Speciality*'
+                        variant='outlined'
+                      />
+                    </Box>
+                    <Box paddingBottom={2}>
+                      <Field
+                        name='degree'
+                        component={TextField}
+                        label='Highest Degree*'
+                        variant='outlined'
+                      />
+                    </Box>
+                    <Box paddingBottom={2}>
+                      <Field
+                        name='university'
+                        component={TextField}
+                        label='University*'
+                        variant='outlined'
+                      />
+                    </Box>
+                  </div>
+                </Box>
+              </FormikStep>
+            ) : null}
+
+            <FormikStep
+              label='Confirmation'
+              validationSchema={Yup.object({
+                verificationCode: Yup.string()
+                  .required('Please Enter the verification code!')
+                  .min(6, 'Must be 6-digits')
+                  .max(6, 'Must be 6-digits'),
+              })}
+            >
+              <Box
+                display='flex'
+                alignItems='center'
+                justifyContent='center'
+                my={8}
+              >
+                <Box
+                  display='flex'
+                  flexDirection='column'
+                  aligItems='center'
+                  justifyContent='center'
+                >
+                  <h3>We’ve sent a 6-digit code, please check your E-mail</h3>
+                  <Field
+                    name='verificationCode'
+                    style={{ margin: '1rem 0px' }}
+                    component={TextField}
+                    label='Verification*'
+                    variant='outlined'
+                    placeholder='6-digit Code'
+                    style={{ margin: '2em 0' }}
+                  />
+                  <Link
+                    to='#'
+                    style={{ textAlign: 'center', color: 'hsl(229, 86%, 56%)' }}
+                  >
+                    Resend code
+                  </Link>
+                </Box>
+              </Box>
+            </FormikStep>
+
+            <FormikStep label='Activation'>
+              <Box paddingBottom={2}>
+                <Typography
+                  color='secondary'
+                  variant='h5'
+                  style={{
+                    width: '450px',
+                    textAlign: 'center',
+                    margin: '2em auto',
+                  }}
+                >
+                  Now we’re verifying your info! Till then you can explore our
+                  services
+                </Typography>
+              </Box>
+            </FormikStep>
+          </FormikStepper>
+        </Box>
+      </div>
+    </Wrapper>
   );
 }
 
@@ -618,19 +643,14 @@ export function FormikStepper({ children, ...props }) {
           >
             <Grid item>
               <GradientButton
-                icon={
-                  isSubmitting ? (
-                    <CircularProgress size='1rem' />
-                  ) : (
-                    <FaChevronRight color='white' size={14} />
-                  )
-                }
+                icon={<FaChevronRight color='white' size={14} />}
                 disabled={isSubmitting}
                 type='submit'
                 style={{ marginBottom: '1em' }}
               >
                 {isLastStep() ? 'Explore' : 'Next'}
               </GradientButton>
+              {isSubmitting && <LinearProgress />}
             </Grid>
             {step > 0 ? (
               <Grid item>

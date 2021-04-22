@@ -96,8 +96,8 @@ export const StyledButton = styled(Button)`
 `;
 
 export const StyledHeading = styled.h2`
-  margin: 1.5em auto;
-  font-size: 2.5rem;
+  margin: 2em auto;
+  font-size: 3rem;
   text-align: center;
   position: relative;
   color: ${({ theme }) => theme.colors.dark1};
@@ -112,5 +112,9 @@ export const StyledHeading = styled.h2`
     left: 50%;
     transform: translateX(-50%);
     border-radius: 50px;
+  }
+
+  @media (max-width: 700px) {
+    font-size: 2.4rem;
   }
 `;
