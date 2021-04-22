@@ -4,16 +4,14 @@ import styled, { css } from 'styled-components';
 import {
   Box,
   CircularProgress,
+  Divider,
   LinearProgress,
   Typography,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { fetchOneDoctor, fetchOnePatient } from '../../utils/firebase';
-
-const Wrapper = styled.div`
-  min-height: 100vh;
-  width: 100%;
-`;
+import GradientButton from '../shared/GradientButton/GradientButton';
+import { FaVideo, FaClinicMedical, FaHome } from 'react-icons/fa';
 
 const NotLoggedWrapper = styled.div`
   width: 100%;
@@ -46,10 +44,32 @@ const NotAuthedWrapper = styled.div`
 
 const user = { id: '-MYlTKlj3FB_gKmSXMDb', type: 'patient' };
 
+const dateDiffInDays = (date1, date2) => {
+  var Difference_In_Time = date2 - date1.getTime();
+  return parseInt(Difference_In_Time / (1000 * 3600 * 24));
+};
+
+const capitalizeString = (str) => {
+  return str?.charAt(0).toUpperCase() + str?.slice(1);
+};
+
+function tConvert(time) {
+  time = time.match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+  if (time.length > 1) {
+    time = time.slice(1); // Remove full string match value
+    time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+    time[0] = +time[0] % 12 || 12; // Adjust hours
+  }
+  console.log(time);
+
+  return time.join(''); // return adjusted time or original string
+}
+
 const Appointment = ({ id }) => {
   const [appointment, setAppointment] = useState({});
   const [authed, setAuthed] = useState('awaiting');
-  const [host, setHost] = useState({ name: '', id: '' });
+  const [host, setHost] = useState({});
 
   //   const authedPatient = true;
   //   const type = 'patient';
@@ -57,37 +77,33 @@ const Appointment = ({ id }) => {
   //   const authed = true && ;
 
   useEffect(() => {
-    const fetchHostName = async (type, id) => {
+    const fetchHost = async (type, id) => {
       if (type === 'patient') {
         const data = await fetchOnePatient(id.replace(/\s/g, ''));
-        console.log(data);
-        setHost(data.name.first + ' ' + data.name.last);
+        setHost(data);
       } else {
         const data = await fetchOneDoctor(id.replace(/\s/g, ''));
-        console.log(data);
-
-        setHost(data.name.first + ' ' + data.name.last);
+        setHost(data);
       }
     };
 
     const fetchData = async () => {
       try {
         setAuthed('awaiting');
-        const data = await fetchOneAppointment('-MYlzyNQw-NiC9J8H3qf');
+        const data = await fetchOneAppointment('-MYv7JIwmPZL3FDx_w0L');
         setAuthed('not-authed');
-        console.log(data);
 
         if (user.type === 'patient') {
           if (user.id === data.patientID.replace(/\s/g, '')) {
             setAuthed(() => 'authed');
             setAppointment(data);
-            fetchHostName('doctor', data.doctorID);
+            fetchHost('doctor', data.doctorID);
           }
         } else {
           if (user.id === data.doctorID.replace(/\s/g, '')) {
             setAuthed(() => 'authed');
             setAppointment(data);
-            fetchHostName('patient', data.patientID);
+            fetchHost('patient', data.patientID);
           }
         }
       } catch (error) {
@@ -165,31 +181,149 @@ const Appointment = ({ id }) => {
 
   return (
     <Wrapper>
-      <Box display='flex' alignItems='center' justifyContent='center'>
-        <div style={{ textAlign: 'center' }}>
-          <Typography
-            variant='subtitle1'
-            style={{ fontWeight: '500', opacity: '0.8' }}
-            color='secondary'
+      <Box
+        display='flex'
+        alignItems='center'
+        justifyContent='center'
+        style={{ height: '100vh' }}
+      >
+        <Box
+          display='flex'
+          flexDirection='column'
+          alignItems='center'
+          justifyContent='center'
+          style={{ width: '350px' }}
+        >
+          <div style={{ textAlign: 'center' }}>
+            <Typography
+              variant='subtitle1'
+              style={{ fontWeight: '500', opacity: '0.8' }}
+              color='secondary'
+            >
+              Appointment with
+            </Typography>
+            <Typography
+              variant='h4'
+              color='primary'
+              style={{ fontWeight: '600' }}
+            >
+              {user.type === 'patient' ? 'Dr. ' : ''}{' '}
+              {host.name?.first + ' ' + host.name?.last}
+            </Typography>
+            <Divider />
+          </div>
+          <Box
+            display='flex'
+            flexDirection='column'
+            alignItems='center'
+            justifyContent='space-between'
+            my={5}
+            style={{ width: '100%' }}
           >
-            Appointment with
-          </Typography>
-          <Typography
-            variant='h4'
-            color='primary'
-            style={{ fontWeight: '600' }}
-          >
-            {user.type === 'patient' ? 'Dr. ' : ''} {host}
-          </Typography>
-        </div>
-        <div>
-          <Typography variant='h5' color='secondary'>
-            Type
-          </Typography>
-        </div>
+            <Typography
+              variant='h5'
+              color='secondary'
+              style={{ fontWeight: '600', width: '100%' }}
+            >
+              <Box display='flex' justifyContent='space-between'>
+                <div
+                  style={{
+                    fontWeight: '400',
+                    opacity: '0.7',
+                    width: '40%',
+                    textAlign: 'right',
+                  }}
+                >
+                  Type
+                </div>
+                <div style={{ width: '40%' }}>
+                  {capitalizeString(appointment.type) || 'Video'}
+                </div>
+              </Box>
+            </Typography>
+            <Typography
+              variant='h5'
+              color='secondary'
+              style={{ fontWeight: '600', width: '100%' }}
+            >
+              <Box display='flex' justifyContent='space-between'>
+                <div
+                  style={{
+                    fontWeight: '400',
+                    opacity: '0.7',
+                    width: '40%',
+                    textAlign: 'right',
+                  }}
+                >
+                  Date
+                </div>
+                <div style={{ width: '40%' }}>
+                  {appointment.date?.split('T')[0]}
+                </div>
+              </Box>
+              <Box display='flex' justifyContent='space-between'>
+                <div
+                  style={{
+                    fontWeight: '400',
+                    opacity: '0.7',
+                    width: '40%',
+                    textAlign: 'right',
+                  }}
+                >
+                  Time
+                </div>
+                <div style={{ width: '40%' }}>
+                  {appointment.date &&
+                    new Date(appointment.date).toLocaleTimeString()}
+                </div>
+              </Box>
+              <Box display='flex' justifyContent='space-between'>
+                <div
+                  style={{
+                    fontWeight: '400',
+                    opacity: '0.7',
+                    width: '40%',
+                    textAlign: 'right',
+                  }}
+                >
+                  Remaining
+                </div>
+                <div style={{ width: '40%' }}>
+                  {dateDiffInDays(new Date(), Date.parse(appointment.date))}{' '}
+                  days
+                </div>
+              </Box>
+            </Typography>
+          </Box>
+          {appointment.type === '' && host.type === 'doctor' && (
+            <GradientButton icon={<FaVideo color='white' size={13} />}>
+              Join Video
+            </GradientButton>
+          )}
+          {appointment.type === 'video' && host.type === 'patient' && (
+            <GradientButton icon={<FaVideo color='white' size={13} />}>
+              Start Video
+            </GradientButton>
+          )}
+          {appointment.type === 'clinic' && host.type === 'doctor' && (
+            <GradientButton icon={<FaClinicMedical color='white' size={13} />}>
+              Clinic Location
+            </GradientButton>
+          )}
+          {appointment.type === 'home' && host.type === 'patient' && (
+            <GradientButton icon={<FaHome color='white' size={13} />}>
+              Patient Location
+            </GradientButton>
+          )}
+        </Box>
       </Box>
     </Wrapper>
   );
 };
 
 export default Appointment;
+
+const Wrapper = styled.div`
+  min-height: 100vh;
+  width: 100%;
+`;
