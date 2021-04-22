@@ -199,6 +199,35 @@ const SearchPage = () => {
   });
 
   const [searchByName, setSearchByName] = useState("");
+  const [searchByCity, setSearchByCity] = useState();
+  const [searchByspecialty, setSearchBySpecialty] = useState();
+
+  const handleSearchByspecialty = (e) => {
+    const fuse = new Fuse(doctors, {
+      keys: ["specialty"],
+    });
+    console.log("e.target.value", e.target.value);
+    const fuseResult = fuse.search(e.target.value);
+    console.log("e.target.value", fuseResult);
+    const doctorResult = fuseResult.map((result) => result.item);
+
+    setSearchBySpecialty(e.target.value);
+    doctorResult.length > 0
+      ? setDoctorsFilter(doctorResult)
+      : setDoctorsFilter(doctors);
+  };
+  const handsearchByCity = (e) => {
+    const fuse = new Fuse(doctors, {
+      keys: ["location"],
+    });
+    const fuseResult = fuse.search(e.target.value);
+    const doctorResult = fuseResult.map((result) => result.item);
+
+    setSearchByCity(e.target.value);
+    doctorResult.length > 0
+      ? setDoctorsFilter(doctorResult)
+      : setDoctorsFilter(doctors);
+  };
 
   const handSearchByName = (e) => {
     let spiltStr = e.target.value.split(" ");
@@ -224,6 +253,10 @@ const SearchPage = () => {
         <SearchBar
           onSerachByName={handSearchByName}
           searchByName={searchByName}
+          onSearchByCity={handsearchByCity}
+          searchByCity={searchByCity}
+          onSearchByspecialty={handleSearchByspecialty}
+          searchByspecialty={searchByspecialty}
         />
 
         <Grid container>

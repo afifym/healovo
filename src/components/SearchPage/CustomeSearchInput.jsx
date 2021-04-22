@@ -53,7 +53,7 @@ label{
 }
 `;
 
-const CustomeSearchInput = ({ onSerachByName }) => {
+const CustomeSearchInput = ({ onSerachByName, searchByName }) => {
   return (
     <CustomeSaerch>
       <label htmlFor="">
@@ -62,6 +62,7 @@ const CustomeSearchInput = ({ onSerachByName }) => {
       <input
         type="text"
         placeholder="eg.John"
+        value={searchByName}
         onChange={(event) => onSerachByName(event)}
       />
       <div className="HorizontalLine" />

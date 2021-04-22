@@ -4,8 +4,10 @@ export const DoctorsData = [
     name: { first: "mohand", last: "mostafa" },
     degree: "Masters in medicine",
     image: "doctorAvtar.png",
-    specialty: "Respiratory Specialist",
+
+    specialty: "Respiratory",
     rate: "2",
+
     location: "Luxor Egypt",
     communicationMethods: { clinic: true, home: true, video: true },
     reservationDates: [
@@ -36,6 +38,7 @@ export const DoctorsData = [
     image: "doctorAvtar.png",
     specialty: "Ophthalmologist",
     rate: "4",
+
     location: "Tanta Egypt",
     communicationMethods: { clinic: true, home: false, video: true },
     reservationDates: [
@@ -64,7 +67,8 @@ export const DoctorsData = [
     name: { first: "mohamed", last: "afify" },
     degree: "Masters in medicine",
     image: "doctorAvtar.png",
-    specialty: "Respiratory Specialist",
+
+    specialty: "Gastroenterology",
     rate: "3",
     location: "cario Egypt",
     communicationMethods: { clinic: true, home: true, video: true },

@@ -62,13 +62,22 @@ select{
 }
 `;
 
-const CustomeSelectInput = ({ SelectIconName, selectData }) => {
+const CustomeSelectInput = ({
+  SelectIconName,
+  selectData,
+  onSearchBy,
+  searchBy,
+  title,
+}) => {
   return (
     <CustomeSelectWraper>
       <label className="InputIcon" htmlFor="">
         <SelectIconName color={"#2D50EF"} />
       </label>
-      <select>
+      <select value={searchBy} onChange={(e) => onSearchBy(e)}>
+        <option key={100} value={"hi"} selected disabled>
+          please select {title}
+        </option>
         {selectData.map((option, idx) => (
           <option key={idx}>{option}</option>
         ))}

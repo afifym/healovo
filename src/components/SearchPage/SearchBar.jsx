@@ -43,7 +43,14 @@ const CustomeButtonGroup = styled(ButtonGroup)`
   margin-bottom: 20px;
 `;
 
-const SearchBar = ({ onSerachByName, searchByName }) => {
+const SearchBar = ({
+  onSerachByName,
+  searchByName,
+  onSearchByCity,
+  searchByCity,
+  onSearchByspecialty,
+  searchByspecialty,
+}) => {
   const [searchBy, setSearchBy] = useState("name");
 
   const activeBtn = {
@@ -55,7 +62,7 @@ const SearchBar = ({ onSerachByName, searchByName }) => {
       case "name":
         return (
           <CustomeSearchInput
-            value={searchByName}
+            searchByName={searchByName}
             onSerachByName={onSerachByName}
           />
         );
@@ -63,14 +70,20 @@ const SearchBar = ({ onSerachByName, searchByName }) => {
         return (
           <CustomeSelectInput
             SelectIconName={FaUserMd}
-            selectData={["mohand", "mostafa", "abadlabary"]}
+            title="specialty"
+            onSearchBy={onSearchByspecialty}
+            searchBy={searchByspecialty}
+            selectData={["Ophthalmologist", "Respiratory", "Gastroenterology"]}
           />
         );
       case "city":
         return (
           <CustomeSelectInput
+            title="city"
+            onSearchBy={onSearchByCity}
+            searchBy={searchByCity}
             SelectIconName={FaCity}
-            selectData={["mohand", "mostafa", "abadlabary"]}
+            selectData={["cario Egypt", "Luxor Egypt", "Tanta Egypt"]}
           />
         );
     }
