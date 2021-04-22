@@ -53,16 +53,6 @@ const defaultFilterSetting = [
   },
 ];
 
-let schena = {
-  rate: "2",
-
-  communicationMethods: { clinic: true, home: true, video: true },
-
-  gender: "male",
-
-  price: 35,
-};
-
 const SearchPage = () => {
   const [doctors, setdoctors] = useState(DoctorsData);
   const [doctorsFilter, setDoctorsFilter] = useState(doctors);
@@ -70,6 +60,7 @@ const SearchPage = () => {
 
   const handlClaer = () => {
     setFilterSettings(defaultFilterSetting);
+    setDoctorsFilter(doctors);
   };
 
   const getPriceStr = (strDoctor) => {
@@ -78,7 +69,7 @@ const SearchPage = () => {
     spiltStr = parseInt(spiltStr);
     return spiltStr;
   };
-  const goodBye = () => {
+  const getArayyOfStrMatch = () => {
     const arrRsult = [];
     filterSettings.map((singleFilter) => {
       for (const filterItem in singleFilter["filterData"]) {
@@ -135,16 +126,33 @@ const SearchPage = () => {
   };
 
   const handleFilter = () => {
-    let result = goodBye();
+    let result = getArayyOfStrMatch();
 
     let filterDoctorss = doctors.filter((doctor) => {
       let strDoctor = JSON.stringify(doctor);
-      console.log("strDoctor", strDoctor);
-      let xx = result.find((res) => {
-        return strDoctor.search(res) != -1;
+
+      /*
+      كد  لازم الدكتور  يحقق كل الشروط
+      let flag = true;
+      result.map((res) => {
+        if (strDoctor.search(res) == -1) {
+          flag = false;
+        }
       });
 
-      if (xx) {
+      if (flag) {
+        return doctor;
+      }
+       */
+
+      // كد  لازم الدكتور  يحقق  شروط واحد من الشروط
+
+      console.log("strDoctor", strDoctor);
+      let flag = result.find((res) => {
+        return strDoctor.search(res) != -1;
+      });
+      console.log("xxxxxxxxxx", typeof flag);
+      if (flag) {
         return doctor;
       }
     });
@@ -181,9 +189,15 @@ const SearchPage = () => {
   };
 
   useEffect(() => {
-    goodBye();
-    setDoctorsFilter(handleFilter());
+    let result = handleFilter();
+    result.length > 0
+      ? setDoctorsFilter(result)
+      : setDoctorsFilter(doctorsFilter);
   }, [filterSettings]);
+
+  useEffect(() => {
+    setDoctorsFilter(doctorsFilter);
+  }, []);
 
   return (
     <div style={{ background: "#F1F2F4" }}>
