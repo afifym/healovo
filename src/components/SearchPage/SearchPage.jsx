@@ -41,9 +41,9 @@ const defaultFilterSetting = [
     filterNameDB: "price",
     filterData: {
       any: true,
-      "Less than $30": false,
-      "$30-$50": false,
-      "More than $50": false,
+      "<100": false,
+      "100-200": false,
+      ">200": false,
     },
   },
   {
@@ -68,6 +68,16 @@ const SearchPage = () => {
   const [doctorsFilter, setDoctorsFilter] = useState(doctors);
   const [filterSettings, setFilterSettings] = useState(defaultFilterSetting);
 
+  const handlClaer = () => {
+    setFilterSettings(defaultFilterSetting);
+  };
+
+  const getPriceStr = (strDoctor) => {
+    let spiltStr = strDoctor.split(`"price":"`)[1];
+    spiltStr = spiltStr.split(`",`)[0];
+    spiltStr = parseInt(spiltStr);
+    return spiltStr;
+  };
   const goodBye = () => {
     const arrRsult = [];
     filterSettings.map((singleFilter) => {
@@ -89,6 +99,34 @@ const SearchPage = () => {
             console.log(`"${filterItem}":${true}`);
             arrRsult.push(`"${filterItem}":${true}`);
           }
+
+          if ([singleFilter["filterNameDB"]] == "price") {
+            doctors.filter((doctor) => {
+              let strDoctor = JSON.stringify(doctor);
+              let spiltStr = getPriceStr(strDoctor);
+
+              if (filterItem == "<100" && spiltStr < 100) {
+                arrRsult.push(
+                  `"${[singleFilter["filterNameDB"]]}":"${spiltStr}"`
+                );
+              }
+              if (
+                filterItem == "100-200" &&
+                100 <= spiltStr &&
+                spiltStr <= 200
+              ) {
+                arrRsult.push(
+                  `"${[singleFilter["filterNameDB"]]}":"${spiltStr}"`
+                );
+              }
+              if (filterItem == ">200" && spiltStr > 200) {
+                arrRsult.push(
+                  `"${[singleFilter["filterNameDB"]]}":"${spiltStr}"`
+                );
+              }
+              console.log(`strDoctor.splic`, spiltStr);
+            });
+          }
         }
       }
     });
@@ -105,6 +143,7 @@ const SearchPage = () => {
       let xx = result.find((res) => {
         return strDoctor.search(res) != -1;
       });
+
       if (xx) {
         return doctor;
       }
@@ -140,43 +179,6 @@ const SearchPage = () => {
 
     setFilterSettings(filterSettingCopy);
   };
-  const generalfun = () => {
-    const filterDoctorResult = [];
-    const doctorFilterResult = [];
-    filterSettings.map((filter) => {
-      const dFS = filter.filterNameDB;
-      const fData = filter.filterData;
-
-      if (dFS == "gender" || dFS == "rate") {
-        for (const filterItem in fData) {
-          if (fData[filterItem] == true) {
-            let x = doctors.filter((doctor) => doctor[dFS] == filterItem);
-
-            if (x.length > 0) {
-              let theCompeletArray = [...x];
-              for (let i = 0; i < x.length; i++) {
-                if (filterDoctorResult.length > 0) {
-                  for (let j = 0; j < filterDoctorResult.length; j++) {
-                    if (x[i].id == filterDoctorResult[j].id) {
-                      theCompeletArray = theCompeletArray.filter(
-                        (doctor) => doctor.id != x[i].id
-                      );
-                    }
-                  }
-                } else {
-                }
-              }
-
-              filterDoctorResult.push(...theCompeletArray);
-            }
-          }
-        }
-      }
-    });
-
-    console.log("xxxxxxxx", filterDoctorResult);
-    return filterDoctorResult;
-  };
 
   useEffect(() => {
     goodBye();
@@ -193,6 +195,7 @@ const SearchPage = () => {
             <Grid item md={3}>
               <Box pr={5}>
                 <Filter
+                  onClear={handlClaer}
                   filterSettings={filterSettings}
                   onCheckBoxChange={handleCheckBoxChange}
                 />

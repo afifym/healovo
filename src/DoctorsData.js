@@ -17,7 +17,7 @@ export const DoctorsData = [
     password: "mohnad",
     gender: "female",
     phone: ["01288040837", "040350017"],
-    price: 35,
+    price: "150",
     overview: `I am an ophthalmologist and a graduate of Mid-career Masters
      of Public Administration at the Harvard Kennedy School (HKS), Harvard
     University, USA (2019). I graduated from MSc of public healthfor eye 
@@ -47,7 +47,7 @@ export const DoctorsData = [
     password: "fwazy",
     gender: "male",
     phone: ["01288040837", "040350017"],
-    price: 35,
+    price: "70",
     overview: `I am an ophthalmologist and a graduate of Mid-career Masters
      of Public Administration at the Harvard Kennedy School (HKS), Harvard
     University, USA (2019). I graduated from MSc of public healthfor eye 
@@ -77,7 +77,7 @@ export const DoctorsData = [
     password: "mohnad",
     gender: "male",
     phone: ["01288040837", "040350017"],
-    price: 35,
+    price: "250",
     overview: `I am an ophthalmologist and a graduate of Mid-career Masters
      of Public Administration at the Harvard Kennedy School (HKS), Harvard
     University, USA (2019). I graduated from MSc of public healthfor eye 

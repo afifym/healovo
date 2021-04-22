@@ -51,9 +51,9 @@ const Filters = [
     filterUiData: ["Any", "Less than $30", "$30-$50", "Movre than $50"],
     filterData: {
       any: "Any",
-      "Less than $30": "Less than $30",
-      "$30-$50": "$30-$50",
-      "More than $50": "More than $50",
+      "<100": "Less than 100EGP",
+      "100-200": "100-200EGP",
+      ">200": "More than 200GEP",
     },
   },
   {
@@ -62,7 +62,7 @@ const Filters = [
   },
 ];
 
-const Filter = ({ filterSettings, onCheckBoxChange }) => {
+const Filter = ({ filterSettings, onCheckBoxChange, onClear }) => {
   return (
     <FilterWraper>
       <FilterHeader>
@@ -75,7 +75,7 @@ const Filter = ({ filterSettings, onCheckBoxChange }) => {
           Filter By
         </Typography>
 
-        <Button>Clear All</Button>
+        <Button onClick={onClear}>Clear All</Button>
       </FilterHeader>
       <FilterBody>
         {Filters.map((Filter, idx) => {
