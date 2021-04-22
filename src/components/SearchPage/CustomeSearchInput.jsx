@@ -53,13 +53,17 @@ label{
 }
 `;
 
-const CustomeSearchInput = () => {
+const CustomeSearchInput = ({ onSerachByName }) => {
   return (
     <CustomeSaerch>
       <label htmlFor="">
         <FaSignature color="#2D50EF" />
       </label>
-      <input type="text" placeholder="eg.John" />
+      <input
+        type="text"
+        placeholder="eg.John"
+        onChange={(event) => onSerachByName(event)}
+      />
       <div className="HorizontalLine" />
     </CustomeSaerch>
   );

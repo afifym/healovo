@@ -43,8 +43,9 @@ const CustomeButtonGroup = styled(ButtonGroup)`
   margin-bottom: 20px;
 `;
 
-const SearchBar = () => {
+const SearchBar = ({ onSerachByName, searchByName }) => {
   const [searchBy, setSearchBy] = useState("name");
+
   const activeBtn = {
     backgroundColor: "#2D50EF",
     color: "white",
@@ -52,21 +53,25 @@ const SearchBar = () => {
   const showSearchInput = () => {
     switch (searchBy) {
       case "name":
-        return <CustomeSearchInput />;
+        return (
+          <CustomeSearchInput
+            value={searchByName}
+            onSerachByName={onSerachByName}
+          />
+        );
       case "specialty":
         return (
-         
-           <CustomeSelectInput
+          <CustomeSelectInput
             SelectIconName={FaUserMd}
             selectData={["mohand", "mostafa", "abadlabary"]}
           />
         );
       case "city":
         return (
-           <CustomeSelectInput
+          <CustomeSelectInput
             SelectIconName={FaCity}
             selectData={["mohand", "mostafa", "abadlabary"]}
-          /> 
+          />
         );
     }
   };

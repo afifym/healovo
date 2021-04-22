@@ -194,10 +194,37 @@ const SearchPage = () => {
     setDoctorsFilter(doctorsFilter);
   }, []);
 
+  const fuse = new Fuse(doctorsFilter, {
+    keys: ["name.first", "name.last", "specialty", "location"],
+  });
+
+  const [searchByName, setSearchByName] = useState("");
+
+  const handSearchByName = (e) => {
+    let spiltStr = e.target.value.split(" ");
+    const fuse = new Fuse(doctorsFilter, {
+      keys: ["name.first", "name.last"],
+    });
+    const fuseResult = fuse.search({
+      $and: [{ "name.first": spiltStr[0] }, { "name.last": spiltStr[1] || "" }],
+    });
+    const doctorResult = fuseResult.map((result) => result.item);
+
+    console.log("e.target.value", fuseResult);
+
+    setSearchByName(e.target.value);
+    doctorResult.length > 0
+      ? setDoctorsFilter(doctorResult)
+      : setDoctorsFilter(doctors);
+  };
+
   return (
     <div style={{ background: "#F1F2F4" }}>
       <Container style={{ padding: "100px 0 50px 0" }}>
-        <SearchBar />
+        <SearchBar
+          onSerachByName={handSearchByName}
+          searchByName={searchByName}
+        />
 
         <Grid container>
           <Hidden smDown>
