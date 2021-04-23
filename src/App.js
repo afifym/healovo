@@ -13,10 +13,12 @@ import Appointments from './pages/Appointments';
 import PatientProfile from './pages/PatientProfile';
 import ContactUs from './pages/ContactUs';
 import About from './pages/About';
+import Map from './components/Map/Map';
 
 function App() {
   return (
     <Router>
+      <Map />
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />

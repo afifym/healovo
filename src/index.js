@@ -43,10 +43,10 @@ const GlobalStyles = createGlobalStyle`
 ReactDOM.render(
   <MuiThemeProvider theme={muiTheme}>
     <StyledThemeProvider theme={styledTheme}>
-      <React.StrictMode>
-        <GlobalStyles />
-        <App />
-      </React.StrictMode>
+      {/* <React.StrictMode> */}
+      <GlobalStyles />
+      <App />
+      {/* </React.StrictMode> */}
     </StyledThemeProvider>
   </MuiThemeProvider>,
   document.getElementById('root')
