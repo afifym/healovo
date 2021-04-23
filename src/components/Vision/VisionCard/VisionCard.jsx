@@ -20,7 +20,9 @@ const VisionCard = ({ title, details, iconComponent }) => {
             >
               {title}
             </Typography>
-            <Typography variant='subtitle1'>{details}</Typography>
+            <Typography variant='subtitle1' component='p'>
+              {details}
+            </Typography>
           </div>
         </Box>
       </Link>

@@ -1,8 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import PatientDashboard from './pages/PatientDashboard';
 import Admin from './pages/Admin';
-import DoctorDashboard from './pages/DoctorDashboard';
 import Search from './pages/Search';
 import DoctorProfile from './pages/DoctorProfile';
 import Login from './pages/Login';
@@ -16,6 +14,7 @@ import About from './pages/About';
 import AdminLoginPage from './pages/AdminLoginPage';
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './utils/PrivateRoute';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
@@ -29,17 +28,20 @@ function App() {
           <Route path='/doctors/:doctorID' component={DoctorProfile} />
           <Route path='/patients/:patientID' component={PatientProfile} />
           <Route path='/book/:doctorID' component={Book} />
-          <Route path='/patient-dashboard' component={PatientDashboard} />
-          <Route path='/doctor-dashboard' component={DoctorDashboard} />
+          <Route path='/appointments/:appointmentID' component={Appointments} />
+          <Route path='/contact' component={ContactUs} />
+          <Route path='/about' component={About} />
+          <Route path='/admin-login' component={AdminLoginPage} />
           <PrivateRoute
             path='/admin'
             redirectURL='/admin-login'
             component={Admin}
           />
-          <Route path='/appointments/:appointmentID' component={Appointments} />
-          <Route path='/contact' component={ContactUs} />
-          <Route path='/about' component={About} />
-          <Route path='/admin-login' component={AdminLoginPage} />
+          <PrivateRoute
+            path='/dashboard'
+            redirectURL='/signup'
+            component={Dashboard}
+          />
           <Route path='*' component={NotFound} />
         </Switch>
       </Router>

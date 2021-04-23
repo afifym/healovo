@@ -18,6 +18,17 @@ import Select from '@material-ui/core/Select';
 import { useHistory } from 'react-router-dom';
 
 const Wrapper = styled.div`
+  @keyframes animate-card {
+    from {
+      transform: translateY(100px);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  transform: translateY(100px);
+  animation: animate-card 1s ease forwards;
+
   @media (max-width: 480px) {
     width: 100%;
     padding: 0 0.5em;
@@ -247,7 +258,7 @@ const SearchCard = () => {
           <Typography
             variant='h2'
             className={`${classes.heading} find`}
-            component='h2'
+            component='h1'
             color='secondary'
           >
             Find a Doctor

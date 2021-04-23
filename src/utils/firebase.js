@@ -114,4 +114,11 @@ export const updateAppointment = async (id, data) => {
   return response;
 };
 
+export const fetchByEmail = async (email) => {
+  const response = await axios.get(
+    api + `/doctors.json?orderBy="email"&equalTo="${email}"`
+  );
+  return response;
+};
+
 export default firebase;

@@ -30,7 +30,7 @@ const Wrapper = styled.div`
       border-top-right-radius: 50px;
     `}
 
-  @media (max-width: 1300px) {
+  @media (max-width: 1450px) {
     border-radius: ${({ theme }) => theme.borderRadiuses.borderRadius1};
     border-color: ${({ theme }) => theme.colors.light1};
     margin: 1em;
@@ -59,6 +59,7 @@ const ForDoctorsItem = ({ left, right, title, details, icon }) => {
       </Box>
       <Typography
         color='secondary'
+        component='p'
         style={{ maxWidth: '400px', opacity: '0.9' }}
       >
         {details}

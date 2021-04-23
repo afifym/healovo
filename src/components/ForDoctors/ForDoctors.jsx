@@ -32,6 +32,14 @@ const StyledHeading = styled.h2`
   span {
     color: ${({ theme }) => theme.colors.main1};
   }
+
+  @media (max-width: 440px) {
+    font-size: 1.7rem;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 1.4rem;
+  }
 `;
 
 const ForDoctors = () => {

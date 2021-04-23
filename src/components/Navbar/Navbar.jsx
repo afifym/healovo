@@ -3,6 +3,33 @@ import styled, { css } from 'styled-components/macro';
 import { RiMenu3Fill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
+const StyledLink = styled(Link)`
+  padding: 1.25rem 0.938rem;
+  margin-left: 1.563rem;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #343949;
+  cursor: pointer;
+  transition: all 0.1s linear;
+
+  &:hover {
+    color: #2d50ef;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    width: 0;
+    border-bottom: 0.15rem solid #2d50ef;
+    margin-top: 0.313rem;
+    transition: all 0.2s linear;
+  }
+
+  &:hover::after {
+    width: 50%;
+  }
+`;
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
@@ -78,6 +105,19 @@ const Wrapper = styled.div`
       width: 160px;
     }
   }
+
+  @keyframes animate-nav {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  opacity: 0;
+  animation: animate-nav 0.7s ease forwards;
+  animation-delay: 0.7s;
 `;
 
 const Links = styled.div`
@@ -100,33 +140,6 @@ const Links = styled.div`
         visibility: visible;
         opacity: 1;
       `}
-  }
-`;
-
-const StyledLink = styled(Link)`
-  padding: 1.25rem 0.938rem;
-  margin-left: 1.563rem;
-  font-weight: 700;
-  font-size: 1rem;
-  color: #343949;
-  cursor: pointer;
-  transition: all 0.1s linear;
-
-  &:hover {
-    color: #2d50ef;
-  }
-
-  &:after {
-    content: '';
-    display: block;
-    width: 0;
-    border-bottom: 0.15rem solid #2d50ef;
-    margin-top: 0.313rem;
-    transition: all 0.2s linear;
-  }
-
-  &:hover::after {
-    width: 50%;
   }
 `;
 

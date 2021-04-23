@@ -16,6 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import styled, { css } from 'styled-components';
 import firebase from '../../../../utils/firebase';
+import { adminAuth } from '../../../../utils/firebase-admin';
 
 const Wrapper = styled.div`
   padding: 1em;
@@ -83,23 +84,28 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
             updateData[key] = formData[key];
         }
 
-        console.log(updateData);
-
         selected.forEach(async (id) => {
           const response = await updatePatient(id, updateData);
           const data = response.data;
         });
       } else {
+        await adminAuth.createUserWithEmailAndPassword(
+          formData.email,
+          formData.password
+        );
+
         const response = await addPatient({
           ...formData,
           joinDate: new Date().toISOString().slice(0, 10),
           type: 'patient',
         });
+
         const data = response.data;
       }
 
       setStatus('success');
     } catch (error) {
+      console.log(error);
       setStatus('failure');
     }
 
@@ -518,7 +524,7 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
               {status === 'success' && (
                 <Alert severity='success'>Success!</Alert>
               )}
-              {status === 'error' && <Alert severity='error'>Failure!</Alert>}
+              {status === 'failure' && <Alert severity='error'>Failure!</Alert>}
               {status === 'awaiting' && (
                 <Alert severity='info'>Awaiting Response!</Alert>
               )}

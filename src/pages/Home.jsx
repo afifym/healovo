@@ -20,6 +20,17 @@ const Wrapper = styled.div`
   background-size: 900px, 20%;
   min-height: 100vh;
 
+  @keyframes animate-bg {
+    from {
+      opacity: 0.5;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  opacity: 0.5;
+  animation: animate-bg 0.5s ease forwards;
+
   @media (max-width: 540px) {
     background-image: url('/assets/images/header-bg-left.svg');
     background-repeat: no-repeat;

@@ -7,12 +7,12 @@ import {
   Typography,
 } from '@material-ui/core';
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
-import { AuthProvider, useAuth } from '../../contexts/AuthContext';
+import styled from 'styled-components';
 import GradientButton from '../shared/GradientButton/GradientButton';
 import { IoMdLogIn } from 'react-icons/io';
 import MuiAlert from '@material-ui/lab/Alert';
 import { useHistory, Link } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 function Alert(props) {
   return (
@@ -48,7 +48,6 @@ const AdminLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       setError('');
       await login(formData.email, formData.password);

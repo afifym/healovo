@@ -15,10 +15,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import styled, { css } from 'styled-components';
-
 import Input from '@material-ui/core/Input';
 import Chip from '@material-ui/core/Chip';
 import firebase from '../../../../utils/firebase';
+import { adminAuth } from '../../../../utils/firebase-admin';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -102,6 +102,12 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
         methods.forEach((method) => {
           commMethods[method] = true;
         });
+
+        await adminAuth.createUserWithEmailAndPassword(
+          formData.email,
+          formData.password
+        );
+
         const response = await addDoctor({
           ...formData,
           joinDate: new Date().toISOString().slice(0, 10),
