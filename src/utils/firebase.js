@@ -1,5 +1,8 @@
 import firebase from 'firebase';
 import axios from 'axios';
+import 'firebase/storage';
+import 'firebase/auth';
+
 const firebaseConfig = {
   apiKey: 'AIzaSyAvhrEd58Qmg_adFoaLwEjkemym4EKUD3s',
   authDomain: 'healovo.firebaseapp.com',
@@ -12,7 +15,8 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 export const api = 'https://healovo-default-rtdb.firebaseio.com';
-
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
 // useEffect(async () => {
 //   try {
 //     const data = await fetchPatients();
@@ -97,6 +101,13 @@ export const deleteAppointment = async (id) => {
 };
 export const updateAppointment = async (id, data) => {
   const response = await axios.put(api + `/appointments/${id}.json`, data);
+  return response;
+};
+
+export const fetchByEmail = async (email) => {
+  const response = await axios.get(
+    api + `/doctors.json?orderBy="email"&equalTo="${email}"`
+  );
   return response;
 };
 
