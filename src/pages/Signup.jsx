@@ -1,11 +1,17 @@
-import React from 'react'
+import React from 'react';
+import MetaDecorator from '../components/shared/MetaDecorator/MetaDecorator';
+import Registeration from '../components/Registeration/Registeration';
 
 const Signup = () => {
-    return (
-        <h2>
-            Signup
-        </h2>
-    )
-}
+  return (
+    <div>
+      <MetaDecorator
+        title='Healovo | Signup'
+        description='Signup page for Healovo'
+      />
+      <Registeration />
+    </div>
+  );
+};
 
-export default Signup
+export default Signup;
