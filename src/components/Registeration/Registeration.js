@@ -5,6 +5,7 @@ import {
   FormControlLabel,
   Grid,
   LinearProgress,
+  MenuItem,
   Radio,
   Step,
   StepLabel,
@@ -15,13 +16,7 @@ import { Field, Formik, Form, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { TextField, RadioGroup, CheckboxWithLabel } from "formik-material-ui";
 import GradientButton from "../shared/GradientButton/GradientButton";
-import { IoIosArrowDroprightCircle } from "react-icons/io";
-import {
-  addDoctor,
-  addPatient,
-  auth,
-  fetchUserByEmail,
-} from "../../utils/firebase";
+import { addDoctor, addPatient, auth } from "../../utils/firebase";
 import { Link } from "react-router-dom";
 
 import styled, { css } from "styled-components";
@@ -54,8 +49,6 @@ const initialValues = {
   degree: "",
   university: "",
 };
-// Acts like sending API request
-// const sleep = (time) => new Promise((acc) => setTimeout(acc, time));
 
 const useColorlibStepIconStyles = makeStyles({
   root: {
@@ -273,7 +266,7 @@ function Registeration() {
               label="Account Type"
               default
               // validationSchema={Yup.object({
-              //   type: Yup.string().required('Please select the account type!'),
+              //   type: Yup.string().required("Please select the account type!"),
               // })}
             >
               <Field
@@ -369,9 +362,18 @@ function Registeration() {
                 alignItems="center"
               >
                 <Box>
-                  <Box>
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
                     <Box paddingBottom={2}>
-                      <GradientButton variant="contained" type="button">
+                      <GradientButton
+                        variant="contained"
+                        type="button"
+                        style={{ padding: "0 20px" }}
+                      >
                         Signup With Google
                       </GradientButton>
                     </Box>
@@ -432,24 +434,26 @@ function Registeration() {
                                       label="Phone*"
                                       name={`phone[${idx}]`}
                                     />
-                                    {/* {idx === 0 && (
+                                    {idx === 0 && (
                                       <Button
-                                        type='button'
-                                        onClick={() => push('')}
-                                        size='large'
-                                        style={{ boxShadow: 'none' }}
+                                        variant="contained"
+                                        type="button"
+                                        onClick={() => push("")}
+                                        size="small"
+                                        style={{ boxShadow: "none" }}
                                       >
                                         +
                                       </Button>
                                     )}
                                     {idx > 0 && (
                                       <Button
-                                        type='button'
+                                        variant="contained"
+                                        type="button"
                                         onClick={() => remove(idx)}
                                       >
                                         -
                                       </Button>
-                                    )} */}
+                                    )}
                                   </div>
                                 ))}
                               </Box>
@@ -530,9 +534,7 @@ function Registeration() {
               <FormikStep
                 label="Additional Info"
                 validationSchema={Yup.object({
-                  speciality: Yup.string().required(
-                    "Specialization is Required!"
-                  ),
+                  speciality: Yup.string().required("Speciality is Required!"),
                   degree: Yup.string().required("Degree is Required!"),
                   university: Yup.string().required("University is Required!"),
                 })}
@@ -543,9 +545,18 @@ function Registeration() {
                       <Field
                         name="speciality"
                         component={TextField}
+                        select
+                        style={{ width: "266px" }}
                         label="Speciality*"
                         variant="outlined"
-                      />
+                      >
+                        <MenuItem value="Pediatrician">Pediatrician</MenuItem>
+                        <MenuItem value="Obstetrician">Obstetrician</MenuItem>
+                        <MenuItem value="Surgeon">Surgeon</MenuItem>
+                        <MenuItem value="Psychiatrist">Psychiatrist</MenuItem>
+                        <MenuItem value="Cardiologist">Cardiologist</MenuItem>
+                        <MenuItem value="Dermatologist">Dermatologist</MenuItem>
+                      </Field>
                     </Box>
                     <Box paddingBottom={2}>
                       <Field
