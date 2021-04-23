@@ -1,14 +1,14 @@
-import firebase from 'firebase';
-import axios from 'axios';
+import firebase from "firebase";
+import axios from "axios";
 const firebaseConfig = {
-  apiKey: 'AIzaSyAvhrEd58Qmg_adFoaLwEjkemym4EKUD3s',
-  authDomain: 'healovo.firebaseapp.com',
-  databaseURL: 'https://healovo-default-rtdb.firebaseio.com',
-  projectId: 'healovo',
-  storageBucket: 'healovo.appspot.com',
-  messagingSenderId: '142171972024',
-  appId: '1:142171972024:web:09b72a0fc03c5f9bb9ef4d',
-  measurementId: 'G-NZEYQQLWJW',
+  apiKey: "AIzaSyAvhrEd58Qmg_adFoaLwEjkemym4EKUD3s",
+  authDomain: "healovo.firebaseapp.com",
+  databaseURL: "https://healovo-default-rtdb.firebaseio.com",
+  projectId: "healovo",
+  storageBucket: "healovo.appspot.com",
+  messagingSenderId: "142171972024",
+  appId: "1:142171972024:web:09b72a0fc03c5f9bb9ef4d",
+  measurementId: "G-NZEYQQLWJW",
 };
 
 // useEffect(async () => {
@@ -21,11 +21,10 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
-export {auth};
+export { auth };
 
-
-export const developmentAPI = 'https://healovo-default-rtdb.firebaseio.com';
-export const api = 'https://healovo-default-rtdb.firebaseio.com';
+export const developmentAPI = "https://healovo-default-rtdb.firebaseio.com";
+export const api = "https://healovo-default-rtdb.firebaseio.com";
 
 export const jsonToArray = (data) => {
   const userData = Object.keys(data).map((key) => {
@@ -35,7 +34,7 @@ export const jsonToArray = (data) => {
 };
 
 export const fetchPatients = async () => {
-  const response = await axios.get(api + '/patients.json');
+  const response = await axios.get(api + "/patients.json");
   return jsonToArray(response.data);
 };
 
@@ -44,7 +43,7 @@ export const fetchOnePatient = async (id) => {
   return jsonToArray(response.data);
 };
 export const addPatient = async (data) => {
-  const response = await axios.post(api + '/patients.json', data);
+  const response = await axios.post(api + "/patients.json", data);
   return response;
 };
 export const deletePatient = async (id) => {
@@ -53,7 +52,7 @@ export const deletePatient = async (id) => {
 };
 
 export const fetchDoctors = async () => {
-  const response = await axios.get(api + '/doctors.json');
+  const response = await axios.get(api + "/doctors.json");
   return jsonToArray(response.data);
 };
 export const fetchOneDoctor = async (id) => {
@@ -61,12 +60,28 @@ export const fetchOneDoctor = async (id) => {
   return jsonToArray(response.data);
 };
 export const addDoctor = async (data) => {
-  const response = await axios.post(api + '/doctors.json', data);
+  const response = await axios.post(api + "/doctors.json", data);
   return response;
 };
 export const deleteDoctor = async (id) => {
   const response = await axios.delete(api + `/doctors/${id}.json`);
   return response;
+};
+
+export const fetchUserByEmail = async (email) => {
+  const doctor = await axios.get(
+    api + `/doctors.json?orderBy="email"&equalTo="${email}"`
+  );
+  const patient = await axios.get(
+    api + `/patients.json?orderBy="email"&equalTo="${email}"`
+  );
+
+  if (Object.keys(doctor.data).length > 0) {
+    return doctor.data;
+  } else if (Object.keys(patient.data).length > 0) {
+    return patient.data;
+  }
+  return null;
 };
 
 export default firebase;

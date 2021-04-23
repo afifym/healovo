@@ -17,7 +17,12 @@ import * as Yup from "yup";
 import { TextField, RadioGroup, CheckboxWithLabel } from "formik-material-ui";
 import GradientButton from "../shared/GradientButton/GradientButton";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
-import { addDoctor, addPatient, auth } from "../../utils/firebase";
+import {
+  addDoctor,
+  addPatient,
+  auth,
+  fetchUserByEmail,
+} from "../../utils/firebase";
 import { Link } from "react-router-dom";
 
 const initialValues = {
@@ -60,6 +65,12 @@ const onSubmit = async (values) => {
     await addPatient(data);
   }
   await auth.createUserWithEmailAndPassword(email, password);
+
+  auth.signInWithEmailAndPassword(email, password);
+  console.log(auth.currentUser.email);
+
+  let usr = await fetchUserByEmail(email);
+  console.log(usr);
 };
 
 function Registeration() {
