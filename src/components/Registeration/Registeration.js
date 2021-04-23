@@ -16,7 +16,7 @@ import { Field, Formik, Form, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { TextField, RadioGroup, CheckboxWithLabel } from "formik-material-ui";
 import GradientButton from "../shared/GradientButton/GradientButton";
-import { addDoctor, addPatient, auth } from "../../utils/firebase";
+import firebase, { addDoctor, addPatient, auth } from "../../utils/firebase";
 import { Link } from "react-router-dom";
 
 import styled, { css } from "styled-components";
@@ -231,6 +231,32 @@ const RadioWrapper = styled.div`
 function Registeration() {
   const [isDoctor, setIsDoctor] = useState(false);
   const history = useHistory();
+  const googleProvider = new firebase.auth.GoogleAuthProvider();
+  const facebookProvider = new firebase.auth.FacebookAuthProvider();
+
+  const signUpWithProvider = (provider) => {
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        let user = result.user;
+        const { email, displayName, phoneNumber, photoURL } = user;
+        let fullname = displayName.split(" ");
+        const name = {
+          first: fullname[0],
+          last: fullname[1],
+        };
+        let userData = { name, email, phone: phoneNumber, photo: photoURL };
+        // Add user to realtime database
+        isDoctor
+          ? addDoctor({ type: "doctor", ...userData })
+          : addPatient({ type: "patient", ...userData });
+        history.push("/dashboard");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const onSubmit = async (values) => {
     let {
@@ -372,13 +398,17 @@ function Registeration() {
                       <GradientButton
                         variant="contained"
                         type="button"
-                        style={{ padding: "0 20px" }}
+                        onClick={() => signUpWithProvider(googleProvider)}
                       >
                         Signup With Google
                       </GradientButton>
                     </Box>
                     <Box paddingBottom={2}>
-                      <GradientButton variant="contained" type="button">
+                      <GradientButton
+                        variant="contained"
+                        type="button"
+                        onClick={() => signUpWithProvider(facebookProvider)}
+                      >
                         Signup With Facebook
                       </GradientButton>
                     </Box>
