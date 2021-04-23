@@ -25,7 +25,6 @@ const auth = firebase.auth();
 export { auth };
 
 export const developmentAPI = "https://healovo-default-rtdb.firebaseio.com";
-export const api = "https://healovo-default-rtdb.firebaseio.com";
 
 export const jsonToArray = (data) => {
   const userData = Object.keys(data).map((key) => {
@@ -98,7 +97,6 @@ export const fetchUserByEmail = async (email) => {
   return null;
 };
 
-export default firebase;
 // ###########################
 // APPOINTMENTS
 // ###########################
