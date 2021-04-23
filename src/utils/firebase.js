@@ -33,6 +33,22 @@ export const jsonToArray = (data) => {
   return userData;
 };
 
+export const fetchUserByEmail = async (email) => {
+  const doctor = await axios.get(
+    api + `/doctors.json?orderBy="email"&equalTo="${email}"`
+  );
+  const patient = await axios.get(
+    api + `/patients.json?orderBy="email"&equalTo="${email}"`
+  );
+
+  if (Object.keys(doctor.data).length > 0) {
+    return doctor.data;
+  } else if (Object.keys(patient.data).length > 0) {
+    return patient.data;
+  }
+  return null;
+};
+
 // ###########################
 // PATIENTS
 // ###########################
@@ -79,22 +95,6 @@ export const deleteDoctor = async (id) => {
 export const updateDoctor = async (id, data) => {
   const response = await axios.put(api + `/doctors/${id}.json`, data);
   return response;
-};
-
-export const fetchUserByEmail = async (email) => {
-  const doctor = await axios.get(
-    api + `/doctors.json?orderBy="email"&equalTo="${email}"`
-  );
-  const patient = await axios.get(
-    api + `/patients.json?orderBy="email"&equalTo="${email}"`
-  );
-
-  if (Object.keys(doctor.data).length > 0) {
-    return doctor.data;
-  } else if (Object.keys(patient.data).length > 0) {
-    return patient.data;
-  }
-  return null;
 };
 
 // ###########################
