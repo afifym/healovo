@@ -20,7 +20,7 @@ const CustomePagination = style.div`
        
 
     button{
-        background: #FFFFFF;
+        background:white;
         box-shadow: 0px 4px 19px 2px rgba(121, 121, 121, 0.25);
         border-radius: 27px !important;
     font-family: Roboto;
@@ -30,21 +30,38 @@ const CustomePagination = style.div`
     line-height: 33px;
     border:none;
     }
+   
+  .Mui-selected{
+    background: #2D50EF;
+    box-shadow: 0px 4px 19px 2px rgba(121, 121, 121, 0.25);
+    border-radius: 27px;
+    color:white;
+  }
+
 }
 
   }
 `;
-const PaginationSearch = () => {
+const PaginationSearch = ({ onHandlePageView, page, NumberOfPages }) => {
   const classes = useStyles();
 
   return (
     <CustomePagination className={classes.root}>
-      <Pagination
+      {/*   <Pagination
         count={10}
         variant="outlined"
         boundaryCount={1}
         siblingCount={0}
         defaultPage={1}
+        onClick={onPaginationSearch}
+      /> */}
+      {NumberOfPages}
+
+      <Pagination
+        color="secondary"
+        count={NumberOfPages}
+        page={page || 1}
+        onChange={onHandlePageView}
       />
     </CustomePagination>
   );

@@ -53,6 +53,29 @@ const SearchPage = () => {
   const [doctorsFilter, setDoctorsFilter] = useState(doctors);
   const [filterSettings, setFilterSettings] = useState(defaultFilterSetting);
 
+  const [page, setPage] = useState(1);
+  const handlePageView = (event, value) => {
+    const doctorsCopy = JSON.parse(JSON.stringify(doctorsFilter));
+
+    const doctorData = doctorsCopy.splice((1 - value) * 4, 4);
+    setdoctorPagination(doctorData);
+
+    setPage(value);
+  };
+
+  const handlePaginationSearch = (event, value) => {
+    const doctorsCopy = JSON.parse(JSON.stringify(doctorsFilter));
+    console.log("doctorsCopy");
+    const doctorData = doctorsCopy.splice((1 - value) * 4, 4);
+    return doctorData;
+
+    setPage(value);
+  };
+
+  const [doctorPagination, setdoctorPagination] = useState(
+    handlePaginationSearch()
+  );
+
   const handlClaer = () => {
     setFilterSettings(defaultFilterSetting);
     setDoctorsFilter(doctors);
@@ -191,8 +214,8 @@ const SearchPage = () => {
   }, [filterSettings]);
 
   useEffect(() => {
-    setDoctorsFilter(doctorsFilter);
-  }, []);
+    setdoctorPagination(handlePaginationSearch(1));
+  }, [doctorsFilter]);
 
   const fuse = new Fuse(doctorsFilter, {
     keys: ["name.first", "name.last", "specialty", "location"],
@@ -277,11 +300,16 @@ const SearchPage = () => {
 
           <Grid item xs={12} md={9}>
             <SearchResultHeader searchResultNumber={doctorsFilter.length} />
-            {doctorsFilter.map((doctor, idx) => (
+            {doctorPagination.map((doctor, idx) => (
               <SearchCard key={doctor.email} Doctor={doctor} />
             ))}
 
-            <PaginationSearch />
+            <PaginationSearch
+              NumberOfPages={Math.ceil(doctorsFilter.length / 4)}
+              page={page}
+              onHandlePageView={handlePageView}
+            />
+            {console.log("doctorPagination", doctorPagination)}
           </Grid>
         </Grid>
       </Container>
