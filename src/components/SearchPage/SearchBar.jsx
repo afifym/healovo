@@ -70,7 +70,15 @@ const SearchBar = ({
             title="specialty"
             onSearchBy={onSearchByspecialty}
             searchBy={searchByspecialty}
-            selectData={["Ophthalmologist", "Respiratory", "Gastroenterology"]}
+            selectData={[
+              "Respiratory",
+              "Ophthalmologist",
+              "Gastroenterology",
+              "Dentistry",
+              "Pediatrics",
+              "Orthopedics",
+              "Neurology",
+            ]}
           />
         );
       case "city":
@@ -80,7 +88,16 @@ const SearchBar = ({
             onSearchBy={onSearchByCity}
             searchBy={searchByCity}
             SelectIconName={FaCity}
-            selectData={["cario Egypt", "Luxor Egypt", "Tanta Egypt"]}
+            selectData={[
+              "Luxor Egypt",
+              "Kafr El Sheikh Egypt",
+              "Alexandria Egypt",
+              "Al Sharqia Egypt",
+              "Faiyum Egypt",
+              "cairo Egypt",
+              "Giza Egypt",
+              "Gharbia Egypt",
+            ]}
           />
         );
     }
