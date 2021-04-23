@@ -219,8 +219,10 @@ const SearchPage = () => {
   const handsearchByCity = (e) => {
     const fuse = new Fuse(doctors, {
       keys: ["location"],
+      threshold: 0,
     });
     const fuseResult = fuse.search(e.target.value);
+    console.log("fuseResult", fuseResult);
     const doctorResult = fuseResult.map((result) => result.item);
 
     setSearchByCity(e.target.value);
@@ -233,6 +235,7 @@ const SearchPage = () => {
     let spiltStr = e.target.value.split(" ");
     const fuse = new Fuse(doctorsFilter, {
       keys: ["name.first", "name.last"],
+      threshold: 0,
     });
     const fuseResult = fuse.search({
       $and: [{ "name.first": spiltStr[0] }, { "name.last": spiltStr[1] || "" }],
@@ -275,7 +278,7 @@ const SearchPage = () => {
           <Grid item xs={12} md={9}>
             <SearchResultHeader searchResultNumber={doctorsFilter.length} />
             {doctorsFilter.map((doctor, idx) => (
-              <SearchCard key={idx} Doctor={doctor} />
+              <SearchCard key={doctor.email} Doctor={doctor} />
             ))}
 
             <PaginationSearch />
