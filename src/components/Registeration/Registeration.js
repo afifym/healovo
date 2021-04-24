@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -11,63 +11,65 @@ import {
   StepLabel,
   Stepper,
   Typography,
-} from "@material-ui/core";
-import { Field, Formik, Form, FieldArray, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { TextField, RadioGroup, CheckboxWithLabel } from "formik-material-ui";
-import GradientButton from "../shared/GradientButton/GradientButton";
-import firebase, { addDoctor, addPatient, auth } from "../../utils/firebase";
-import { Link } from "react-router-dom";
+} from '@material-ui/core';
+import { Field, Formik, Form, FieldArray, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { TextField, RadioGroup, CheckboxWithLabel } from 'formik-material-ui';
+import GradientButton from '../shared/GradientButton/GradientButton';
+import firebase, { addDoctor, addPatient, auth } from '../../utils/firebase';
+import { Link } from 'react-router-dom';
 
-import styled, { css } from "styled-components";
-import StepConnector from "@material-ui/core/StepConnector";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import styled, { css } from 'styled-components';
+import StepConnector from '@material-ui/core/StepConnector';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {
   FaUserFriends,
   FaUserEdit,
   FaUserMd,
   FaUserShield,
   FaUserCheck,
-} from "react-icons/fa";
-import clsx from "clsx";
-import { FaUserNurse, FaUserAlt } from "react-icons/fa";
-import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
-import { useHistory } from "react-router-dom";
-
+} from 'react-icons/fa';
+import clsx from 'clsx';
+import { FaUserNurse, FaUserAlt } from 'react-icons/fa';
+import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
+import { FaFacebook } from 'react-icons/fa';
+import { GrAdd } from 'react-icons/gr';
 const initialValues = {
-  type: "",
-  first: "",
-  last: "",
-  password: "",
-  confirmPassword: "",
-  email: "",
-  phone: [""],
-  verificationCode: "",
+  type: '',
+  first: '',
+  last: '',
+  password: '',
+  confirmPassword: '',
+  email: '',
+  phone: [''],
+  verificationCode: '',
   terms: false,
   news: false,
-  speciality: "",
-  degree: "",
-  university: "",
+  speciality: '',
+  degree: '',
+  university: '',
 };
 
 const useColorlibStepIconStyles = makeStyles({
   root: {
-    backgroundColor: "#ccc",
+    backgroundColor: '#ccc',
     zIndex: 1,
-    color: "#fff",
+    color: '#fff',
     width: 50,
     height: 50,
-    display: "flex",
-    borderRadius: "50%",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    borderRadius: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   active: {
-    backgroundColor: "#2D50EF",
-    boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
+    backgroundColor: '#2D50EF',
+    boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
   },
   completed: {
-    backgroundColor: "#2D50EF",
+    backgroundColor: '#2D50EF',
   },
 });
 
@@ -100,24 +102,24 @@ const ColorlibConnector = withStyles({
     top: 22,
   },
   active: {
-    "& $line": {
-      backgroundColor: "#2D50EF",
-      height: "10px",
-      marginBottom: "5px",
+    '& $line': {
+      backgroundColor: '#2D50EF',
+      height: '10px',
+      marginBottom: '5px',
     },
   },
   completed: {
-    "& $line": {
-      backgroundColor: "#2D50EF",
-      height: "10px",
-      marginBottom: "5px",
+    '& $line': {
+      backgroundColor: '#2D50EF',
+      height: '10px',
+      marginBottom: '5px',
     },
   },
   line: {
-    height: "10px",
-    marginBottom: "5px",
+    height: '10px',
+    marginBottom: '5px',
     border: 0,
-    backgroundColor: "#eaeaf0",
+    backgroundColor: '#eaeaf0',
     borderRadius: 1,
   },
 })(StepConnector);
@@ -125,7 +127,7 @@ const ColorlibConnector = withStyles({
 const StyledStepper = styled(Stepper)``;
 
 const Wrapper = styled.div`
-  background-image: url("/assets/images/signup-bg.svg");
+  background-image: url('/assets/images/signup-bg.svg');
   background-position: bottom bottom;
   background-size: 100% 100vw;
   background-repeat: no-repeat;
@@ -148,14 +150,6 @@ const StyledRadioControl = styled(FormControlLabel)`
   .MuiSvgIcon-root {
     visibility: hidden;
   }
-  await auth.createUserWithEmailAndPassword(email, password);
-
-  auth.signInWithEmailAndPassword(email, password);
-  console.log(auth.currentUser.email);
-
-  let usr = await fetchUserByEmail(email);
-  console.log(usr);
-};
 
   .MuiTypography-root {
     margin-top: 2em;
@@ -176,11 +170,6 @@ const StyledRadioControl = styled(FormControlLabel)`
       }
     `}
 
-  @media (max-width: 420px) {
-    width: 90px !important;
-    height: 90px !important;
-    margin: 0 !important;
-  }
   &:hover {
     border: 2px solid ${({ theme }) => theme.colors.main1};
     svg {
@@ -231,6 +220,7 @@ const RadioWrapper = styled.div`
 function Registeration() {
   const [isDoctor, setIsDoctor] = useState(false);
   const history = useHistory();
+  const [error, setError] = useState(false);
   const googleProvider = new firebase.auth.GoogleAuthProvider();
   const facebookProvider = new firebase.auth.FacebookAuthProvider();
 
@@ -241,7 +231,7 @@ function Registeration() {
       .then((result) => {
         let user = result.user;
         const { email, displayName, phoneNumber, photoURL } = user;
-        let fullname = displayName.split(" ");
+        let fullname = displayName.split(' ');
         const name = {
           first: fullname[0],
           last: fullname[1],
@@ -249,9 +239,9 @@ function Registeration() {
         let userData = { name, email, phone: phoneNumber, photo: photoURL };
         // Add user to realtime database
         isDoctor
-          ? addDoctor({ type: "doctor", ...userData })
-          : addPatient({ type: "patient", ...userData });
-        history.push("/dashboard");
+          ? addDoctor({ type: 'doctor', ...userData })
+          : addPatient({ type: 'patient', ...userData });
+        history.push('/dashboard');
       })
       .catch((error) => {
         console.log(error);
@@ -271,41 +261,48 @@ function Registeration() {
     const name = { first, last };
     const { email, password } = values;
 
-    if (values.type === "doctor") {
-      let data = { name, ...withoutAdditionals };
-      await addDoctor(data);
-    } else if (values.type === "patient") {
-      let { degree, speciality, university, ...data } = withoutAdditionals;
-      data = { name, ...data };
-      await addPatient(data);
+    try {
+      await auth.createUserWithEmailAndPassword(email, password);
+
+      if (values.type === 'doctor') {
+        let data = { name, ...withoutAdditionals };
+        await addDoctor(data);
+      } else if (values.type === 'patient') {
+        let { degree, speciality, university, ...data } = withoutAdditionals;
+        data = { name, ...data };
+        await addPatient(data);
+      }
+
+      history.push('/dashboard');
+    } catch (error) {
+      console.log('Failed adding user: ', error);
+      setError(true);
     }
-    await auth.createUserWithEmailAndPassword(email, password);
-    history.push("/dashboard");
   };
 
   return (
     <Wrapper c>
-      <div style={{ margin: "0 auto", paddingTop: "4em", height: "100%" }}>
+      <div style={{ margin: '0 auto', paddingTop: '4em', height: '100%' }}>
         <Box>
           <FormikStepper initialValues={initialValues} onSubmit={onSubmit}>
             <FormikStep
-              label="Account Type"
+              label='Account Type'
               default
               // validationSchema={Yup.object({
               //   type: Yup.string().required("Please select the account type!"),
               // })}
             >
               <Field
-                name="type"
+                name='type'
                 component={RadioGroup}
-                label="Account Type"
-                aria-label="type"
-                control="radio"
+                label='Account Type'
+                aria-label='type'
+                control='radio'
                 style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: "5em 0",
-                  flexDirection: "row",
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '5em 0',
+                  flexDirection: 'row',
                 }}
               >
                 <RadioWrapper isactive={!isDoctor ? 1 : 0}>
@@ -314,9 +311,9 @@ function Registeration() {
                   </Icon>
                   <StyledRadioControl
                     isactive={!isDoctor ? 1 : 0}
-                    labelPlacement="bottom"
-                    value="patient"
-                    label="Patient"
+                    labelPlacement='bottom'
+                    value='patient'
+                    label='Patient'
                     control={<Radio />}
                     onClick={() => setIsDoctor(false)}
                   />
@@ -327,26 +324,26 @@ function Registeration() {
                   </Icon>
                   <StyledRadioControl
                     isactive={isDoctor ? 1 : 0}
-                    labelPlacement="bottom"
-                    value="doctor"
-                    label="Doctor"
+                    labelPlacement='bottom'
+                    value='doctor'
+                    label='Doctor'
                     control={<Radio />}
                     onClick={() => setIsDoctor(true)}
                   />
                 </RadioWrapper>
               </Field>
-              <Box display="flex" justifyContent="center" my={4}>
+              <Box display='flex' justifyContent='center' my={4}>
                 <Typography
-                  variant="subtitl1"
-                  color="secondary"
-                  style={{ fontWeight: "500" }}
+                  variant='subtitl1'
+                  color='secondary'
+                  style={{ fontWeight: '500' }}
                 >
-                  Have an account?{" "}
+                  Have an account?{' '}
                   <Link
-                    to="/login"
+                    to='/login'
                     style={{
-                      textDecoration: "underline",
-                      color: "hsl(229, 86%, 56%)",
+                      textDecoration: 'underline',
+                      color: 'hsl(229, 86%, 56%)',
                     }}
                   >
                     Login
@@ -355,62 +352,85 @@ function Registeration() {
               </Box>
 
               <ErrorMessage
-                name="type"
-                component="h5"
-                style={{ color: "red" }}
+                name='type'
+                component='h5'
+                style={{ color: 'red' }}
               />
             </FormikStep>
 
             <FormikStep
-              label="Registeration"
+              label='Registeration'
               validationSchema={Yup.object({
-                first: Yup.string().required("First Name is Required!"),
-                last: Yup.string().required("Last Name is Required!"),
+                first: Yup.string().required('First Name is Required!'),
+                last: Yup.string().required('Last Name is Required!'),
                 email: Yup.string()
-                  .email("Invalid E-mail format!")
-                  .required("Email is Required!"),
+                  .email('Invalid E-mail format!')
+                  .required('Email is Required!'),
                 password: Yup.string()
-                  .required("Password is Required!")
-                  .min(6, "Password must be at least 6 characters"),
-                phone: Yup.array().required("Phone is Required!"),
+                  .required('Password is Required!')
+                  .min(6, 'Password must be at least 6 characters'),
+                phone: Yup.array().required('Phone is Required!'),
                 confirmPassword: Yup.string()
-                  .oneOf([Yup.ref("password"), ""], "Passwords must match")
-                  .required("Confirm Password is Required!"),
+                  .oneOf([Yup.ref('password'), ''], 'Passwords must match')
+                  .required('Confirm Password is Required!'),
                 terms: Yup.bool()
-                  .oneOf([true], "Must Accept Terms and Conditions")
-                  .required("Must check the Terms!"),
+                  .oneOf([true], 'Must Accept Terms and Conditions')
+                  .required('Must check the Terms!'),
               })}
             >
               <Box
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-                alignItems="center"
+                display='flex'
+                flexDirection='column'
+                justifyContent='center'
+                alignItems='center'
               >
                 <Box>
                   <Box
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="center"
-                    alignItems="center"
+                    display='flex'
+                    flexDirection='column'
+                    justifyContent='center'
+                    alignItems='center'
                   >
                     <Box paddingBottom={2}>
-                      <GradientButton
-                        variant="contained"
-                        type="button"
+                      <Button
+                        variant='contained'
+                        type='button'
+                        color='primary'
+                        size='large'
                         onClick={() => signUpWithProvider(googleProvider)}
+                        startIcon={
+                          <FcGoogle
+                            style={{
+                              backgroundColor: 'white',
+                              borderRadius: '50%',
+                              padding: '0.1em',
+                            }}
+                          />
+                        }
                       >
                         Signup With Google
-                      </GradientButton>
+                      </Button>
                     </Box>
                     <Box paddingBottom={2}>
-                      <GradientButton
-                        variant="contained"
-                        type="button"
+                      <Button
+                        variant='contained'
+                        type='button'
+                        color='primary'
+                        size='large'
                         onClick={() => signUpWithProvider(facebookProvider)}
+                        startIcon={
+                          <FaFacebook
+                            style={{
+                              backgroundColor: 'white',
+                              borderRadius: '50%',
+                              padding: '0.1em',
+                            }}
+                            color='blue'
+                          />
+                        }
                       >
                         Signup With Facebook
-                      </GradientButton>
+                      </Button>
                     </Box>
                   </Box>
 
@@ -418,18 +438,18 @@ function Registeration() {
                     <Grid container spacing={2}>
                       <Grid item>
                         <Field
-                          name="first"
+                          name='first'
                           component={TextField}
-                          label="First Name*"
-                          variant="outlined"
+                          label='First Name*'
+                          variant='outlined'
                         />
                       </Grid>
                       <Grid item>
                         <Field
-                          name="last"
+                          name='last'
                           component={TextField}
-                          label="Last Name*"
-                          variant="outlined"
+                          label='Last Name*'
+                          variant='outlined'
                         />
                       </Grid>
                     </Grid>
@@ -439,16 +459,16 @@ function Registeration() {
                     <Grid container spacing={2}>
                       <Grid item>
                         <Field
-                          name="email"
+                          name='email'
                           component={TextField}
-                          label="Email*"
-                          type="email"
-                          variant="outlined"
+                          label='Email*'
+                          type='email'
+                          variant='outlined'
                         />
                       </Grid>
 
                       <Grid item>
-                        <FieldArray name="phone">
+                        <FieldArray name='phone'>
                           {(fieldArrayProps) => {
                             const { push, remove, form } = fieldArrayProps;
                             const { values } = form;
@@ -458,27 +478,30 @@ function Registeration() {
                                 {phone.map((phoneNumber, idx) => (
                                   <div key={idx}>
                                     <Field
-                                      style={{ marginBottom: "1rem" }}
-                                      variant="outlined"
+                                      style={{ marginBottom: '1rem' }}
+                                      variant='outlined'
                                       component={TextField}
-                                      label="Phone*"
+                                      label='Phone*'
                                       name={`phone[${idx}]`}
                                     />
                                     {idx === 0 && (
                                       <Button
-                                        variant="contained"
-                                        type="button"
-                                        onClick={() => push("")}
-                                        size="small"
-                                        style={{ boxShadow: "none" }}
+                                        variant='outlined'
+                                        type='button'
+                                        onClick={() => push('')}
+                                        size='large'
+                                        style={{
+                                          boxShadow: 'none',
+                                          height: '55px',
+                                        }}
                                       >
-                                        +
+                                        <GrAdd />
                                       </Button>
                                     )}
                                     {idx > 0 && (
                                       <Button
-                                        variant="contained"
-                                        type="button"
+                                        variant='contained'
+                                        type='button'
                                         onClick={() => remove(idx)}
                                       >
                                         -
@@ -498,51 +521,51 @@ function Registeration() {
                     <Grid container spacing={2}>
                       <Grid item>
                         <Field
-                          name="password"
+                          name='password'
                           component={TextField}
-                          label="password*"
-                          type="password"
-                          variant="outlined"
+                          label='password*'
+                          type='password'
+                          variant='outlined'
                         />
                       </Grid>
                       <Grid item>
                         <Field
-                          name="confirmPassword"
+                          name='confirmPassword'
                           component={TextField}
-                          label="Confirm Password*"
-                          type="password"
-                          variant="outlined"
+                          label='Confirm Password*'
+                          type='password'
+                          variant='outlined'
                         />
                       </Grid>
                     </Grid>
                   </Box>
                   <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    m="auto"
+                    display='flex'
+                    alignItems='center'
+                    justifyContent='center'
+                    m='auto'
                     paddingBottom={2}
                   >
                     <div>
                       <Field
-                        type="checkbox"
+                        type='checkbox'
                         component={CheckboxWithLabel}
-                        name="terms"
-                        style={{ marginRight: "-0.5em" }}
+                        name='terms'
+                        style={{ marginRight: '-0.5em' }}
                       />
-                      <Box display="inline" m={0}>
+                      <Box display='inline' m={0}>
                         <Typography
-                          variant="subtitl1"
-                          color="secondary"
-                          style={{ fontWeight: "500", margin: "0" }}
+                          variant='subtitl1'
+                          color='secondary'
+                          style={{ fontWeight: '500', margin: '0' }}
                         >
-                          I’ve read and agreed on{" "}
+                          I’ve read and agreed on{' '}
                           <Link
                             style={{
-                              color: "hsl(229, 86%, 56%)",
-                              textDecoration: "underline",
+                              color: 'hsl(229, 86%, 56%)',
+                              textDecoration: 'underline',
                             }}
-                            to="/terms-of-service"
+                            to='/terms-of-service'
                           >
                             Terms of Service
                           </Link>
@@ -550,9 +573,9 @@ function Registeration() {
                       </Box>
 
                       <ErrorMessage
-                        name="terms"
-                        component="h5"
-                        style={{ color: "red" }}
+                        name='terms'
+                        component='h5'
+                        style={{ color: 'red' }}
                       />
                     </div>
                   </Box>
@@ -562,46 +585,48 @@ function Registeration() {
 
             {isDoctor ? (
               <FormikStep
-                label="Additional Info"
+                label='Additional Info'
                 validationSchema={Yup.object({
-                  speciality: Yup.string().required("Speciality is Required!"),
-                  degree: Yup.string().required("Degree is Required!"),
-                  university: Yup.string().required("University is Required!"),
+                  speciality: Yup.string().required('Speciality is Required!'),
+                  degree: Yup.string().required('Degree is Required!'),
+                  university: Yup.string().required('University is Required!'),
                 })}
               >
-                <Box my={8} display="flex" justifyContent="center">
+                <Box my={8} display='flex' justifyContent='center'>
                   <div>
                     <Box paddingBottom={2}>
                       <Field
-                        name="speciality"
+                        name='speciality'
                         component={TextField}
                         select
-                        style={{ width: "266px" }}
-                        label="Speciality*"
-                        variant="outlined"
+                        style={{ width: '266px' }}
+                        label='Speciality*'
+                        variant='outlined'
                       >
-                        <MenuItem value="Pediatrician">Pediatrician</MenuItem>
-                        <MenuItem value="Obstetrician">Obstetrician</MenuItem>
-                        <MenuItem value="Surgeon">Surgeon</MenuItem>
-                        <MenuItem value="Psychiatrist">Psychiatrist</MenuItem>
-                        <MenuItem value="Cardiologist">Cardiologist</MenuItem>
-                        <MenuItem value="Dermatologist">Dermatologist</MenuItem>
+                        <MenuItem value='Pediatrician'>Pediatrician</MenuItem>
+                        <MenuItem value='Obstetrician'>Obstetrician</MenuItem>
+                        <MenuItem value='Surgeon'>Surgeon</MenuItem>
+                        <MenuItem value='Psychiatrist'>Psychiatrist</MenuItem>
+                        <MenuItem value='Cardiologist'>Cardiologist</MenuItem>
+                        <MenuItem value='Dermatologist'>Dermatologist</MenuItem>
                       </Field>
                     </Box>
                     <Box paddingBottom={2}>
                       <Field
-                        name="degree"
+                        style={{ width: '266px' }}
+                        name='degree'
                         component={TextField}
-                        label="Highest Degree*"
-                        variant="outlined"
+                        label='Highest Degree*'
+                        variant='outlined'
                       />
                     </Box>
                     <Box paddingBottom={2}>
                       <Field
-                        name="university"
+                        style={{ width: '266px' }}
+                        name='university'
                         component={TextField}
-                        label="University*"
-                        variant="outlined"
+                        label='University*'
+                        variant='outlined'
                       />
                     </Box>
                   </div>
@@ -610,39 +635,39 @@ function Registeration() {
             ) : null}
 
             <FormikStep
-              label="Confirmation"
+              label='Confirmation'
               validationSchema={Yup.object({
                 verificationCode: Yup.string()
-                  .required("Please Enter the verification code!")
-                  .min(6, "Must be 6-digits")
-                  .max(6, "Must be 6-digits"),
+                  .required('Please Enter the verification code!')
+                  .min(6, 'Must be 6-digits')
+                  .max(6, 'Must be 6-digits'),
               })}
             >
               <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
+                display='flex'
+                alignItems='center'
+                justifyContent='center'
                 my={8}
               >
                 <Box
-                  display="flex"
-                  flexDirection="column"
-                  aligItems="center"
-                  justifyContent="center"
+                  display='flex'
+                  flexDirection='column'
+                  aligItems='center'
+                  justifyContent='center'
                 >
                   <h3>We’ve sent a 6-digit code, please check your E-mail</h3>
                   <Field
-                    name="verificationCode"
-                    style={{ margin: "1rem 0px" }}
+                    name='verificationCode'
+                    style={{ margin: '1rem 0px' }}
                     component={TextField}
-                    label="Verification*"
-                    variant="outlined"
-                    placeholder="6-digit Code"
-                    style={{ margin: "2em 0" }}
+                    label='Verification*'
+                    variant='outlined'
+                    placeholder='6-digit Code'
+                    style={{ margin: '2em 0' }}
                   />
                   <Link
-                    to="#"
-                    style={{ textAlign: "center", color: "hsl(229, 86%, 56%)" }}
+                    to='#'
+                    style={{ textAlign: 'center', color: 'hsl(229, 86%, 56%)' }}
                   >
                     Resend code
                   </Link>
@@ -650,20 +675,32 @@ function Registeration() {
               </Box>
             </FormikStep>
 
-            <FormikStep label="Activation">
+            <FormikStep label='Activation'>
               <Box paddingBottom={2}>
                 <Typography
-                  color="secondary"
-                  variant="h5"
+                  color='secondary'
+                  variant='h5'
                   style={{
-                    width: "450px",
-                    textAlign: "center",
-                    margin: "2em auto",
+                    width: '450px',
+                    textAlign: 'center',
+                    margin: '2em auto',
                   }}
                 >
                   Now we’re verifying your info! Till then you can explore our
                   services
                 </Typography>
+
+                {error && (
+                  <div
+                    style={{
+                      color: 'red',
+                      fontWeight: '600',
+                      textAlign: 'center',
+                    }}
+                  >
+                    An Error Occurred
+                  </div>
+                )}
               </Box>
             </FormikStep>
           </FormikStepper>
@@ -704,7 +741,7 @@ export function FormikStepper({ children, ...props }) {
       }}
     >
       {({ formik, isSubmitting }) => (
-        <Form autoComplete="off">
+        <Form autoComplete='off'>
           <StyledStepper
             alternativeLabel
             activeStep={step}
@@ -714,9 +751,9 @@ export function FormikStepper({ children, ...props }) {
               <Step key={child.props.label} completed={step > idx || completed}>
                 <StepLabel StepIconComponent={ColorlibStepIcon}>
                   <Typography
-                    variant="subtitle2"
-                    style={{ fontWeight: "600" }}
-                    color="secondary"
+                    variant='subtitle2'
+                    style={{ fontWeight: '600' }}
+                    color='secondary'
                   >
                     {child.props.label}
                   </Typography>
@@ -727,19 +764,19 @@ export function FormikStepper({ children, ...props }) {
           {currentChild}
           {/* Show back button if not the first step */}
           <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
+            display='flex'
+            flexDirection='column'
+            alignItems='center'
+            justifyContent='center'
           >
             <Grid item>
               <GradientButton
-                icon={<FaChevronRight color="white" size={14} />}
+                icon={<FaChevronRight color='white' size={14} />}
                 disabled={isSubmitting}
-                type="submit"
-                style={{ marginBottom: "1em" }}
+                type='submit'
+                style={{ marginBottom: '1em' }}
               >
-                {isLastStep() ? "Explore" : "Next"}
+                {isLastStep() ? 'Explore' : 'Next'}
               </GradientButton>
               {isSubmitting && <LinearProgress />}
             </Grid>
@@ -747,8 +784,8 @@ export function FormikStepper({ children, ...props }) {
               <Grid item>
                 <Button
                   disabled={isSubmitting}
-                  color="secondary"
-                  style={{ boxShadow: "none" }}
+                  color='secondary'
+                  style={{ boxShadow: 'none' }}
                   onClick={() => setStep((s) => s - 1)}
                   startIcon={<FaChevronLeft size={15} />}
                 >
