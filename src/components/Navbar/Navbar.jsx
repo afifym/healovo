@@ -105,19 +105,6 @@ const Wrapper = styled.div`
       width: 160px;
     }
   }
-
-  @keyframes animate-nav {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  opacity: 0;
-  animation: animate-nav 0.7s ease forwards;
-  animation-delay: 0.7s;
 `;
 
 const Links = styled.div`
