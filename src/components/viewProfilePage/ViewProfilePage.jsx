@@ -11,6 +11,7 @@ const ViewProfilePage = ({ doctor }) => {
         <Grid
           item
           md={6}
+          xs={12}
           direction="column"
           justify="center"
           alignItems="center"
@@ -20,6 +21,7 @@ const ViewProfilePage = ({ doctor }) => {
         <Grid
           item
           md={6}
+          xs={12}
           container
           direction="column"
           justify="center"

@@ -67,7 +67,8 @@ const SearchPage = ({ location }) => {
 
   const handleQuerySring = () => {
     let qsResult = qs.parse(location.search);
-    let spiltStr = qsResult.name.split(" ");
+    let spiltStr = qsResult?.name?.split(" ");
+    spiltStr == undefined && (spiltStr = "asda");
     const CM = `communicationMethods.${qsResult.type}`;
     const fuse = new Fuse(doctorsFilter, {
       keys: [
@@ -81,7 +82,7 @@ const SearchPage = ({ location }) => {
 
     const fuseResult = fuse.search({
       $and: [
-        { "name.first": spiltStr[0] },
+        { "name.first": spiltStr[0] || "" },
         { "name.last": spiltStr[1] || "" },
         { specialty: qsResult.specialty || "" },
         { location: qsResult.city || "" },
@@ -93,6 +94,7 @@ const SearchPage = ({ location }) => {
     console.log("qsResult", qsResult);
     console.log("fuseResult", fuseResult);
     const doctorResult = fuseResult.map((result) => result.item);
+
     return doctorResult;
   };
   const handlePaginationSearch = (event, value) => {
@@ -247,8 +249,12 @@ const SearchPage = ({ location }) => {
   useEffect(() => {
     let qResult = handleQuerySring();
     qResult.length > 0
-      ? setdoctorPagination(qResult)
-      : setdoctorPagination(handlePaginationSearch(1));
+      ? setDoctorsFilter(qResult)
+      : setDoctorsFilter(handlePaginationSearch(1));
+  }, []);
+
+  useEffect(() => {
+    setdoctorPagination(handlePaginationSearch(1));
 
     setPage(1);
   }, [doctorsFilter]);
@@ -331,7 +337,8 @@ const SearchPage = ({ location }) => {
           </Hidden>
 
           <Grid item xs={12} md={9}>
-            <SearchResultHeader searchResultNumber={PaginationSearch.length} />
+            <SearchResultHeader searchResultNumber={doctorsFilter.length} />
+            {console.log("PaginationSearch.length", PaginationSearch)}
             {doctorPagination.map((doctor, idx) => (
               <SearchCard key={doctor.email} Doctor={doctor} />
             ))}
