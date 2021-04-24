@@ -37,11 +37,13 @@ function App() {
             redirectURL='/admin-login'
             component={Admin}
           />
-          <PrivateRoute
+          {/* <PrivateRoute
             path='/dashboard'
             redirectURL='/signup'
             component={Dashboard}
-          />
+          /> */}
+          <Route path='/dashboard' component={Dashboard} />
+
           <Route path='*' component={NotFound} />
         </Switch>
       </Router>
