@@ -14,6 +14,8 @@ import SearchResultHeader from "./SearchResultHeader";
 import { useEffect } from "react";
 import Fuse from "fuse.js";
 
+import qs from "query-string";
+
 const defaultFilterSetting = [
   {
     filterName: "Location",
@@ -48,7 +50,7 @@ const defaultFilterSetting = [
   },
 ];
 
-const SearchPage = () => {
+const SearchPage = ({ location }) => {
   const [doctors, setdoctors] = useState(DoctorsData);
   const [doctorsFilter, setDoctorsFilter] = useState(doctors);
   const [filterSettings, setFilterSettings] = useState(defaultFilterSetting);
@@ -63,6 +65,9 @@ const SearchPage = () => {
     setPage(value);
   };
 
+  const handleQuerySring = () => {
+    console.log("location.search", qs.parse(location.search));
+  };
   const handlePaginationSearch = (event, value) => {
     const doctorsCopy = JSON.parse(JSON.stringify(doctorsFilter));
 
@@ -215,6 +220,7 @@ const SearchPage = () => {
   useEffect(() => {
     setdoctorPagination(handlePaginationSearch(1));
     setPage(1);
+    handleQuerySring();
   }, [doctorsFilter]);
 
   const fuse = new Fuse(doctorsFilter, {

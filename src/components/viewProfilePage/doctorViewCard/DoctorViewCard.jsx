@@ -27,9 +27,10 @@ const CustomePaper = styled(Paper)`
     padding: 20px 30px;
   }
   @media (max-width: 959px) {
-    padding: 20px 15px;
+    padding: 20px 25px;
 
     margin: 25px auto;
+    margin-bottom: 50px;
   }
   @media (max-width: 340px) {
     padding: 20px 15px;

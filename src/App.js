@@ -1,5 +1,6 @@
 import SearchPage from "./components/SearchPage/SearchPage";
 import ViewProfilePage from "./components/viewProfilePage/ViewProfilePage";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
   const doctor = {
@@ -35,10 +36,31 @@ function App() {
   };
 
   return (
-    <div>
-      <SearchPage />
-      <ViewProfilePage doctor={doctor} />
-    </div>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/Searchresult">searchPage</Link>
+            </li>
+          </ul>
+        </nav>
+        <div>
+          <Switch>
+            <Route exact path="/">
+              <h1>welcome to home</h1>
+            </Route>
+            <Route path="/Searchresult" component={SearchPage}></Route>
+            <Route path="/viewprofile">
+              <ViewProfilePage doctor={doctor} />
+            </Route>
+          </Switch>
+        </div>
+      </div>
+    </Router>
   );
 }
 
