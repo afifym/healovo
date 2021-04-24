@@ -272,7 +272,6 @@ function Registeration() {
         data = { name, ...data };
         await addPatient(data);
       }
-      console.log(auth.currentUser);
       history.push('/dashboard');
     } catch (error) {
       console.log('Failed adding user: ', error);
@@ -283,6 +282,15 @@ function Registeration() {
   return (
     <Wrapper c>
       <div style={{ margin: '0 auto', paddingTop: '4em', height: '100%' }}>
+        <Box display='flex' alignItems='center' justifyContent='center'>
+          <Link to='/'>
+            <img
+              src='/assets/images/healovo-black.svg'
+              alt='healovo'
+              style={{ width: '200px' }}
+            />
+          </Link>
+        </Box>
         <Box>
           <FormikStepper initialValues={initialValues} onSubmit={onSubmit}>
             <FormikStep
@@ -334,7 +342,7 @@ function Registeration() {
               </Field>
               <Box display='flex' justifyContent='center' my={4}>
                 <Typography
-                  variant='subtitl1'
+                  variant='subtitle1'
                   color='secondary'
                   style={{ fontWeight: '500' }}
                 >
@@ -555,7 +563,7 @@ function Registeration() {
                       />
                       <Box display='inline' m={0}>
                         <Typography
-                          variant='subtitl1'
+                          variant='subtitle1'
                           color='secondary'
                           style={{ fontWeight: '500', margin: '0' }}
                         >
