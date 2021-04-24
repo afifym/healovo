@@ -2,42 +2,130 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" type="image/png" href="./assets/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="A medical booking website that links patients with doctors"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <link rel="apple-touch-icon" href="./assets/logo.png" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Healovo Medical Booking</title>
+    <style>
+      .preloader-mmm {
+        pointer-events: none;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        z-index: 50;
+        left: 0;
+        top: 0;
+        background-color: white;
+        transition: opacity 0.5s ease;
+        overflow: hidden;
+        opacity: 1;
+      }
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+      .container-mmm {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .circle-mmm {
+        position: absolute;
+        width: 15%;
+        animation: animate-loader 1s ease infinite;
+      }
+
+      .stop-loader-mmm {
+        animation: none;
+        opacity: 0;
+      }
+
+      .remove-loader-mmm {
+        opacity: 0;
+        overflow: visible;
+      }
+
+      .heart-mmm {
+        position: absolute;
+        width: 7%;
+      }
+
+      @keyframes animate-loader {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <div class="preloader-mmm">
+      <div class="container-mmm">
+        <svg
+          class="circle-mmm"
+          width="721"
+          height="722"
+          viewBox="0 0 721 722"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="357.883" cy="363.297" r="357.849" fill="#F4F4FA" />
+          <path
+            d="M715.733 363.297C715.733 165.662 555.518 5.44751 357.884 5.44751"
+            stroke="#2D50EF"
+            stroke-width="9"
+          />
+        </svg>
+        <svg
+          class="heart-mmm"
+          width="406"
+          height="370"
+          viewBox="0 0 406 370"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M384.28 86.9822C370.703 73.4376 352.308 65.831 333.131 65.831C313.953 65.831 295.558 73.4376 281.982 86.9822L200.956 168.008L119.93 86.9822C116.349 83.2875 114.364 78.3328 114.404 73.1874C114.444 68.0421 116.506 63.1188 120.144 59.4804C123.783 55.842 128.706 53.7802 133.851 53.7401C138.996 53.7001 143.951 55.6849 147.646 59.2662L205.058 116.666L242.356 79.3683C242.356 79.3683 294.534 19.4992 328.694 35.2671C328.694 35.2671 283.808 -19.2131 234.344 15.5766L205.161 42.1479L184.982 21.9557C178.263 15.2354 170.287 9.90413 161.508 6.26644C152.729 2.62874 143.319 0.755834 133.816 0.754639C114.624 0.752227 96.2176 8.37387 82.6451 21.9429C69.0727 35.5119 61.4465 53.9168 61.444 73.1087C61.4416 92.3006 69.0633 110.707 82.6323 124.28L200.956 242.603L319.279 124.28C322.987 120.753 327.926 118.815 333.042 118.88C338.158 118.944 343.047 121.004 346.665 124.623C350.283 128.241 352.344 133.13 352.408 138.246C352.472 143.362 350.534 148.301 347.008 152.009L203.901 295.09L60.7682 151.996L60.228 151.61C60.228 151.61 26.9174 123.572 28.4093 80.6931C28.4093 80.6931 -19.6275 121.425 9.92766 174.4L23.059 188.83L23.522 189.281L166.616 332.375L166.32 332.671L203.618 369.968L203.914 369.672L204.21 369.968L241.507 332.671L241.211 332.375L384.28 189.281C397.821 175.702 405.426 157.308 405.426 138.131C405.426 118.955 397.821 100.561 384.28 86.9822V86.9822Z"
+            fill="#2D50EF"
+          />
+        </svg>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          const loader = document.querySelector('.circle-mmm');
+          const loaderWrapper = document.querySelector('.preloader-mmm');
+          loaderWrapper.classList.add('remove-loader-mmm');
+          loader.classList.add('stop-loader-mmm');
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+          navigator.serviceWorker
+            .register('./sw.js')
+            .then((reg) => console.log('Success: ', reg.scope))
+            .catch((error) => console.log('Failure: ', error));
+        });
+      }
+    </script>
   </body>
 </html>
