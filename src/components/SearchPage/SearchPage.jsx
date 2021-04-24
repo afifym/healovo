@@ -11,7 +11,7 @@ import SearchResultHeader from './SearchResultHeader';
 import { useEffect } from 'react';
 import Fuse from 'fuse.js';
 import qs from 'query-string';
-import { fetchDoctors, fetchOneDoctor } from '../../utils/firebase';
+import { fetchDoctors } from '../../utils/firebase';
 
 const defaultFilterSetting = [
   {
