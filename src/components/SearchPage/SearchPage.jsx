@@ -65,11 +65,10 @@ const SearchPage = () => {
 
   const handlePaginationSearch = (event, value) => {
     const doctorsCopy = JSON.parse(JSON.stringify(doctorsFilter));
-    console.log("doctorsCopy");
-    const doctorData = doctorsCopy.splice((1 - value) * 4, 4);
-    return doctorData;
 
-    setPage(value);
+    const doctorData = doctorsCopy.splice((1 - value) * 4, 4);
+
+    return doctorData;
   };
 
   const [doctorPagination, setdoctorPagination] = useState(
@@ -215,6 +214,7 @@ const SearchPage = () => {
 
   useEffect(() => {
     setdoctorPagination(handlePaginationSearch(1));
+    setPage(1);
   }, [doctorsFilter]);
 
   const fuse = new Fuse(doctorsFilter, {
@@ -309,7 +309,6 @@ const SearchPage = () => {
               page={page}
               onHandlePageView={handlePageView}
             />
-            {console.log("doctorPagination", doctorPagination)}
           </Grid>
         </Grid>
       </Container>

@@ -47,16 +47,6 @@ const PaginationSearch = ({ onHandlePageView, page, NumberOfPages }) => {
 
   return (
     <CustomePagination className={classes.root}>
-      {/*   <Pagination
-        count={10}
-        variant="outlined"
-        boundaryCount={1}
-        siblingCount={0}
-        defaultPage={1}
-        onClick={onPaginationSearch}
-      /> */}
-      {NumberOfPages}
-
       <Pagination
         color="secondary"
         count={NumberOfPages}
