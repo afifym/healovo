@@ -1,12 +1,13 @@
 export const DoctorsData = [
   {
     id: 1,
+
     name: { first: "mohand", last: "mostafa" },
     degree: "Masters in medicine",
     image: "doctorAvtar.png",
-    specialty: "Respiratory Specialist",
+    specialty: "Respiratory",
     rate: "2",
-    location: "Luxor Egypt",
+    location: "Luxor",
     communicationMethods: { clinic: true, home: true, video: true },
     reservationDates: [
       { day: "Mon", period: "1:00 pm - 6:00 pm" },

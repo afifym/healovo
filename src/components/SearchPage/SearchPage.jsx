@@ -66,7 +66,34 @@ const SearchPage = ({ location }) => {
   };
 
   const handleQuerySring = () => {
-    console.log("location.search", qs.parse(location.search));
+    let qsResult = qs.parse(location.search);
+    let spiltStr = qsResult.name.split(" ");
+    const CM = `communicationMethods.${qsResult.type}`;
+    const fuse = new Fuse(doctorsFilter, {
+      keys: [
+        "name.first",
+        "name.last",
+        "specialty",
+        "location",
+        `communicationMethods.${qsResult.type}`,
+      ],
+    });
+
+    const fuseResult = fuse.search({
+      $and: [
+        { "name.first": spiltStr[0] },
+        { "name.last": spiltStr[1] || "" },
+        { specialty: qsResult.specialty || "" },
+        { location: qsResult.city || "" },
+        { [`communicationMethods.${qsResult.type}`]: `${true}` || "" },
+      ],
+    });
+
+    const queryiMade = `http://localhost:3000/searchresult?type=home&city=luxor&specialty=Respiratory&name=mohand%20mostafa`;
+    console.log("qsResult", qsResult);
+    console.log("fuseResult", fuseResult);
+    const doctorResult = fuseResult.map((result) => result.item);
+    return doctorResult;
   };
   const handlePaginationSearch = (event, value) => {
     const doctorsCopy = JSON.parse(JSON.stringify(doctorsFilter));
@@ -218,14 +245,13 @@ const SearchPage = ({ location }) => {
   }, [filterSettings]);
 
   useEffect(() => {
-    setdoctorPagination(handlePaginationSearch(1));
-    setPage(1);
-    handleQuerySring();
-  }, [doctorsFilter]);
+    let qResult = handleQuerySring();
+    qResult.length > 0
+      ? setdoctorPagination(qResult)
+      : setdoctorPagination(handlePaginationSearch(1));
 
-  const fuse = new Fuse(doctorsFilter, {
-    keys: ["name.first", "name.last", "specialty", "location"],
-  });
+    setPage(1);
+  }, [doctorsFilter]);
 
   const [searchByName, setSearchByName] = useState("");
   const [searchByCity, setSearchByCity] = useState();
@@ -305,7 +331,7 @@ const SearchPage = ({ location }) => {
           </Hidden>
 
           <Grid item xs={12} md={9}>
-            <SearchResultHeader searchResultNumber={doctorsFilter.length} />
+            <SearchResultHeader searchResultNumber={PaginationSearch.length} />
             {doctorPagination.map((doctor, idx) => (
               <SearchCard key={doctor.email} Doctor={doctor} />
             ))}
