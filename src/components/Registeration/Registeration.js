@@ -36,6 +36,8 @@ import { useHistory } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook } from 'react-icons/fa';
 import { GrAdd } from 'react-icons/gr';
+import { IoMdRemove } from 'react-icons/io';
+
 const initialValues = {
   type: '',
   first: '',
@@ -508,11 +510,16 @@ function Registeration() {
                                     )}
                                     {idx > 0 && (
                                       <Button
-                                        variant='contained'
+                                        variant='outlined'
                                         type='button'
+                                        size='large'
                                         onClick={() => remove(idx)}
+                                        style={{
+                                          boxShadow: 'none',
+                                          height: '55px',
+                                        }}
                                       >
-                                        -
+                                        <IoMdRemove />
                                       </Button>
                                     )}
                                   </div>
