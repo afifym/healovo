@@ -1,26 +1,23 @@
-import firebase from 'firebase';
-import axios from 'axios';
+import firebase from "firebase/app";
+import "firebase/auth";
+import axios from "axios";
+
 const firebaseConfig = {
-  apiKey: 'AIzaSyAvhrEd58Qmg_adFoaLwEjkemym4EKUD3s',
-  authDomain: 'healovo.firebaseapp.com',
-  databaseURL: 'https://healovo-default-rtdb.firebaseio.com',
-  projectId: 'healovo',
-  storageBucket: 'healovo.appspot.com',
-  messagingSenderId: '142171972024',
-  appId: '1:142171972024:web:09b72a0fc03c5f9bb9ef4d',
-  measurementId: 'G-NZEYQQLWJW',
+  apiKey: "AIzaSyAvhrEd58Qmg_adFoaLwEjkemym4EKUD3s",
+  authDomain: "healovo.firebaseapp.com",
+  databaseURL: "https://healovo-default-rtdb.firebaseio.com",
+  projectId: "healovo",
+  storageBucket: "healovo.appspot.com",
+  messagingSenderId: "142171972024",
+  appId: "1:142171972024:web:09b72a0fc03c5f9bb9ef4d",
+  measurementId: "G-NZEYQQLWJW",
 };
+
 firebase.initializeApp(firebaseConfig);
-export const api = 'https://healovo-default-rtdb.firebaseio.com';
+const auth = firebase.auth();
+export const api = "https://healovo-default-rtdb.firebaseio.com";
 
-// useEffect(async () => {
-//   try {
-//     const data = await fetchPatients();
-//   } catch (error) {
-//     console.log('error');
-//   }
-// }, []);
-
+// get id
 export const jsonToArray = (data) => {
   const userData = Object.keys(data).map((key) => {
     return { ...data[key], id: key.toString() };
@@ -28,11 +25,30 @@ export const jsonToArray = (data) => {
   return userData;
 };
 
+// get data with email
+export const fetchUserByEmail = async (email) => {
+  const doctor = await axios.get(
+    api + `/doctors.json?orderBy="email"&equalTo="${email}"`
+  );
+
+  const patient = await axios.get(
+    api + `/patients.json?orderBy="email"&equalTo="${email}"`
+  );
+
+  if (Object.keys(doctor.data).length > 0) {
+    return doctor.data;
+  } else if (Object.keys(patient.data).length > 0) {
+    return patient.data;
+  }
+
+  return null;
+};
+
 // ###########################
 // PATIENTS
 // ###########################
 export const fetchPatients = async () => {
-  const response = await axios.get(api + '/patients.json');
+  const response = await axios.get(api + "/patients.json");
   return jsonToArray(response.data);
 };
 export const fetchOnePatient = async (id) => {
@@ -40,7 +56,7 @@ export const fetchOnePatient = async (id) => {
   return response.data;
 };
 export const addPatient = async (data) => {
-  const response = await axios.post(api + '/patients.json', data);
+  const response = await axios.post(api + "/patients.json", data);
   return response;
 };
 export const deletePatient = async (id) => {
@@ -56,7 +72,7 @@ export const updatePatient = async (id, data) => {
 // DOCTORS
 // ###########################
 export const fetchDoctors = async () => {
-  const response = await axios.get(api + '/doctors.json');
+  const response = await axios.get(api + "/doctors.json");
   return jsonToArray(response.data);
 };
 export const fetchOneDoctor = async (id) => {
@@ -64,7 +80,7 @@ export const fetchOneDoctor = async (id) => {
   return response.data;
 };
 export const addDoctor = async (data) => {
-  const response = await axios.post(api + '/doctors.json', data);
+  const response = await axios.post(api + "/doctors.json", data);
   return response;
 };
 export const deleteDoctor = async (id) => {
@@ -80,7 +96,7 @@ export const updateDoctor = async (id, data) => {
 // APPOINTMENTS
 // ###########################
 export const fetchAppointments = async () => {
-  const response = await axios.get(api + '/appointments.json');
+  const response = await axios.get(api + "/appointments.json");
   return jsonToArray(response.data);
 };
 export const fetchOneAppointment = async (id) => {
@@ -88,7 +104,7 @@ export const fetchOneAppointment = async (id) => {
   return response.data;
 };
 export const addAppointment = async (data) => {
-  const response = await axios.post(api + '/appointments.json', data);
+  const response = await axios.post(api + "/appointments.json", data);
   return response;
 };
 export const deleteAppointment = async (id) => {
