@@ -248,9 +248,7 @@ const SearchPage = ({ location }) => {
 
   useEffect(() => {
     let qResult = handleQuerySring();
-    qResult.length > 0
-      ? setDoctorsFilter(qResult)
-      : setDoctorsFilter(handlePaginationSearch(1));
+    qResult.length > 0 && setDoctorsFilter(qResult);
   }, []);
 
   useEffect(() => {
