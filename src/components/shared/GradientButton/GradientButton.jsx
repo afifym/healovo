@@ -1,15 +1,15 @@
 import { StyledButton } from "../../../styles/shared";
 import React from "react";
 
-const GradientButton = ({ width, lightCircle, blueBg, icon, children }) => {
+const GradientButton = ({ width, switchcolors, icon, children, ...props }) => {
   return (
     <StyledButton
       width={width}
-      lightCircle={lightCircle}
-      blueBg={blueBg}
+      switchcolors={switchcolors ? 1 : 0}
       size="large"
       endIcon={icon}
       variant="contained"
+      {...props}
     >
       {children}
     </StyledButton>
@@ -20,20 +20,17 @@ export default GradientButton;
 
 // usage examples
 
-// White Background
 // <GradientButton
 //   width='210px'
 //   icon={<FaSearch color='#ffffff' size={15} />}
 // >
 //   Healovo
-// </GradientButton>;
+// </GradientButton>
 
-// Blue Background
 // <GradientButton
 //   width='210px'
-//   lightCircle
-//   blueBg
-//   icon={<FaSearch color='#hsl(229, 86%, 56%)' size={15} />}
+//   icon={<FaSearch color='#ffffff' size={15} />}
+//   switchcolors
 // >
-//   Book Now
-// </GradientButton>;
+//   Healovo
+// </GradientButton>
