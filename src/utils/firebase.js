@@ -3,16 +3,6 @@ import axios from 'axios';
 import 'firebase/storage';
 import 'firebase/auth';
 
-// const firebaseConfig = {
-//   apiKey: process.env.FIREBASE_API_KEY,
-//   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-//   databaseURL: process.env.FIREBASE_DATABASE_URL,
-//   projectId: process.env.FIREBASE_PROJECT_ID,
-//   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-//   messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-//   appId: process.env.FIREBASE_APP_ID,
-//   measurementId: 'G-NZEYQQLWJW',
-// };
 const firebaseConfig = {
   apiKey: 'AIzaSyAvhrEd58Qmg_adFoaLwEjkemym4EKUD3s',
   authDomain: 'healovo.firebaseapp.com',
@@ -24,8 +14,8 @@ const firebaseConfig = {
   measurementId: 'G-NZEYQQLWJW',
 };
 firebase.initializeApp(firebaseConfig);
-export const api = 'https://healovo-default-rtdb.firebaseio.com';
 export const auth = firebase.auth();
+export const api = 'https://healovo-default-rtdb.firebaseio.com';
 
 // useEffect(async () => {
 //   try {
@@ -40,6 +30,22 @@ export const jsonToArray = (data) => {
     return { ...data[key], id: key.toString() };
   });
   return userData;
+};
+
+export const fetchUserByEmail = async (email) => {
+  const doctor = await axios.get(
+    api + `/doctors.json?orderBy="email"&equalTo="${email}"`
+  );
+  const patient = await axios.get(
+    api + `/patients.json?orderBy="email"&equalTo="${email}"`
+  );
+
+  if (Object.keys(doctor.data).length > 0) {
+    return doctor.data;
+  } else if (Object.keys(patient.data).length > 0) {
+    return patient.data;
+  }
+  return null;
 };
 
 // ###########################

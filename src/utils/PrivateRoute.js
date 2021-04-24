@@ -9,7 +9,7 @@ const PrivateRoute = ({ component: Component, redirectURL, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        currentUser?.email === 'admin@healovo.com' ? (
+        !currentUser?.email === 'admin@healovo.com' ? (
           <Component {...props} />
         ) : (
           <Redirect to={redirectURL} />
