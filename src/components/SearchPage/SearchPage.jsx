@@ -1,4 +1,4 @@
-import { Box, Grid } from '@material-ui/core';
+import { Box, Grid, LinearProgress } from '@material-ui/core';
 import Filter from './Filter/Filter';
 import SearchBar from './SearchBar';
 import Container from '@material-ui/core/Container';
@@ -52,6 +52,7 @@ const SearchPage = ({ location }) => {
   const [doctorsFilter, setDoctorsFilter] = useState([]);
   const [filterSettings, setFilterSettings] = useState(defaultFilterSetting);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const handlePageView = (event, value) => {
     const doctorsCopy = JSON.parse(JSON.stringify(doctorsFilter));
@@ -66,10 +67,12 @@ const SearchPage = ({ location }) => {
     qResult.length > 0 && setDoctorsFilter(qResult);
 
     const getDoctors = async () => {
+      setLoading(true);
       const data = await fetchDoctors();
       console.log(data);
       setdoctors(data);
       setDoctorsFilter(data);
+      setLoading(false);
     };
     getDoctors();
   }, []);
@@ -314,7 +317,7 @@ const SearchPage = ({ location }) => {
             {doctorPagination.map((doctor, idx) => (
               <SearchCard key={doctor.email} Doctor={doctor} />
             ))}
-
+            {loading && <LinearProgress />}
             <PaginationSearch
               NumberOfPages={Math.ceil(doctorsFilter.length / 4)}
               page={page}

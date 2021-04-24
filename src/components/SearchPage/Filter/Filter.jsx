@@ -33,7 +33,6 @@ const Filters = [
   },
   {
     filterName: 'Gender',
-
     filterData: { any: 'Any', male: 'Male', female: 'Female' },
   },
   {
@@ -63,20 +62,20 @@ const Filter = ({ filterSettings, onCheckBoxChange, onClear }) => {
     <FilterWraper>
       <FilterHeader>
         <Typography
-          style={{ fontWeight: '700' }}
           color='secondary'
-          variant='h6'
+          variant='h5'
           component='h2'
+          style={{ fontWeight: '700' }}
           gutterBottom
         >
           Filter By
         </Typography>
 
-        <Button onClick={onClear} variant='default'>
+        <Button disableElevation color='secondary' onClick={onClear}>
           Clear All
         </Button>
       </FilterHeader>
-      <FilterBody>
+      <FilterBody style={{ color: '#343949' }}>
         {Filters.map((Filter, idx) => {
           return (
             <SingleFilter

@@ -291,6 +291,7 @@ const AddUser = ({ fetch, setFetch, update, selected }) => {
                   }
                 />
                 <TextField
+                  required
                   id='password'
                   label='Password'
                   style={{ margin: 8 }}

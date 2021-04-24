@@ -1,11 +1,11 @@
-import { Box } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
+import { Box } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import styled from "styled-components";
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import styled from 'styled-components';
 const CustomeHeader = styled.header`
   display: flex;
   align-items: center;
@@ -52,19 +52,30 @@ const SearchResultHeader = ({ searchResultNumber }) => {
   return (
     <>
       <CustomeHeader>
-        <Typography variant="h6" component="h6" style={{ fontWeight: 700 }}>
+        <Typography
+          color='secondary'
+          variant='h6'
+          component='h6'
+          style={{ fontWeight: 700 }}
+        >
           {searchResultNumber} result
         </Typography>
-        <SortBox component="div">
-          <Typography component="span">Sort By</Typography>
-          <FormControl variant="outlined">
-            <InputLabel id="demo-simple-select-outlined-label">Age</InputLabel>
+        <SortBox component='div'>
+          <Typography
+            color='secondary'
+            style={{ fontWeight: '600' }}
+            component='span'
+          >
+            Sort By
+          </Typography>
+          <FormControl variant='outlined'>
+            <InputLabel id='demo-simple-select-outlined-label'>Age</InputLabel>
             <CustomeSelect
-              labelId="demo-simple-select-outlined-label"
-              id="demo-simple-select-outlined"
-              label="Age"
+              labelId='demo-simple-select-outlined-label'
+              id='demo-simple-select-outlined'
+              label='Age'
             >
-              <MenuItem value="">
+              <MenuItem value=''>
                 <em>None</em>
               </MenuItem>
               <MenuItem value={10}>Ten</MenuItem>

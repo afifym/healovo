@@ -16,13 +16,17 @@ const capitalizeString = (str) => {
   return str?.charAt(0).toUpperCase() + str?.slice(1);
 };
 
-const CustomePaper = styled(Paper)`
+const CustomePaper = styled.div`
   background: #ffffff;
   box-shadow: 0px 0px 32px 28px rgba(206, 206, 206, 0.25);
   border-radius: 60px !important;
-  /* width: 800px; */
   margin-bottom: 25px;
-  height: 350px;
+  /* height: 350px; */
+  min-height: 350px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @media (min-width: 960px) {
     padding: 20px 30px;
@@ -53,6 +57,7 @@ const SearchCard = ({ Doctor }) => {
   const {
     id,
     image,
+    gender,
     name,
     degree,
     location,
@@ -64,8 +69,13 @@ const SearchCard = ({ Doctor }) => {
   } = Doctor;
 
   return (
-    <Box display='flex' alignItems='center' justifyContent='center'>
-      <CustomePaper>
+    <CustomePaper>
+      <Box
+        style={{ height: '100%' }}
+        display='flex'
+        alignItems='center'
+        justifyContent='center'
+      >
         <Grid container>
           <Grid
             item
@@ -77,7 +87,11 @@ const SearchCard = ({ Doctor }) => {
           >
             <div className='' style={{ marginRight: '1em' }}>
               <img
-                src={image || '/assets/images/doctorImage.png'}
+                src={
+                  gender === 'male'
+                    ? '/assets/images/doctorImage.png'
+                    : '/assets/images/doctor-girl.png'
+                }
                 alt='doctor'
                 style={{ width: '90%', borderRadius: '50%' }}
               />
@@ -110,7 +124,11 @@ const SearchCard = ({ Doctor }) => {
               </Box>
 
               <Typography
-                style={{ color: 'rgb(45 80 239)', fontWeight: '700' }}
+                style={{
+                  color: 'rgb(45 80 239)',
+                  fontWeight: '700',
+                  fontSize: '2rem',
+                }}
                 variant='h5'
                 gutterBottom
               >
@@ -246,7 +264,7 @@ const SearchCard = ({ Doctor }) => {
 
               <Grid item sm={6}>
                 <GradientButton
-                  width='150px'
+                  width='170px'
                   switchcolors
                   style={{ padding: '5px 22px !important' }}
                   icon={<FaSearch color='#hsl(229, 86%, 56%)' size={12} />}
@@ -257,8 +275,8 @@ const SearchCard = ({ Doctor }) => {
             </Grid>
           </Grid>
         </Grid>
-      </CustomePaper>
-    </Box>
+      </Box>
+    </CustomePaper>
   );
 };
 
