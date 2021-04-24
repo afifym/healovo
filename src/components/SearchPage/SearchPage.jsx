@@ -49,7 +49,7 @@ const defaultFilterSetting = [
 
 const SearchPage = ({ location }) => {
   const [doctors, setdoctors] = useState([]);
-  const [doctorsFilter, setDoctorsFilter] = useState(doctors);
+  const [doctorsFilter, setDoctorsFilter] = useState([]);
   const [filterSettings, setFilterSettings] = useState(defaultFilterSetting);
   const [page, setPage] = useState(1);
 
@@ -69,6 +69,7 @@ const SearchPage = ({ location }) => {
       const data = await fetchDoctors();
       console.log(data);
       setdoctors(data);
+      setDoctorsFilter(data);
     };
     getDoctors();
   }, []);

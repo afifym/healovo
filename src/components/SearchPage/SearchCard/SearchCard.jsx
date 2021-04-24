@@ -20,8 +20,9 @@ const CustomePaper = styled(Paper)`
   background: #ffffff;
   box-shadow: 0px 0px 32px 28px rgba(206, 206, 206, 0.25);
   border-radius: 60px !important;
-  width: 800px;
+  /* width: 800px; */
   margin-bottom: 25px;
+  height: 350px;
 
   @media (min-width: 960px) {
     padding: 20px 30px;
@@ -75,7 +76,11 @@ const SearchCard = ({ Doctor }) => {
             alignItems='center'
           >
             <div className='' style={{ marginRight: '1em' }}>
-              <img src={image} alt='doctor' style={{ width: '90%' }} />
+              <img
+                src={image || '/assets/images/doctorImage.png'}
+                alt='doctor'
+                style={{ width: '90%', borderRadius: '50%' }}
+              />
             </div>
           </Grid>
 
@@ -101,7 +106,7 @@ const SearchCard = ({ Doctor }) => {
                   {`${degree}`}
                 </Typography>
 
-                <DoctorRating RatingVal={rate} />
+                <DoctorRating RatingVal={rate !== 'undefined' ? rate : 4} />
               </Box>
 
               <Typography
@@ -109,7 +114,7 @@ const SearchCard = ({ Doctor }) => {
                 variant='h5'
                 gutterBottom
               >
-                {`$${price}`}
+                {`$${price || '50'}`}
               </Typography>
             </Grid>
 
@@ -152,8 +157,10 @@ const SearchCard = ({ Doctor }) => {
                     <FaClinicMedical
                       size={17}
                       style={{
-                        color: communicationMethods.clinic ? '#2D50EF' : 'gray',
-                        opacity: communicationMethods.clinic ? '1' : '0.5',
+                        color: communicationMethods?.clinic
+                          ? '#2D50EF'
+                          : 'gray',
+                        opacity: communicationMethods?.clinic ? '1' : '0.5',
                         marginRight: '0.3em',
                       }}
                     />
@@ -162,8 +169,10 @@ const SearchCard = ({ Doctor }) => {
                       style={{
                         fontSize: '0.8rem',
                         fontWeight: '600',
-                        color: communicationMethods.clinic ? '#2D50EF' : 'gray',
-                        opacity: communicationMethods.clinic ? '1' : '0.5',
+                        color: communicationMethods?.clinic
+                          ? '#2D50EF'
+                          : 'gray',
+                        opacity: communicationMethods?.clinic ? '1' : '0.5',
                       }}
                     >
                       Clinic
@@ -174,8 +183,8 @@ const SearchCard = ({ Doctor }) => {
                     <ImHome
                       size={15}
                       style={{
-                        color: communicationMethods.home ? '#2D50EF' : 'gray',
-                        opacity: communicationMethods.home ? '1' : '0.5',
+                        color: communicationMethods?.home ? '#2D50EF' : 'gray',
+                        opacity: communicationMethods?.home ? '1' : '0.5',
                         marginRight: '0.3em',
                       }}
                     />
@@ -184,8 +193,8 @@ const SearchCard = ({ Doctor }) => {
                       style={{
                         fontSize: '0.8rem',
                         fontWeight: '600',
-                        color: communicationMethods.home ? '#2D50EF' : 'gray',
-                        opacity: communicationMethods.home ? '1' : '0.5',
+                        color: communicationMethods?.home ? '#2D50EF' : 'gray',
+                        opacity: communicationMethods?.home ? '1' : '0.5',
                       }}
                     >
                       Home
@@ -196,8 +205,8 @@ const SearchCard = ({ Doctor }) => {
                     <FaVideo
                       size={16}
                       style={{
-                        color: communicationMethods.video ? '#2D50EF' : 'gray',
-                        opacity: communicationMethods.video ? '1' : '0.5',
+                        color: communicationMethods?.video ? '#2D50EF' : 'gray',
+                        opacity: communicationMethods?.video ? '1' : '0.5',
                         marginRight: '0.3em',
                       }}
                     />
@@ -206,8 +215,8 @@ const SearchCard = ({ Doctor }) => {
                       style={{
                         fontSize: '0.8rem',
                         fontWeight: '600',
-                        color: communicationMethods.video ? '#2D50EF' : 'gray',
-                        opacity: communicationMethods.video ? '1' : '0.5',
+                        color: communicationMethods?.video ? '#2D50EF' : 'gray',
+                        opacity: communicationMethods?.video ? '1' : '0.5',
                       }}
                     >
                       Video
