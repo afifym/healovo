@@ -1,10 +1,10 @@
 import React, { useState, useEffect, Fragment } from "react";
 import firebase from "firebase";
 import StyleFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { useDispatch } from "react-redux";
-import { authActions } from "./store/auth";
-import { userIdActions } from "./store/userId";
-import { fetchUserByEmail, jsonToArray } from "./setupFirebase";
+// import { useDispatch } from "react-redux";
+// import { authActions } from "./store/auth";
+// import { userIdActions } from "./store/userId";
+import { fetchUserByEmail, jsonToArray } from "../utils/firebase";
 
 const uiConfig = {
   signInFlow: "popup",
@@ -39,8 +39,7 @@ const signOut = () => {
 };
 
 const Signup = () => {
-  //   const user = firebase.auth().currentUser;
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [user, setUser] = useState(null);
   // console.log("authUser", user?.email); //showing user data
 
@@ -48,28 +47,27 @@ const Signup = () => {
     const authObserver = firebase.auth().onAuthStateChanged((user) => {
       setUser(user);
       if (user) {
-        dispatch(authActions.login());
+        // dispatch(authActions.login());
       } else {
-        dispatch(authActions.logout());
+        // dispatch(authActions.logout());
       }
     });
     return authObserver;
-  }, [dispatch]);
+  }, []); // -------->>>> put dispatch here inside brackets
 
   const userData = async () => {
     const signinData = await fetchUserByEmail(user?.email);
-    // console.log("signinData", signinData);
 
     if (signinData) {
       const objectWithKey = jsonToArray(signinData);
-      dispatch(userIdActions.updateId(objectWithKey[0].id));
+      // dispatch(userIdActions.updateId(objectWithKey[0].id));
 
       const userType = objectWithKey[0].type;
 
       if (userType === "doctor") {
-        dispatch(authActions.isDoctor());
+        // dispatch(authActions.isDoctor());
       } else {
-        dispatch(authActions.isPatient());
+        // dispatch(authActions.isPatient());
       }
     }
   };
