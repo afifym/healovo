@@ -1,65 +1,38 @@
-import SearchPage from "./components/SearchPage/SearchPage";
-import ViewProfilePage from "./components/viewProfilePage/ViewProfilePage";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import PatientDashboard from './pages/PatientDashboard';
+import Admin from './pages/Admin';
+import DoctorDashboard from './pages/DoctorDashboard';
+import Search from './pages/Search';
+import DoctorProfile from './pages/DoctorProfile';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Book from './pages/Book';
+import NotFound from './pages/NotFound';
+import Appointments from './pages/Appointments';
+import PatientProfile from './pages/PatientProfile';
+import ContactUs from './pages/ContactUs';
+import About from './pages/About';
 
 function App() {
-  const doctor = {
-    id: 8,
-    name: { first: "lubna", last: "asem" },
-    degree: "Masters in medicine",
-    image: "doctorAvtar.png",
-
-    specialty: "Neurology",
-    rate: "2",
-    location: "Kafr El Sheikh Egypt",
-    communicationMethods: { clinic: true, home: false, video: false },
-    reservationDates: [
-      { day: "Mon", period: "1:00 pm - 6:00 pm" },
-      { day: "Tue", period: "1:00 pm - 6:00 pm" },
-      { day: "Wed", period: "5:00 pm - 12:00 pm" },
-    ],
-    email: "lubna.asem@gmail.com",
-    password: "mohnad",
-    gender: "female",
-    phone: ["01288040837", "040350017"],
-    price: "200",
-    overview: `I am an ophthalmologist and a graduate of Mid-career Masters
-     of Public Administration at the Harvard Kennedy School (HKS), Harvard
-    University, USA (2019). I graduated from MSc of public healthfor eye 
-    care at LSHTM, University of London (2020). My coursework at the Harvard
-    Kennedy School wasfocused on health policy, leadership, management, health
-    system reform, and communication. My coursework at LSHTM was focused on global
-      health, epidemiology, health microeconomics, statistics, proposal writing, and
-    global disability.`,
-    type: "doctor",
-    joinDate: "13-05-1997",
-  };
-
   return (
     <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/Searchresult">searchPage</Link>
-            </li>
-          </ul>
-        </nav>
-        <div>
-          <Switch>
-            <Route exact path="/">
-              <h1>welcome to home</h1>
-            </Route>
-            <Route path="/Searchresult" component={SearchPage}></Route>
-            <Route path="/viewprofile">
-              <ViewProfilePage doctor={doctor} />
-            </Route>
-          </Switch>
-        </div>
-      </div>
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route path='/login' component={Login} />
+        <Route path='/signup' component={Signup} />
+        <Route path='/search' component={Search} />
+        <Route path='/doctors/:doctorID' component={DoctorProfile} />
+        <Route path='/patients/:patientID' component={PatientProfile} />
+        <Route path='/book/:doctorID' component={Book} />
+        <Route path='/patient-dashboard' component={PatientDashboard} />
+        <Route path='/doctor-dashboard' component={DoctorDashboard} />
+        <Route path='/admin' component={Admin} />
+        <Route path='/appointments/:appointmentID' component={Appointments} />
+        <Route path='/contact' component={ContactUs} />
+        <Route path='/about' component={About} />
+        <Route path='*' component={NotFound} />
+      </Switch>
     </Router>
   );
 }

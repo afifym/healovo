@@ -1,9 +1,9 @@
-import { Grid } from "@material-ui/core";
-import styled from "styled-components";
-import { Button } from "@material-ui/core";
-import SingleFilter from "./SingleFilter";
-import Typography from "@material-ui/core/Typography";
-import DoctorRating from "../DoctorRating";
+import { Grid } from '@material-ui/core';
+import styled from 'styled-components';
+import { Button } from '@material-ui/core';
+import SingleFilter from './SingleFilter';
+import Typography from '@material-ui/core/Typography';
+import DoctorRating from '../DoctorRating';
 
 const FilterHeader = styled.header`
   width: 100%;
@@ -23,23 +23,23 @@ const FilterBody = styled.div`
 
 const Filters = [
   {
-    filterName: "Location",
+    filterName: 'Location',
     filterData: {
-      any: "Any",
-      video: "Video",
-      home: "Home",
-      clinic: "Clinic",
+      any: 'Any',
+      video: 'Video',
+      home: 'Home',
+      clinic: 'Clinic',
     },
   },
   {
-    filterName: "Gender",
+    filterName: 'Gender',
 
-    filterData: { any: "Any", male: "Male", female: "Female" },
+    filterData: { any: 'Any', male: 'Male', female: 'Female' },
   },
   {
-    filterName: "Rating",
+    filterName: 'Rating',
     filterData: {
-      any: "Any",
+      any: 'Any',
       2: <DoctorRating RatingVal={2} />,
       3: <DoctorRating RatingVal={3} />,
       4: <DoctorRating RatingVal={4} />,
@@ -47,13 +47,13 @@ const Filters = [
     },
   },
   {
-    filterName: "Price",
-    filterUiData: ["Any", "Less than $30", "$30-$50", "Movre than $50"],
+    filterName: 'Price',
+    filterUiData: ['Any', 'Less than $30', '$30-$50', 'Movre than $50'],
     filterData: {
-      any: "Any",
-      "<100": "Less than 100EGP",
-      "100-200": "100-200EGP",
-      ">200": "More than 200GEP",
+      any: 'Any',
+      '<100': 'Less than 100EGP',
+      '100-200': '100-200EGP',
+      '>200': 'More than 200GEP',
     },
   },
 ];
@@ -63,15 +63,18 @@ const Filter = ({ filterSettings, onCheckBoxChange, onClear }) => {
     <FilterWraper>
       <FilterHeader>
         <Typography
-          style={{ fontWeight: "700" }}
-          variant="h6"
-          component="h2"
+          style={{ fontWeight: '700' }}
+          color='secondary'
+          variant='h6'
+          component='h2'
           gutterBottom
         >
           Filter By
         </Typography>
 
-        <Button onClick={onClear}>Clear All</Button>
+        <Button onClick={onClear} variant='default'>
+          Clear All
+        </Button>
       </FilterHeader>
       <FilterBody>
         {Filters.map((Filter, idx) => {

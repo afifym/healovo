@@ -1,25 +1,25 @@
-import { Box, Grid } from "@material-ui/core";
-import Filter from "./Filter/Filter";
-import SearchBar from "./SearchBar";
-import Container from "@material-ui/core/Container";
-import Hidden from "@material-ui/core/Hidden";
+import { Box, Grid } from '@material-ui/core';
+import Filter from './Filter/Filter';
+import SearchBar from './SearchBar';
+import Container from '@material-ui/core/Container';
+import Hidden from '@material-ui/core/Hidden';
 
-import SearchCard from "./SearchCard/SearchCard";
-import PaginationSearch from "./PaginationSearch";
+import SearchCard from './SearchCard/SearchCard';
+import PaginationSearch from './PaginationSearch';
 
-import DrawerFilter from "./Filter/DrawerFilter";
-import { useState } from "react";
-import { DoctorsData } from "../../DoctorsData";
-import SearchResultHeader from "./SearchResultHeader";
-import { useEffect } from "react";
-import Fuse from "fuse.js";
+import DrawerFilter from './Filter/DrawerFilter';
+import { useState } from 'react';
+import { DoctorsData } from '../../DoctorsData';
+import SearchResultHeader from './SearchResultHeader';
+import { useEffect } from 'react';
+import Fuse from 'fuse.js';
 
-import qs from "query-string";
+import qs from 'query-string';
 
 const defaultFilterSetting = [
   {
-    filterName: "Location",
-    filterNameDB: "communicationMethods",
+    filterName: 'Location',
+    filterNameDB: 'communicationMethods',
     filterData: {
       any: true,
       video: false,
@@ -29,23 +29,23 @@ const defaultFilterSetting = [
   },
 
   {
-    filterName: "Gender",
-    filterNameDB: "gender",
+    filterName: 'Gender',
+    filterNameDB: 'gender',
     filterData: { any: true, male: false, female: false },
   },
   {
-    filterName: "Rating",
-    filterNameDB: "rate",
+    filterName: 'Rating',
+    filterNameDB: 'rate',
     filterData: { any: true, 2: false, 3: false, 4: false, 5: false },
   },
   {
-    filterName: "Price",
-    filterNameDB: "price",
+    filterName: 'Price',
+    filterNameDB: 'price',
     filterData: {
       any: true,
-      "<100": false,
-      "100-200": false,
-      ">200": false,
+      '<100': false,
+      '100-200': false,
+      '>200': false,
     },
   },
 ];
@@ -67,32 +67,32 @@ const SearchPage = ({ location }) => {
 
   const handleQuerySring = () => {
     let qsResult = qs.parse(location.search);
-    let spiltStr = qsResult?.name?.split(" ");
-    spiltStr == undefined && (spiltStr = "asda");
+    let spiltStr = qsResult?.name?.split(' ');
+    spiltStr == undefined && (spiltStr = 'asda');
     const CM = `communicationMethods.${qsResult.type}`;
     const fuse = new Fuse(doctorsFilter, {
       keys: [
-        "name.first",
-        "name.last",
-        "specialty",
-        "location",
+        'name.first',
+        'name.last',
+        'specialty',
+        'location',
         `communicationMethods.${qsResult.type}`,
       ],
     });
 
     const fuseResult = fuse.search({
       $and: [
-        { "name.first": spiltStr[0] || "" },
-        { "name.last": spiltStr[1] || "" },
-        { specialty: qsResult.specialty || "" },
-        { location: qsResult.city || "" },
-        { [`communicationMethods.${qsResult.type}`]: `${true}` || "" },
+        { 'name.first': spiltStr[0] || '' },
+        { 'name.last': spiltStr[1] || '' },
+        { specialty: qsResult.specialty || '' },
+        { location: qsResult.city || '' },
+        { [`communicationMethods.${qsResult.type}`]: `${true}` || '' },
       ],
     });
 
     const queryiMade = `http://localhost:3000/searchresult?type=home&city=luxor&specialty=Respiratory&name=mohand%20mostafa`;
-    console.log("qsResult", qsResult);
-    console.log("fuseResult", fuseResult);
+    console.log('qsResult', qsResult);
+    console.log('fuseResult', fuseResult);
     const doctorResult = fuseResult.map((result) => result.item);
 
     return doctorResult;
@@ -123,47 +123,47 @@ const SearchPage = ({ location }) => {
   const getArayyOfStrMatch = () => {
     const arrRsult = [];
     filterSettings.map((singleFilter) => {
-      for (const filterItem in singleFilter["filterData"]) {
+      for (const filterItem in singleFilter['filterData']) {
         if (
-          singleFilter["filterData"][filterItem] == true &&
-          filterItem != "any"
+          singleFilter['filterData'][filterItem] == true &&
+          filterItem != 'any'
         ) {
           if (
-            [singleFilter["filterNameDB"]] == "gender" ||
-            [singleFilter["filterNameDB"]] == "rate"
+            [singleFilter['filterNameDB']] == 'gender' ||
+            [singleFilter['filterNameDB']] == 'rate'
           ) {
             arrRsult.push(
-              `"${[singleFilter["filterNameDB"]]}":"${filterItem}"`
+              `"${[singleFilter['filterNameDB']]}":"${filterItem}"`
             );
           }
 
-          if ([singleFilter["filterNameDB"]] == "communicationMethods") {
+          if ([singleFilter['filterNameDB']] == 'communicationMethods') {
             console.log(`"${filterItem}":${true}`);
             arrRsult.push(`"${filterItem}":${true}`);
           }
 
-          if ([singleFilter["filterNameDB"]] == "price") {
+          if ([singleFilter['filterNameDB']] == 'price') {
             doctors.filter((doctor) => {
               let strDoctor = JSON.stringify(doctor);
               let spiltStr = getPriceStr(strDoctor);
 
-              if (filterItem == "<100" && spiltStr < 100) {
+              if (filterItem == '<100' && spiltStr < 100) {
                 arrRsult.push(
-                  `"${[singleFilter["filterNameDB"]]}":"${spiltStr}"`
+                  `"${[singleFilter['filterNameDB']]}":"${spiltStr}"`
                 );
               }
               if (
-                filterItem == "100-200" &&
+                filterItem == '100-200' &&
                 100 <= spiltStr &&
                 spiltStr <= 200
               ) {
                 arrRsult.push(
-                  `"${[singleFilter["filterNameDB"]]}":"${spiltStr}"`
+                  `"${[singleFilter['filterNameDB']]}":"${spiltStr}"`
                 );
               }
-              if (filterItem == ">200" && spiltStr > 200) {
+              if (filterItem == '>200' && spiltStr > 200) {
                 arrRsult.push(
-                  `"${[singleFilter["filterNameDB"]]}":"${spiltStr}"`
+                  `"${[singleFilter['filterNameDB']]}":"${spiltStr}"`
                 );
               }
               console.log(`strDoctor.splic`, spiltStr);
@@ -172,7 +172,7 @@ const SearchPage = ({ location }) => {
         }
       }
     });
-    console.log("ssssssss", arrRsult);
+    console.log('ssssssss', arrRsult);
     return arrRsult;
   };
 
@@ -198,40 +198,40 @@ const SearchPage = ({ location }) => {
 
       // كد  لازم الدكتور  يحقق  شروط واحد من الشروط
 
-      console.log("strDoctor", strDoctor);
+      console.log('strDoctor', strDoctor);
       let flag = result.find((res) => {
         return strDoctor.search(res) != -1;
       });
-      console.log("xxxxxxxxxx", typeof flag);
+      console.log('xxxxxxxxxx', typeof flag);
       if (flag) {
         return doctor;
       }
     });
-    console.log("filterDoctorss", filterDoctorss);
+    console.log('filterDoctorss', filterDoctorss);
     return filterDoctorss;
   };
 
   const handleCheckBoxChange = (event, idx) => {
     const filterSettingCopy = JSON.parse(JSON.stringify(filterSettings));
 
-    if (event.target.name != "any") {
-      filterSettingCopy[idx]["filterData"] = {
-        ...filterSettingCopy[idx]["filterData"],
+    if (event.target.name != 'any') {
+      filterSettingCopy[idx]['filterData'] = {
+        ...filterSettingCopy[idx]['filterData'],
         [event.target.name]: event.target.checked,
         any: false,
       };
-    } else if (event.target.name == "any") {
-      for (const item in filterSettingCopy[idx]["filterData"]) {
-        filterSettingCopy[idx]["filterData"][item] = false;
+    } else if (event.target.name == 'any') {
+      for (const item in filterSettingCopy[idx]['filterData']) {
+        filterSettingCopy[idx]['filterData'][item] = false;
       }
-      filterSettingCopy[idx]["filterData"] = {
-        ...filterSettingCopy[idx]["filterData"],
+      filterSettingCopy[idx]['filterData'] = {
+        ...filterSettingCopy[idx]['filterData'],
         [event.target.name]: event.target.checked,
         any: true,
       };
     } else {
-      filterSettingCopy[idx]["filterData"] = {
-        ...filterSettingCopy[idx]["filterData"],
+      filterSettingCopy[idx]['filterData'] = {
+        ...filterSettingCopy[idx]['filterData'],
         [event.target.name]: event.target.checked,
       };
     }
@@ -257,17 +257,17 @@ const SearchPage = ({ location }) => {
     setPage(1);
   }, [doctorsFilter]);
 
-  const [searchByName, setSearchByName] = useState("");
+  const [searchByName, setSearchByName] = useState('');
   const [searchByCity, setSearchByCity] = useState();
   const [searchByspecialty, setSearchBySpecialty] = useState();
 
   const handleSearchByspecialty = (e) => {
     const fuse = new Fuse(doctors, {
-      keys: ["specialty"],
+      keys: ['specialty'],
     });
-    console.log("e.target.value", e.target.value);
+    console.log('e.target.value', e.target.value);
     const fuseResult = fuse.search(e.target.value);
-    console.log("e.target.value", fuseResult);
+    console.log('e.target.value', fuseResult);
     const doctorResult = fuseResult.map((result) => result.item);
 
     setSearchBySpecialty(e.target.value);
@@ -277,11 +277,11 @@ const SearchPage = ({ location }) => {
   };
   const handsearchByCity = (e) => {
     const fuse = new Fuse(doctors, {
-      keys: ["location"],
+      keys: ['location'],
       threshold: 0,
     });
     const fuseResult = fuse.search(e.target.value);
-    console.log("fuseResult", fuseResult);
+    console.log('fuseResult', fuseResult);
     const doctorResult = fuseResult.map((result) => result.item);
 
     setSearchByCity(e.target.value);
@@ -291,17 +291,17 @@ const SearchPage = ({ location }) => {
   };
 
   const handSearchByName = (e) => {
-    let spiltStr = e.target.value.split(" ");
+    let spiltStr = e.target.value.split(' ');
     const fuse = new Fuse(doctorsFilter, {
-      keys: ["name.first", "name.last"],
+      keys: ['name.first', 'name.last'],
       threshold: 0,
     });
     const fuseResult = fuse.search({
-      $and: [{ "name.first": spiltStr[0] }, { "name.last": spiltStr[1] || "" }],
+      $and: [{ 'name.first': spiltStr[0] }, { 'name.last': spiltStr[1] || '' }],
     });
     const doctorResult = fuseResult.map((result) => result.item);
 
-    console.log("e.target.value", fuseResult);
+    console.log('e.target.value', fuseResult);
 
     setSearchByName(e.target.value);
     doctorResult.length > 0
@@ -310,8 +310,8 @@ const SearchPage = ({ location }) => {
   };
 
   return (
-    <div style={{ background: "#F1F2F4" }}>
-      <Container style={{ padding: "100px 0 50px 0" }}>
+    <div style={{ background: '#F1F2F4' }}>
+      <Container style={{ padding: '100px 0 50px 0' }}>
         <SearchBar
           onSerachByName={handSearchByName}
           searchByName={searchByName}
@@ -336,7 +336,7 @@ const SearchPage = ({ location }) => {
 
           <Grid item xs={12} md={9}>
             <SearchResultHeader searchResultNumber={doctorsFilter.length} />
-            {console.log("PaginationSearch.length", PaginationSearch)}
+            {console.log('PaginationSearch.length', PaginationSearch)}
             {doctorPagination.map((doctor, idx) => (
               <SearchCard key={doctor.email} Doctor={doctor} />
             ))}

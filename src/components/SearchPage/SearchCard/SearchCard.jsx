@@ -1,22 +1,12 @@
-import { Box, Button, Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
-import { AiFillStar } from 'react-icons/ai';
-import { BsStarHalf } from 'react-icons/bs';
-import { AiOutlineStar } from 'react-icons/ai';
 import { FaBriefcaseMedical } from 'react-icons/fa';
-
-import { BsFillCameraVideoFill } from 'react-icons/bs';
-
-import { BiClinic } from 'react-icons/bi';
-
+import { FaClinicMedical, FaVideo } from 'react-icons/fa';
+import { HiLocationMarker } from 'react-icons/hi';
 import { ImHome } from 'react-icons/im';
-
 import { FaSearch } from 'react-icons/fa';
-
-import { IoLocationSharp } from 'react-icons/io5';
 import GradientButton from './../../shared/GradientButton/GradientButton';
-import { useState } from 'react';
 import AvailableTimeLine from './AvailableTimeLine';
 import Paper from '@material-ui/core/Paper';
 import Hidden from '@material-ui/core/Hidden';
@@ -52,53 +42,11 @@ const CustomePaper = styled(Paper)`
   }
 `;
 
-const SearchCardWraperGrid = styled(Grid)``;
-
-const SearchBodyGrid = styled(Grid)``;
-
-const SearchBody__HeadeGridr = styled(Grid)``;
-const SearchBody__bodyGrid = styled(Grid)`
-  padding-top: 15px;
-`;
-const SearchBody__FooterGrid = styled(Grid)``;
-
-const ImgWraper = styled.div`
-  max-width: 200px;
-  padding-bottom: 30px;
-  img {
-    width: 100%;
-    height: auto;
-  }
-`;
-
-const SingleInfo = styled(Box)`
-  margin-bottom: 10px;
-  display: flex;
-`;
-
 const ContactDoctorWraper = styled(Box)`
   margin-bottom: 10px;
   display: flex;
   align-items: center;
 `;
-const ContactDoctor = styled(Box)`
-  padding-right: 15px;
-  display: flex;
-  align-items: center;
-`;
-
-const goldColor = { color: '#FEC565' };
-const singleInfoStyle = {
-  paddingLeft: '15px',
-  fontSize: '1rem',
-  fontFamily: ' Montserrat, sans-serif',
-  fontWeight: '400',
-  lineHeight: '1.5',
-};
-
-const SingletDoctorCon = { paddingLeft: '7.5px', fontSize: 16 };
-
-const IconeColor = { color: '#2D50EF' };
 
 const SearchCard = ({ Doctor }) => {
   const {
@@ -117,7 +65,7 @@ const SearchCard = ({ Doctor }) => {
   return (
     <Box display='flex' alignItems='center' justifyContent='center'>
       <CustomePaper>
-        <SearchCardWraperGrid container>
+        <Grid container>
           <Grid
             item
             container
@@ -132,15 +80,11 @@ const SearchCard = ({ Doctor }) => {
           </Grid>
 
           <Grid item container sm={8} xs={12}>
-            <SearchBody__HeadeGridr
-              container
-              justify='space-between'
-              alignItems='flex-start'
-            >
+            <Grid container justify='space-between' alignItems='flex-start'>
               <Box>
                 <Typography
                   variant='h5'
-                  style={{ fontWeight: '700', fontSize: '1.8rem' }}
+                  style={{ fontWeight: '700', fontSize: '1.6rem' }}
                   gutterBottom
                   color='secondary'
                 >
@@ -167,60 +111,108 @@ const SearchCard = ({ Doctor }) => {
               >
                 {`$${price}`}
               </Typography>
-            </SearchBody__HeadeGridr>
+            </Grid>
 
-            <SearchBody__bodyGrid container>
+            <Grid style={{ paddingTop: '15px' }} container>
               <Grid item md={6}>
-                <SingleInfo>
+                <Box display='flex' alignItems='center' my={1}>
                   <FaBriefcaseMedical size={17} style={{ color: '#2D50EF' }} />
-                  <Typography component='p' style={singleInfoStyle}>
-                    {`${specialty}`}
-                  </Typography>
-                </SingleInfo>
+                  <Typography
+                    component='p'
+                    color='secondary'
+                    style={{
+                      fontWeight: '500',
+                      marginLeft: '0.7em',
+                      opacity: '0.9',
+                    }}
+                  >{`${specialty}`}</Typography>
+                </Box>
 
-                <SingleInfo>
-                  <IoLocationSharp size={17} style={{ color: '#2D50EF' }} />
-                  <Typography component='p' style={singleInfoStyle}>
+                <Box
+                  display='flex'
+                  alignItems='center'
+                  style={{ margin: '0.5em 0' }}
+                >
+                  <HiLocationMarker size={20} style={{ color: '#2D50EF' }} />
+                  <Typography
+                    component='p'
+                    color='secondary'
+                    style={{
+                      fontWeight: '500',
+                      marginLeft: '0.7em',
+                      opacity: '0.9',
+                    }}
+                  >
                     {location}
                   </Typography>
-                </SingleInfo>
+                </Box>
 
                 <ContactDoctorWraper>
-                  <ContactDoctor>
-                    <BiClinic
+                  <Box display='flex' alignItems='center'>
+                    <FaClinicMedical
                       size={17}
                       style={{
                         color: communicationMethods.clinic ? '#2D50EF' : 'gray',
+                        opacity: communicationMethods.clinic ? '1' : '0.5',
+                        marginRight: '0.3em',
                       }}
                     />
-                    <Typography component='span' style={SingletDoctorCon}>
-                      clinic
+                    <Typography
+                      component='p'
+                      style={{
+                        fontSize: '0.8rem',
+                        fontWeight: '600',
+                        color: communicationMethods.clinic ? '#2D50EF' : 'gray',
+                        opacity: communicationMethods.clinic ? '1' : '0.5',
+                      }}
+                    >
+                      Clinic
                     </Typography>
-                  </ContactDoctor>
+                  </Box>
 
-                  <ContactDoctor>
+                  <Box display='flex' alignItems='center' mx={2}>
                     <ImHome
                       size={15}
                       style={{
                         color: communicationMethods.home ? '#2D50EF' : 'gray',
+                        opacity: communicationMethods.home ? '1' : '0.5',
+                        marginRight: '0.3em',
                       }}
                     />
-                    <Typography component='span' style={SingletDoctorCon}>
+                    <Typography
+                      component='p'
+                      style={{
+                        fontSize: '0.8rem',
+                        fontWeight: '600',
+                        color: communicationMethods.home ? '#2D50EF' : 'gray',
+                        opacity: communicationMethods.home ? '1' : '0.5',
+                      }}
+                    >
                       Home
                     </Typography>
-                  </ContactDoctor>
+                  </Box>
 
-                  <ContactDoctor>
-                    <BsFillCameraVideoFill
+                  <Box display='flex' alignItems='center'>
+                    <FaVideo
                       size={16}
                       style={{
                         color: communicationMethods.video ? '#2D50EF' : 'gray',
+                        opacity: communicationMethods.video ? '1' : '0.5',
+                        marginRight: '0.3em',
                       }}
                     />
-                    <Typography component='span' style={SingletDoctorCon}>
-                      Vedio
+                    <Typography
+                      component='p'
+                      style={{
+                        fontSize: '0.8rem',
+                        fontWeight: '600',
+                        color: communicationMethods.video ? '#2D50EF' : 'gray',
+                        opacity: communicationMethods.video ? '1' : '0.5',
+                      }}
+                    >
+                      Video
                     </Typography>
-                  </ContactDoctor>
+                  </Box>
                 </ContactDoctorWraper>
               </Grid>
 
@@ -229,13 +221,13 @@ const SearchCard = ({ Doctor }) => {
                   <AvailableTimeLine reservationDates={reservationDates} />
                 </Hidden>
               </Grid>
-            </SearchBody__bodyGrid>
+            </Grid>
 
-            <SearchBody__FooterGrid item style={{ paddingTop: 20 }} container>
+            <Grid justify='center' item style={{ paddingTop: 20 }} container>
               <Grid item sm={6}>
                 <Hidden xsDown>
                   <GradientButton
-                    width='150px'
+                    width='180px'
                     icon={<FaSearch color='#FFF' size={12} />}
                   >
                     View Profile
@@ -254,9 +246,9 @@ const SearchCard = ({ Doctor }) => {
                   Book Now
                 </GradientButton>
               </Grid>
-            </SearchBody__FooterGrid>
+            </Grid>
           </Grid>
-        </SearchCardWraperGrid>
+        </Grid>
       </CustomePaper>
     </Box>
   );
