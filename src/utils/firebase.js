@@ -17,11 +17,31 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 export const api = "https://healovo-default-rtdb.firebaseio.com";
 
+// get id
 export const jsonToArray = (data) => {
   const userData = Object.keys(data).map((key) => {
     return { ...data[key], id: key.toString() };
   });
   return userData;
+};
+
+// get data with email
+export const fetchUserByEmail = async (email) => {
+  const doctor = await axios.get(
+    api + `/doctors.json?orderBy="email"&equalTo="${email}"`
+  );
+
+  const patient = await axios.get(
+    api + `/patients.json?orderBy="email"&equalTo="${email}"`
+  );
+
+  if (Object.keys(doctor.data).length > 0) {
+    return doctor.data;
+  } else if (Object.keys(patient.data).length > 0) {
+    return patient.data;
+  }
+
+  return null;
 };
 
 // ###########################

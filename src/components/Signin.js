@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import firebase from "firebase";
 import StyleFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { useDispatch } from "react-redux";
 import { authActions } from "./store/auth";
+import { userIdActions } from "./store/userId";
+import { fetchUserByEmail, jsonToArray } from "./setupFirebase";
 
 const uiConfig = {
   signInFlow: "popup",
@@ -40,7 +42,7 @@ const Signup = () => {
   //   const user = firebase.auth().currentUser;
   const dispatch = useDispatch();
   const [user, setUser] = useState(null);
-  console.log(user); //showing user data
+  // console.log("authUser", user?.email); //showing user data
 
   useEffect(() => {
     const authObserver = firebase.auth().onAuthStateChanged((user) => {
@@ -54,19 +56,39 @@ const Signup = () => {
     return authObserver;
   }, [dispatch]);
 
+  const userData = async () => {
+    const signinData = await fetchUserByEmail(user?.email);
+    // console.log("signinData", signinData);
+
+    if (signinData) {
+      const objectWithKey = jsonToArray(signinData);
+      dispatch(userIdActions.updateId(objectWithKey[0].id));
+
+      const userType = objectWithKey[0].type;
+
+      if (userType === "doctor") {
+        dispatch(authActions.isDoctor());
+      } else {
+        dispatch(authActions.isPatient());
+      }
+    }
+  };
+
+  userData();
+
   if (user) {
     return (
-      <>
+      <Fragment>
         <h3>Welcome {user.displayName}</h3>
         <p>{user.email}</p>
         <button onClick={signOut}>Sign out</button>
-      </>
+      </Fragment>
     );
   } else {
     return (
-      <>
+      <Fragment>
         <StyleFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-      </>
+      </Fragment>
     );
   }
 };
