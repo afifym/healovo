@@ -71,7 +71,22 @@ const Filter = ({ filterSettings, onCheckBoxChange, onClear }) => {
           Filter By
         </Typography>
 
-        <Button onClick={onClear}>Clear All</Button>
+        <Button
+          style={{
+            border: "none",
+            fontSize: "0.92rem",
+            marginBottom: "7px",
+            cursor: "pointer",
+            borderRadius: "5px",
+            boxShadow: "none",
+            background: "rgb(45, 80, 239)",
+            color: "white",
+            padding: "5px 10px",
+          }}
+          onClick={onClear}
+        >
+          Clear All
+        </Button>
       </FilterHeader>
       <FilterBody>
         {Filters.map((Filter, idx) => {
