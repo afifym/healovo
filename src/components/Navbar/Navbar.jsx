@@ -56,6 +56,7 @@ const Navbar = () => {
           <StyledLink to='/search'>Find A Doctor</StyledLink>
           <StyledLink to='/about'>About</StyledLink>
           <StyledLink to='/contact'>Contact Us</StyledLink>
+          {isAuth && <StyledLink to='/chat'>Chat</StyledLink>}
           {isAuth && <StyledLink to='/dashboard'>Profile</StyledLink>}
           {!isAuth && <StyledLink to='/login'>Login</StyledLink>}
         </LinkWrapper>

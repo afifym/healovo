@@ -87,7 +87,7 @@ const Signin = () => {
             dispatch(patientActions.addPatientData(userData));
           } else if (userType === 'doctor') {
             console.log('DOCTOR');
-            userData = await fetchOneDoctor(userId);
+            userData = await fetchOneDoctor('-MZ0oM1wcCtu7P1thSnc');
             console.log('CLG: ', userData);
             dispatch(doctorActions.addDoctorData(userData));
           }

@@ -243,7 +243,7 @@ function Registeration() {
         isDoctor
           ? addDoctor({ type: 'doctor', ...userData })
           : addPatient({ type: 'patient', ...userData });
-        history.push('/dashboard');
+        history.push('/');
       })
       .catch((error) => {
         console.log(error);
@@ -274,7 +274,7 @@ function Registeration() {
         data = { name, ...data };
         await addPatient(data);
       }
-      history.push('/dashboard');
+      history.push('/');
     } catch (error) {
       console.log('Failed adding user: ', error);
       setError(true);

@@ -15,6 +15,7 @@ import AdminLoginPage from './pages/AdminLoginPage';
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './utils/PrivateRoute';
 import Dashboard from './pages/Dashboard';
+import ChatPage from './pages/ChatPage';
 
 function App() {
   return (
@@ -32,6 +33,8 @@ function App() {
           <Route path='/contact' component={ContactUs} />
           <Route path='/about' component={About} />
           <Route path='/admin-login' component={AdminLoginPage} />
+          <Route path='/chat' component={ChatPage} />
+
           <PrivateRoute
             path='/admin'
             redirectURL='/admin-login'

@@ -16,7 +16,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
 export const api = 'https://healovo-default-rtdb.firebaseio.com';
-
+export const firestore = firebase.firestore();
 // useEffect(async () => {
 //   try {
 //     const data = await fetchPatients();

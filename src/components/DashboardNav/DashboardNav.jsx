@@ -133,6 +133,7 @@ const DashboardNav = () => {
           <StyledLink to='/dashboard'>Dashboard</StyledLink>
           <StyledLink to='/search'>Find a Doctor</StyledLink>
           <StyledLink to='/contact-us'>Contact</StyledLink>
+          <StyledLink to='/chat'>Chat</StyledLink>
         </LinkWrapper>
         <div
           style={{
