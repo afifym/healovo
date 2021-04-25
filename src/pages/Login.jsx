@@ -1,5 +1,6 @@
 import React from 'react';
 import MetaDecorator from '../components/shared/MetaDecorator/MetaDecorator';
+import Signin from '../components/SignIn/Signin';
 
 const Login = () => {
   return (
@@ -8,7 +9,7 @@ const Login = () => {
         title='Healovo | Login'
         description='login page for Healovo website'
       />
-      <h2>Login</h2>
+      <Signin />
     </div>
   );
 };
