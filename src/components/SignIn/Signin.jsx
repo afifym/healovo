@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import firebase from 'firebase';
 import StyleFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { authActions } from '../../store/auth';
 import { userIdActions } from '../../store/userId';
 import {
@@ -12,13 +12,10 @@ import {
 } from '../../utils/firebase';
 import { useHistory } from 'react-router-dom';
 import { patientActions } from '../../store/patientData';
-import { appointmentActions } from '../../store/appointmentData';
 import { doctorActions } from '../../store/doctorData';
-import {
-  sendPatientProfileData,
-  sendDoctorProfileData,
-} from '../../store/updateProfileData';
-import axios from 'axios';
+
+import { Box } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const uiConfig = {
   signInFlow: 'popup',
@@ -74,15 +71,11 @@ const Signin = () => {
   const userData = async () => {
     const signinData = await fetchUserByEmail(user?.email);
 
-    console.log('Fetch by Email:', signinData);
-
     if (signinData) {
       const objectWithKey = jsonToArray(signinData);
       dispatch(userIdActions.updateId(objectWithKey[0].id));
       const userId = objectWithKey[0].id;
       const userType = objectWithKey[0].type;
-
-      console.log('CLG1111: ', userType, userId);
 
       const fetchData = async () => {
         try {
@@ -129,9 +122,27 @@ const Signin = () => {
     );
   } else {
     return (
-      <Fragment>
-        <StyleFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-      </Fragment>
+      <Box
+        style={{ height: '100vh' }}
+        display='flex'
+        alignItems='center'
+        justifyContent='center'
+        flexDirection='column'
+      >
+        <Link to='/'>
+          <img
+            src='/assets/images/healovo-black.svg'
+            alt='healovo'
+            style={{ width: '300px', marginBottom: '2em' }}
+          />
+        </Link>
+        <Fragment>
+          <StyleFirebaseAuth
+            uiConfig={uiConfig}
+            firebaseAuth={firebase.auth()}
+          />
+        </Fragment>
+      </Box>
     );
   }
 };
