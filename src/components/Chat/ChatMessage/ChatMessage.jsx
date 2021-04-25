@@ -51,7 +51,6 @@ const Wrapper = styled.div`
 const ChatMessage = ({ message }) => {
   const { text, uid, photoURL } = message;
 
-  console.log(uid, auth.currentUser.uid);
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
 
   return (

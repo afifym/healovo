@@ -3,70 +3,67 @@ import firebase, { auth, firestore } from '../../../utils/firebase';
 import { Box, Card } from '@material-ui/core';
 import ChatTray from '../ChatTray/ChatTray';
 
-const addThread = async (chatRef, patientIDs, doctorIDs) => {
-  for (let i = 0; i < patientIDs.length; i++) {
-    for (let j = 0;j < doctorIDs.length; j++) {
-        try {
-        const response = await chatRef.add({
-          patientID : patientIDs[i],
-          doctorID: doctorIDs[j],
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        });
-        await chatRef.doc(response.id).collection('messages').add({ name: 'begining of chat' });
+// const addThread = async (chatRef, patientIDs, doctorIDs) => {
+//   for (let i = 0; i < patientIDs.length; i++) {
+//     for (let j = 0;j < doctorIDs.length; j++) {
+//         try {
+//         const response = await chatRef.add({
+//           patientID : patientIDs[i],
+//           doctorID: doctorIDs[j],
+//           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+//         });
+//         await chatRef.doc(response.id).collection('messages').add({ name: 'begining of chat' });
 
-      } catch (error) {
-        console.log('Error creating thread: ', error);
-      }
-    }
-  }
-  // try {
-  //   const response = await chatRef.add({
-  //     doctorID,
-  //     patientID,
-  //     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-  //   });
+//       } catch (error) {
+//         console.log('Error creating thread: ', error);
+//       }
+//     }
+//   }
+// try {
+//   const response = await chatRef.add({
+//     doctorID,
+//     patientID,
+//     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+//   });
 
-  //   await chatRef.doc(response.id).collection('messages').add({ name: 'begining of chat' });
-  // } catch (error) {
-  //   console.log('Error creating thread: ', error);
-  // }
-};
+//   await chatRef.doc(response.id).collection('messages').add({ name: 'begining of chat' });
+// } catch (error) {
+//   console.log('Error creating thread: ', error);
+// }
+// };
 
-const fetchThreadsByID = (idType, id)=>{
-  let response
-    try{
-    response = await chatRef.where(idType, '==', id).get();
+// const fetchThreadsByID = (idType, id)=>{
+//   let response
+//     try{
+//     response = await chatRef.where(idType, '==', id).get();
 
-    } catch(error){
-      console.log('Failed fetching threads: ',error)
-    }
+//     } catch(error){
+//       console.log('Failed fetching threads: ',error)
+//     }
 
-  return response;
+//   return response;
 
-  response.forEach((doc) => {
-    console.log(doc.id, '=>', doc.data());
-  });
-}
+//   response.forEach((doc) => {
+//     console.log(doc.id, '=>', doc.data());
+//   });
+// }
 
-const fetchAppointmentsByID = (idType, id)=>{
+// const fetchAppointmentsByID = (idType, id)=>{
 
-}
+// }
 
-const threadsToCreate = (userID, linkedIDs) => {
-  addThread
+// const threadsToCreate = (userID, linkedIDs) => {
+//   addThread
 
-}
+// }
 
 const ChatRoom = () => {
-  const chatRef = firestore.collection('chat');
-  const [threads, setThreads] = useState([]);
+  const messageRef = firestore.collection('messages');
 
-  useEffect(() => {
-    // const response = fetchThreadsByID(user.type, user.id);
-    setThreads(response);
-  }, [])
+  // const response = fetchThreadsByID(user.type, user.id);
+  // setThreads(response);
 
-  createNewThread(chatRef, '123', '456');
+  // createNewThread(chatRef, '123', '456');
 
   return (
     <Box
@@ -83,7 +80,7 @@ const ChatRoom = () => {
           justifyContent='space-between'
         >
           <ChatTray />
-          {/* <ChatThread chatRef={chatRef} /> */}
+          <ChatThread messageRef={messageRef} />
         </Box>
       </Card>
     </Box>
