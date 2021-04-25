@@ -3,6 +3,8 @@ import styled, { css } from 'styled-components/macro';
 import { RiMenu3Fill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
+import { useSelector } from 'react-redux'; //add
+
 const StyledLink = styled(Link)`
   padding: 1.25rem 0.938rem;
   margin-left: 1.563rem;
@@ -32,7 +34,7 @@ const StyledLink = styled(Link)`
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-
+  const isAuth = useSelector((state) => state.auth.isAuth); //add
   return (
     <Wrapper open={open}>
       <Link to='/' className='logo-wrapper'>
@@ -54,11 +56,14 @@ const Navbar = () => {
           <StyledLink to='/search'>Find A Doctor</StyledLink>
           <StyledLink to='/about'>About</StyledLink>
           <StyledLink to='/contact'>Contact Us</StyledLink>
-          <StyledLink to='/login'>Login</StyledLink>
+          {isAuth && <StyledLink to='/dashboard'>Profile</StyledLink>}
+          {!isAuth && <StyledLink to='/login'>Login</StyledLink>}
         </LinkWrapper>
-        <Link to='/signup'>
-          <Button>Signup</Button>
-        </Link>
+        {!isAuth && (
+          <Link to='/signup'>
+            <Button>Signup</Button>
+          </Link>
+        )}
       </Links>
     </Wrapper>
   );

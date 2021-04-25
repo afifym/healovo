@@ -44,7 +44,7 @@ const AddAppointment = ({ fetch, setFetch, update }) => {
   const [status, setStatus] = useState('');
 
   const [selectedDate, setSelectedDate] = useState(
-    new Date('2014-08-18T21:11:54')
+    new Date('2021-08-18T21:11:54')
   );
 
   const handleSubmit = async (e) => {
@@ -169,7 +169,6 @@ const AddAppointment = ({ fetch, setFetch, update }) => {
                   }}
                 />
               </Box>
-              <Box></Box>
             </Box>
             <Box display='flex'>
               <Button

@@ -81,7 +81,7 @@ export const fetchDoctors = async () => {
 };
 export const fetchOneDoctor = async (id) => {
   const response = await axios.get(api + `/doctors/${id}.json`);
-  return response.data;
+  return response;
 };
 export const addDoctor = async (data) => {
   const response = await axios.post(api + '/doctors.json', data);

@@ -6,7 +6,10 @@ import Button from '@material-ui/core/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { patientActions } from '../../store/patientData';
 import { doctorActions } from '../../store/doctorData';
-
+import {
+  sendPatientProfileData,
+  sendDoctorProfileData,
+} from '../../store/updateProfileData';
 let isInitial = true;
 
 const useStyles = makeStyles((theme) => ({

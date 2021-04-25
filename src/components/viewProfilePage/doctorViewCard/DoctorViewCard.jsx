@@ -1,22 +1,15 @@
-import { Box, Button, Grid } from "@material-ui/core";
-import styled from "styled-components";
-import Typography from "@material-ui/core/Typography";
+import { Box, Button, Grid } from '@material-ui/core';
+import styled from 'styled-components';
+import Typography from '@material-ui/core/Typography';
+import { FaBriefcaseMedical } from 'react-icons/fa';
+import { BsFillCameraVideoFill } from 'react-icons/bs';
+import { BiClinic } from 'react-icons/bi';
+import { ImHome } from 'react-icons/im';
+import { IoLocationSharp } from 'react-icons/io5';
+import Paper from '@material-ui/core/Paper';
+import DoctorRating from '../../SearchPage/DoctorRating';
 
-import { FaBriefcaseMedical } from "react-icons/fa";
-
-import { BsFillCameraVideoFill } from "react-icons/bs";
-
-import { BiClinic } from "react-icons/bi";
-
-import { ImHome } from "react-icons/im";
-
-import { IoLocationSharp } from "react-icons/io5";
-
-import Paper from "@material-ui/core/Paper";
-
-import DoctorRating from "../../SearchPage/DoctorRating";
-
-const CustomePaper = styled(Paper)`
+const CustomePaper = styled.div`
   max-width: 360px;
   background: #ffffff;
   box-shadow: 0px 0px 32px 28px rgba(206, 206, 206, 0.25);
@@ -42,11 +35,6 @@ const CustomePaper = styled(Paper)`
     margin: 20px auto;
   }
 `;
-
-const SearchCardWraperGrid = styled(Grid)``;
-
-const SearchHeaderGrid = styled(Grid)``;
-const SearchBodyGrid = styled(Grid)``;
 
 const SearchBody__HeadeGridr = styled(Grid)``;
 const SearchBody__bodyGrid = styled(Grid)`
@@ -80,13 +68,12 @@ const ContactDoctor = styled(Box)`
   align-items: center;
 `;
 
-const goldColor = { color: "#FEC565" };
 const singleInfoStyle = {
-  paddingLeft: "15px",
-  fontSize: "1rem",
-  fontFamily: " Montserrat, sans-serif",
-  fontWeight: "400",
-  lineHeight: "1.5",
+  paddingLeft: '15px',
+  fontSize: '1rem',
+  fontFamily: ' Montserrat, sans-serif',
+  fontWeight: '400',
+  lineHeight: '1.5',
 };
 
 const OverView = styled(Box)`
@@ -100,13 +87,15 @@ const OverView = styled(Box)`
     text-transform: capitalize;
   }
 `;
-const SingletDoctorCon = { paddingLeft: "7.5px", fontSize: 16 };
-
-const IconeColor = { color: "#2D50EF" };
+const SingletDoctorCon = { paddingLeft: '7.5px', fontSize: 16 };
 
 const overViewTrim = (str) => {
   if (str.length > 10) str = `${str.substring(0, 100)} ...`;
   return str;
+};
+
+const capitalizeString = (str) => {
+  return str?.charAt(0).toUpperCase() + str?.slice(1);
 };
 
 const DoctorViewCard = ({ doctor }) => {
@@ -126,30 +115,35 @@ const DoctorViewCard = ({ doctor }) => {
 
   return (
     <CustomePaper>
-      <SearchCardWraperGrid container>
-        <SearchHeaderGrid
-          item
-          container
-          xs={12}
-          justify="center"
-          alignItems="flex-start"
-        >
+      <Grid container>
+        <Grid item container xs={12} justify='center' alignItems='flex-start'>
           <ImgWraper>
-            <img src={image} alt="" />
+            <img src={image} alt='' />
           </ImgWraper>
-        </SearchHeaderGrid>
+        </Grid>
 
-        <SearchBodyGrid item container xs={12}>
+        <Grid item container xs={12}>
           <SearchBody__HeadeGridr
             container
-            justify="space-between"
-            alignItems="flex-start"
+            justify='space-between'
+            alignItems='flex-start'
           >
             <Box>
-              <Typography variant="h5" gutterBottom>
-                {` Dr. ${name.first} ${name.last}`}
+              <Typography
+                variant='h5'
+                style={{ fontWeight: '700' }}
+                color='secondary'
+                gutterBottom
+              >
+                {` Dr. ${capitalizeString(name.first)} ${capitalizeString(
+                  name.last
+                )}`}
               </Typography>
-              <Typography component="p" style={{ paddingBottom: 7 }}>
+              <Typography
+                color='secondary'
+                component='p'
+                style={{ paddingBottom: 7 }}
+              >
                 {`${degree}`}
               </Typography>
 
@@ -157,8 +151,13 @@ const DoctorViewCard = ({ doctor }) => {
             </Box>
 
             <Typography
-              style={{ color: "rgb(45 80 239)", fontSize: 24 }}
-              variant="h6"
+              style={{
+                color: 'rgb(45 80 239)',
+                fontWeight: '600',
+                fontSize: 24,
+              }}
+              color='secondary'
+              variant='h6'
               gutterBottom
             >
               {`$${price}`}
@@ -168,15 +167,15 @@ const DoctorViewCard = ({ doctor }) => {
           <SearchBody__bodyGrid container>
             <Grid item xs={12}>
               <SingleInfo>
-                <FaBriefcaseMedical size={17} style={{ color: "#2D50EF" }} />
-                <Typography component="p" style={singleInfoStyle}>
+                <FaBriefcaseMedical size={17} style={{ color: '#2D50EF' }} />
+                <Typography component='p' style={singleInfoStyle}>
                   {`${specialty}`}
                 </Typography>
               </SingleInfo>
 
               <SingleInfo>
-                <IoLocationSharp size={17} style={{ color: "#2D50EF" }} />
-                <Typography component="p" style={singleInfoStyle}>
+                <IoLocationSharp size={17} style={{ color: '#2D50EF' }} />
+                <Typography component='p' style={singleInfoStyle}>
                   {location}
                 </Typography>
               </SingleInfo>
@@ -186,10 +185,10 @@ const DoctorViewCard = ({ doctor }) => {
                   <BiClinic
                     size={17}
                     style={{
-                      color: communicationMethods.clinic ? "#2D50EF" : "gray",
+                      color: communicationMethods.clinic ? '#2D50EF' : 'gray',
                     }}
                   />
-                  <Typography component="span" style={SingletDoctorCon}>
+                  <Typography component='span' style={SingletDoctorCon}>
                     clinic
                   </Typography>
                 </ContactDoctor>
@@ -198,10 +197,10 @@ const DoctorViewCard = ({ doctor }) => {
                   <ImHome
                     size={15}
                     style={{
-                      color: communicationMethods.home ? "#2D50EF" : "gray",
+                      color: communicationMethods.home ? '#2D50EF' : 'gray',
                     }}
                   />
-                  <Typography component="span" style={SingletDoctorCon}>
+                  <Typography component='span' style={SingletDoctorCon}>
                     Home
                   </Typography>
                 </ContactDoctor>
@@ -210,26 +209,26 @@ const DoctorViewCard = ({ doctor }) => {
                   <BsFillCameraVideoFill
                     size={16}
                     style={{
-                      color: communicationMethods.video ? "#2D50EF" : "gray",
+                      color: communicationMethods.video ? '#2D50EF' : 'gray',
                     }}
                   />
-                  <Typography component="span" style={SingletDoctorCon}>
+                  <Typography component='span' style={SingletDoctorCon}>
                     Vedio
                   </Typography>
                 </ContactDoctor>
               </ContactDoctorWraper>
             </Grid>
           </SearchBody__bodyGrid>
-          <SearchBody__FooterGrid item style={{ paddingTop: 10 }} container>
+          <Grid item style={{ paddingTop: 10 }} container>
             <Grid item sm={12}>
-              <OverView>
+              {/* <OverView>
                 <span>overview</span>
                 {` ${overViewTrim(overview)}`}
-              </OverView>
+              </OverView> */}
             </Grid>
-          </SearchBody__FooterGrid>
-        </SearchBodyGrid>
-      </SearchCardWraperGrid>
+          </Grid>
+        </Grid>
+      </Grid>
     </CustomePaper>
   );
 };

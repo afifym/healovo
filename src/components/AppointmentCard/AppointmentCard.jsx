@@ -11,16 +11,17 @@ import Styled from 'styled-components/macro';
 
 const Container = Styled.div`
   display: flex;
-
+  
   @media (max-width: 960px) {
     flex-direction: column;
     align-items: center;
   }
 
   .card {
-    width: 250px;
+    width: 300px;
     display: inline-block;
     margin: 0 30px;
+    border-radius:30px;
 
     @media (max-width: 960px) {
       margin: 0;
@@ -29,6 +30,7 @@ const Container = Styled.div`
 `;
 
 const Wrapper = Styled.div`
+
  textAlign: center;
   marginTop: 50px;
 `;
@@ -60,7 +62,7 @@ const useStyles = makeStyles({
 export default function SimpleCard({ name, type }) {
   const classes = useStyles();
   return (
-    <Container>
+    <Container className=''>
       <Wrapper>
         <Card className='card'>
           <CardContent>

@@ -11,6 +11,7 @@ import AvailableTimeLine from './AvailableTimeLine';
 import Paper from '@material-ui/core/Paper';
 import Hidden from '@material-ui/core/Hidden';
 import DoctorRating from '../DoctorRating';
+import { Link } from 'react-router-dom';
 
 const capitalizeString = (str) => {
   return str?.charAt(0).toUpperCase() + str?.slice(1);
@@ -253,24 +254,28 @@ const SearchCard = ({ Doctor }) => {
             <Grid justify='center' item style={{ paddingTop: 20 }} container>
               <Grid item sm={6}>
                 <Hidden xsDown>
-                  <GradientButton
-                    width='180px'
-                    icon={<FaSearch color='#FFF' size={12} />}
-                  >
-                    View Profile
-                  </GradientButton>
+                  <Link to={`/doctors/${id}`}>
+                    <GradientButton
+                      width='180px'
+                      icon={<FaSearch color='#FFF' size={12} />}
+                    >
+                      View Profile
+                    </GradientButton>
+                  </Link>
                 </Hidden>
               </Grid>
 
               <Grid item sm={6}>
-                <GradientButton
-                  width='170px'
-                  switchcolors
-                  style={{ padding: '5px 22px !important' }}
-                  icon={<FaSearch color='#hsl(229, 86%, 56%)' size={12} />}
-                >
-                  Book Now
-                </GradientButton>
+                <Link to={`/book/${id}`}>
+                  <GradientButton
+                    width='170px'
+                    switchcolors
+                    style={{ padding: '5px 22px !important' }}
+                    icon={<FaSearch color='#hsl(229, 86%, 56%)' size={12} />}
+                  >
+                    Book Now
+                  </GradientButton>
+                </Link>
               </Grid>
             </Grid>
           </Grid>
