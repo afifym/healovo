@@ -118,7 +118,7 @@ const DoctorViewCard = ({ doctor }) => {
       <Grid container>
         <Grid item container xs={12} justify='center' alignItems='flex-start'>
           <ImgWraper>
-            <img src={image} alt='' />
+            <img src={image || '/assets/images/doctorImage.png'} alt='' />
           </ImgWraper>
         </Grid>
 

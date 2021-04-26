@@ -22,6 +22,17 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { Link } from 'react-router-dom';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+  return (
+    <MuiAlert
+      style={{ margin: '0 1em', width: '400px', transition: 'all 0.2s ease' }}
+      variant='filled'
+      {...props}
+    />
+  );
+}
 
 const capitalizeString = (str) => {
   return str?.charAt(0).toUpperCase() + str?.slice(1);
@@ -35,7 +46,7 @@ const initialState = {
 const Booking = ({ doctorID }) => {
   const [doctor, setDoctor] = useState({});
   const [formData, setFormData] = useState(initialState);
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState('zero');
   const [selectedDate, setSelectedDate] = useState(
     new Date('2021-08-18T21:11:54')
   );
@@ -44,10 +55,7 @@ const Booking = ({ doctorID }) => {
   useEffect(() => {
     const getDoctor = async () => {
       try {
-        console.log('DOCTORID: ', doctorID);
-
         const response = await fetchOneDoctor(doctorID);
-        console.log('DOCTOR: ', response.data);
         setDoctor(response.data);
       } catch (error) {
         console.log('Fetching doctor failre: ', error);
@@ -59,20 +67,23 @@ const Booking = ({ doctorID }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
     try {
+      setStatus('loading');
       const response = addAppointment({
         patientID: userId,
         doctorID: doctorID,
         ...formData,
         date: selectedDate.toISOString(),
       });
-      setLoading(false);
+      setStatus('success');
     } catch (error) {
-      console.log(error);
-      setLoading(false);
+      setStatus('failure');
     }
+
+    setTimeout(() => {
+      setStatus('zero');
+    }, 3000);
 
     setFormData(initialState);
   };
@@ -98,7 +109,6 @@ const Booking = ({ doctorID }) => {
           variant='h4'
           style={{ fontWeight: 600, margin: '2em 0' }}
         >
-          {/* {doctor?.id && <DoctorViewCard doctor={doctor} />} */}
           <span style={{ fontWeight: '400', color: '#343949' }}> Dr.</span>{' '}
           {capitalizeString(doctor.name?.first) +
             ' ' +
@@ -112,23 +122,24 @@ const Booking = ({ doctorID }) => {
             alignItems='center'
             maxWidth='md'
           >
-            {loading && <LinearProgress />}
+            <div style={{ width: '100%' }}>
+              <Select
+                labelId='city'
+                id='select-city'
+                value={formData.type}
+                onChange={(e) =>
+                  setFormData({ ...formData, type: e.target.value })
+                }
+                style={{ width: '100%' }}
+              >
+                {['Home', 'Clinic', 'Video'].map((item, i) => (
+                  <MenuItem key={i} value={item}>
+                    {item}
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
 
-            <Select
-              labelId='city'
-              id='select-city'
-              value={formData.type}
-              onChange={(e) =>
-                setFormData({ ...formData, type: e.target.value })
-              }
-              style={{ width: '100%' }}
-            >
-              {['Home', 'Clinic', 'Video'].map((item, i) => (
-                <MenuItem key={i} value={item}>
-                  {item}
-                </MenuItem>
-              ))}
-            </Select>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 disableToolbar
@@ -143,17 +154,18 @@ const Booking = ({ doctorID }) => {
                   'aria-label': 'change date',
                 }}
               />
+              <KeyboardTimePicker
+                margin='normal'
+                id='time-picker'
+                label='Time picker'
+                value={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
+                KeyboardButtonProps={{
+                  'aria-label': 'change time',
+                }}
+              />
             </MuiPickersUtilsProvider>
-            <KeyboardTimePicker
-              margin='normal'
-              id='time-picker'
-              label='Time picker'
-              value={selectedDate}
-              onChange={(date) => setSelectedDate(date)}
-              KeyboardButtonProps={{
-                'aria-label': 'change time',
-              }}
-            />
+
             <GradientButton
               type='submit'
               width='210px'
@@ -163,6 +175,15 @@ const Booking = ({ doctorID }) => {
             >
               Book Now
             </GradientButton>
+            <div style={{ margin: '1em 0', height: '30px', width: '100%' }}>
+              {status === 'loading' && <LinearProgress />}
+              {status === 'success' && (
+                <Alert severity='success'>Booked Successfuly!</Alert>
+              )}
+              {status === 'failure' && (
+                <Alert severity='error'>Failure! please try again later</Alert>
+              )}
+            </div>
           </Box>
         </form>
       </MuiPickersUtilsProvider>

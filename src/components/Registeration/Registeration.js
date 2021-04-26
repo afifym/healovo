@@ -342,7 +342,27 @@ function Registeration() {
                   />
                 </RadioWrapper>
               </Field>
-              <Box display='flex' justifyContent='center' my={4}>
+
+              <Box display='flex' justifyContent='center'>
+                <Typography
+                  variant='subtitle1'
+                  color='secondary'
+                  style={{ fontWeight: '500' }}
+                >
+                  Login as Admin?{' '}
+                  <Link
+                    to='/admin-login'
+                    style={{
+                      textDecoration: 'underline',
+                      color: 'hsl(229, 86%, 56%)',
+                    }}
+                  >
+                    Admin Login
+                  </Link>
+                </Typography>
+              </Box>
+
+              <Box display='flex' justifyContent='center' my={2}>
                 <Typography
                   variant='subtitle1'
                   color='secondary'
