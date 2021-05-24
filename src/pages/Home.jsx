@@ -51,7 +51,7 @@ const Home = () => {
         <SearchCard className='search-card' />
       </SearchCardWrapper>
 
-      <div className='' style={{ padding: '12em 0' }}>
+      <div className='' style={{ paddingTop: '12em 0' }}>
         <Services />
       </div>
 

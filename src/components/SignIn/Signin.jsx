@@ -13,7 +13,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import { patientActions } from '../../store/patientData';
 import { doctorActions } from '../../store/doctorData';
-
+import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
@@ -122,7 +122,7 @@ const Signin = () => {
     );
   } else {
     return (
-      <Box
+      <Wrapper
         style={{ height: '100vh' }}
         display='flex'
         alignItems='center'
@@ -133,18 +133,27 @@ const Signin = () => {
           <img
             src='/assets/images/healovo-black.svg'
             alt='healovo'
-            style={{ width: '300px', marginBottom: '2em' }}
+            style={{ width: '200px', marginBottom: '3em' }}
           />
         </Link>
-        <Fragment>
+        <div style={{ marginBottom: '7em' }}>
           <StyleFirebaseAuth
             uiConfig={uiConfig}
             firebaseAuth={firebase.auth()}
           />
-        </Fragment>
-      </Box>
+        </div>
+      </Wrapper>
     );
   }
 };
+
+const Wrapper = styled(Box)`
+  background-image: url('/assets/images/signup-bg.svg');
+  background-position: bottom bottom;
+  background-size: 100% 100vw;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+`;
 
 export default Signin;

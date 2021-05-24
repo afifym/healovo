@@ -28,6 +28,17 @@ const StyledGradientHolder = styled(GradientHolder)`
     text-decoration: none;
     color: inherit;
   }
+
+  &.highlight {
+    background: ${({ theme }) => theme.gradients.gradient4};
+    color: white;
+
+    .inner-icon {
+      background-color: #a7bcfb;
+      color: white;
+    }
+  }
+
   &:hover {
     background: ${({ theme }) => theme.gradients.gradient4};
     color: white;
@@ -49,11 +60,11 @@ const StyledGradientHolder = styled(GradientHolder)`
   }
 `;
 
-const ServicesItem = ({ title, details, icon }) => {
+const ServicesItem = ({ title, details, icon, highlight }) => {
   return (
     <Grid item md={6} sm={12}>
       <Box display='flex' alignItems='center' justifyContent='center'>
-        <StyledGradientHolder>
+        <StyledGradientHolder className={highlight && 'highlight'}>
           <Link to='/signup'>
             <Container>
               <IconWrapper className='inner-icon'>{icon}</IconWrapper>

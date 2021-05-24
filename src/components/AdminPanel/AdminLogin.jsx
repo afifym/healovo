@@ -40,7 +40,10 @@ const Wrapper = styled.div`
 
 const AdminLogin = () => {
   const { login } = useAuth();
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({
+    email: 'admin@healovo.com',
+    password: 'healovo',
+  });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useHistory();

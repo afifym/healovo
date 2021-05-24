@@ -29,11 +29,13 @@ const Services = () => {
               icon={<FaUserNurse size={35} />}
             />
             <ServicesItem
+              highlight
               title='Booking'
               details='Book your next appointment in seconds!'
               icon={<FaCalendarCheck size={35} />}
             />
             <ServicesItem
+              highlight
               title='Profile'
               details='We keep your medical data safe and organized!'
               icon={<FaDatabase size={35} />}

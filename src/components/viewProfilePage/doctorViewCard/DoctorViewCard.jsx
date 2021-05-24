@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
 import { FaBriefcaseMedical } from 'react-icons/fa';
@@ -6,7 +6,6 @@ import { BsFillCameraVideoFill } from 'react-icons/bs';
 import { BiClinic } from 'react-icons/bi';
 import { ImHome } from 'react-icons/im';
 import { IoLocationSharp } from 'react-icons/io5';
-import Paper from '@material-ui/core/Paper';
 import DoctorRating from '../../SearchPage/DoctorRating';
 
 const CustomePaper = styled.div`
@@ -40,7 +39,6 @@ const SearchBody__HeadeGridr = styled(Grid)``;
 const SearchBody__bodyGrid = styled(Grid)`
   padding-top: 15px;
 `;
-const SearchBody__FooterGrid = styled(Grid)``;
 
 const ImgWraper = styled.div`
   padding-right: 30px;
@@ -76,17 +74,6 @@ const singleInfoStyle = {
   lineHeight: '1.5',
 };
 
-const OverView = styled(Box)`
-  padding-right: 14px;
-  line-height: 1.33;
-  font-size: 16px;
-  color: gray;
-  span {
-    font-weight: bolder;
-    color: #2d50ef;
-    text-transform: capitalize;
-  }
-`;
 const SingletDoctorCon = { paddingLeft: '7.5px', fontSize: 16 };
 
 const overViewTrim = (str) => {

@@ -121,12 +121,7 @@ const BookWithDoctor = ({ doctorID }) => {
             style={{ fontWeight: 600, margin: '2em 0' }}
           >
             {doctor.age && <DoctorViewCard doctor={doctor} />}
-            {/* <span style={{ fontWeight: '400', color: '#343949' }}> Dr.</span>{' '}
-          {capitalizeString(doctor.name?.first) +
-            ' ' +
-            capitalizeString(doctor.name?.last)} */}
           </Typography>
-
           <form onSubmit={handleSubmit}>
             <Box
               display='flex'
@@ -184,7 +179,15 @@ const BookWithDoctor = ({ doctorID }) => {
               >
                 Book Now
               </GradientButton>
-              <div style={{ margin: '1em 0', height: '30px', width: '100%' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  margin: '1em auto',
+                  height: '50px',
+                  width: '300px',
+                }}
+              >
                 {status === 'loading' && <LinearProgress />}
                 {status === 'success' && (
                   <Alert severity='success'>Booked Successfuly!</Alert>

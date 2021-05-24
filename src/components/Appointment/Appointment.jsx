@@ -71,11 +71,6 @@ const Appointment = ({ id }) => {
   const [authed, setAuthed] = useState('awaiting');
   const [host, setHost] = useState({});
 
-  //   const authedPatient = true;
-  //   const type = 'patient';
-
-  //   const authed = true && ;
-
   useEffect(() => {
     const fetchHost = async (type, id) => {
       if (type === 'patient') {

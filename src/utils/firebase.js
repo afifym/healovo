@@ -1,7 +1,9 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import axios from 'axios';
 import 'firebase/storage';
 import 'firebase/auth';
+import 'firebase/firestore';
+import 'firebase/analytics';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAvhrEd58Qmg_adFoaLwEjkemym4EKUD3s',
@@ -13,7 +15,14 @@ const firebaseConfig = {
   appId: '1:142171972024:web:09b72a0fc03c5f9bb9ef4d',
   measurementId: 'G-NZEYQQLWJW',
 };
-firebase.initializeApp(firebaseConfig);
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app(); // if already initialized, use that one
+}
+
+const analytics = firebase.analytics();
 export const auth = firebase.auth();
 export const api = 'https://healovo-default-rtdb.firebaseio.com';
 export const firestore = firebase.firestore();
