@@ -1,5 +1,6 @@
 import React from 'react';
 import MetaDecorator from '../components/shared/MetaDecorator/MetaDecorator';
+import AdminPanel from '../components/AdminPanel/AdminPanel';
 
 const Admin = () => {
   return (
@@ -8,7 +9,7 @@ const Admin = () => {
         title='Admin | Healovo'
         description='The admin dashboard of Healovo medical booking website'
       />
-      <h2>Admin</h2>
+      <AdminPanel />
     </div>
   );
 };

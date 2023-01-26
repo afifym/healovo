@@ -1,11 +1,12 @@
 import React from 'react';
 import MetaDecorator from '../components/shared/MetaDecorator/MetaDecorator';
+import Booking from '../components/viewProfilePage/Booking';
 
-const Book = () => {
+const Book = ({ match }) => {
   return (
     <div>
       <MetaDecorator title='Healovo | Book' description='Appointment booking' />
-      <h2>Book</h2>
+      <Booking doctorID={match.params.doctorID} />
     </div>
   );
 };

@@ -1,5 +1,10 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import axios from 'axios';
+import 'firebase/storage';
+import 'firebase/auth';
+import 'firebase/firestore';
+import 'firebase/analytics';
+
 const firebaseConfig = {
   apiKey: 'AIzaSyAvhrEd58Qmg_adFoaLwEjkemym4EKUD3s',
   authDomain: 'healovo.firebaseapp.com',
@@ -10,9 +15,17 @@ const firebaseConfig = {
   appId: '1:142171972024:web:09b72a0fc03c5f9bb9ef4d',
   measurementId: 'G-NZEYQQLWJW',
 };
-firebase.initializeApp(firebaseConfig);
-export const api = 'https://healovo-default-rtdb.firebaseio.com';
 
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app(); // if already initialized, use that one
+}
+
+const analytics = firebase.analytics();
+export const auth = firebase.auth();
+export const api = 'https://healovo-default-rtdb.firebaseio.com';
+export const firestore = firebase.firestore();
 // useEffect(async () => {
 //   try {
 //     const data = await fetchPatients();
@@ -26,6 +39,22 @@ export const jsonToArray = (data) => {
     return { ...data[key], id: key.toString() };
   });
   return userData;
+};
+
+export const fetchUserByEmail = async (email) => {
+  const doctor = await axios.get(
+    api + `/doctors.json?orderBy="email"&equalTo="${email}"`
+  );
+  const patient = await axios.get(
+    api + `/patients.json?orderBy="email"&equalTo="${email}"`
+  );
+
+  if (Object.keys(doctor.data).length > 0) {
+    return doctor.data;
+  } else if (Object.keys(patient.data).length > 0) {
+    return patient.data;
+  }
+  return null;
 };
 
 // ###########################
@@ -61,7 +90,7 @@ export const fetchDoctors = async () => {
 };
 export const fetchOneDoctor = async (id) => {
   const response = await axios.get(api + `/doctors/${id}.json`);
-  return response.data;
+  return response;
 };
 export const addDoctor = async (data) => {
   const response = await axios.post(api + '/doctors.json', data);
@@ -97,6 +126,13 @@ export const deleteAppointment = async (id) => {
 };
 export const updateAppointment = async (id, data) => {
   const response = await axios.put(api + `/appointments/${id}.json`, data);
+  return response;
+};
+
+export const fetchByEmail = async (email) => {
+  const response = await axios.get(
+    api + `/doctors.json?orderBy="email"&equalTo="${email}"`
+  );
   return response;
 };
 

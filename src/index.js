@@ -7,6 +7,8 @@ import {
   createGlobalStyle,
 } from 'styled-components';
 import { muiTheme, styledTheme } from './styles/global/theme';
+import { Provider } from 'react-redux';
+import store from './store';
 
 const GlobalStyles = createGlobalStyle`
     * {
@@ -44,8 +46,10 @@ ReactDOM.render(
   <MuiThemeProvider theme={muiTheme}>
     <StyledThemeProvider theme={styledTheme}>
       <React.StrictMode>
-        <GlobalStyles />
-        <App />
+        <Provider store={store}>
+          <GlobalStyles />
+          <App />
+        </Provider>
       </React.StrictMode>
     </StyledThemeProvider>
   </MuiThemeProvider>,

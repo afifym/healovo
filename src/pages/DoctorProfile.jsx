@@ -1,5 +1,6 @@
 import React from 'react';
 import MetaDecorator from '../components/shared/MetaDecorator/MetaDecorator';
+import BookWithDoctor from '../components/viewProfilePage/BookWithDoctor';
 
 const DoctorProfile = ({ match }) => {
   return (
@@ -8,8 +9,7 @@ const DoctorProfile = ({ match }) => {
         title='Doctor Overview'
         description='A profile overview of the doctor'
       />
-      <h2>Doctor Profile</h2>
-      <h3>{match.params.doctorID}</h3>
+      <BookWithDoctor doctorID={match.params.doctorID} />
     </div>
   );
 };

@@ -42,6 +42,16 @@ export const muiTheme = createMuiTheme({
     fontFamily: styledTheme.fonts.main,
   },
   overrides: {
+    MuiCardContent: {
+      root: {
+        padding: 0,
+
+        '&:last-child': {
+          paddingBottom: 0,
+        },
+      },
+    },
+
     MuiButton: {
       root: {
         fontWeight: 'bold',
